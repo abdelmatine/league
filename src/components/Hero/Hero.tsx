@@ -1,18 +1,20 @@
-import React from 'react';
+import React from "react";
 
 const Hero: React.FC = () => {
   return (
     <section className="relative text-white min-h-screen flex items-center justify-center">
       {/* Background Animation or Decoration */}
 
-
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-          Hi, I'm <span className="text-[#0AC8B9]">Abdelmatine Sfar</span>
+          Hi, I&apos;m <span className="text-[#0AC8B9]">Abdelmatine Sfar</span>
         </h1>
         <p className="mt-8 mr-4 ml-4 mx-auto text-sm md:text-xl text-gray-300">
-          I&apos;m a fresh graduate <span className="text-[#20ecdb]">Software Engineer</span>, a passionate problem-solver with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results.
+          A fresh graduate{" "}
+          <span className="text-[#20ecdb]">Software Engineer</span> with a knack for turning complex challenges into
+          elegant solutions. Seeking opportunities to leverage my technical
+          skills and creativity to deliver impactful results.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <a

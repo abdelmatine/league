@@ -8,9 +8,9 @@ interface UserProfileProps {
 
 export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
   return (
-    <div>
+    <div className='mt-2 mt-4 mr-2'>
       <div className="relative -mt-14 mb-6">
-        <div className="flex items-center gap-3  p-4 rounded-lg shadow-lg">
+        <div className="flex items-center gap-3  p-2 rounded-lg shadow-lg">
           <div className="relative">
             <div className="w-12 h-12 rounded-full bg-[#2E2E2E] overflow-hidden border-2 border-[#C8AA6E]">
               <img
@@ -28,7 +28,7 @@ export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
         </div>
       </div>
 
-      <div className="absolute top-0 right-0 flex items-center gap-2 p-2">
+      <div className="absolute top-0 right-0 flex items-center gap-2 p-2 ml-4 mt-4">
         <button
           onClick={onMinimize}
           className="text-[#A09B8C] hover:text-[#C8AA6E] p-1 transition-colors"

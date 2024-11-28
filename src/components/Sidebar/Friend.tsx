@@ -4,11 +4,12 @@ interface FriendProps {
   name: string;
   status: string;
   avatarUrl: string;
+  url: string;
 }
 
-const Friend: React.FC<FriendProps> = ({ name, status, avatarUrl }) => {
+const Friend: React.FC<FriendProps> = ({ name, status, avatarUrl, url }) => {
   return (
-      <div className="flex items-center gap-3 p-2 mt-1 rounded-lg shadow-lg">
+      <div className="flex items-center hover:bg-black gap-3 p-2 mt-1 rounded-lg shadow-lg">
         <div className="relative">
           <div className="w-12 h-12 rounded-full bg-[#2E2E2E] overflow-hidden border-2 border-[#C8AA6E]">
             <img src={avatarUrl} alt={name} className="w-full h-full object-cover" />

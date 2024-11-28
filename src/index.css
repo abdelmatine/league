@@ -2,3 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+.vault-container {
+    /* Overall container styles */
+    @apply bg-gray-900 text-white;
+  }
+  
+  .top-bar {
+    /* Top bar styles */
+    @apply bg-gray-800 p-4;
+  }
+  
+  .card-grid {
+    /* Card grid layout */
+    @apply grid grid-cols-4 gap-4;
+  }
+  
+  .card {
+    /* Card styles */
+    @apply bg-gray-700 rounded-lg p-4 hover:bg-gray-800 hover:scale-105 transition-all;
+  }
+  
+  /* ... other styles for specific elements */

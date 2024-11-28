@@ -10,6 +10,7 @@ import {
   Instagram,
 } from "lucide-react";
 import Friend from "./Friend";
+import { Link } from "react-router-dom"; // Import Link for navigation
 
 interface SidebarProps {
   isOpen: boolean;
@@ -19,10 +20,10 @@ interface SidebarProps {
 }
 
 const friends = [
-  { name: 'Github', status: 'InGame', avatarUrl: 'src/assets/git.png' },
-  { name: 'Facebook', status: 'Online', avatarUrl: 'src/assets/fb.png' },
-  { name: 'LinkedIn', status: 'OffLine', avatarUrl: 'src/assets/linkedin.png' },
-  { name: 'Instagram', status: 'OffLine', avatarUrl: 'src/assets/insta.png' },
+  { name: 'Github', status: 'InGame', avatarUrl: 'src/assets/git.png', url:'https://github.com/abdelmatine'},
+  { name: 'Facebook', status: 'Online', avatarUrl: 'src/assets/fb.png', url:'https://www.facebook.com/abdou.sfar/'},
+  { name: 'LinkedIn', status: 'OffLine', avatarUrl: 'src/assets/linkedin.png', url:'https://www.linkedin.com/in/abdelmatine-sfar-91a853162/'},
+  { name: 'Instagram', status: 'OffLine', avatarUrl: 'src/assets/insta.png', url:'https://www.instagram.com/abdelmatine_sfar/'},
   // ... more friends
 ];
 
@@ -36,7 +37,7 @@ export function Sidebar({
     <div
       className={`fixed right-0 bottom-0 ${
         isMinimized ? "h-16" : "h-screen"
-      } w-72 bg-[#010e18] border-l border-[#1E282D] transition-all duration-300 ease-in-out z-50 `}
+      } w-72 bg-[#010e18] border-l border-[#1E282D] transition-all duration-300 ease-in-out z-50`}
     >
       {!isMinimized && (
         <div className="pt-12 p-4">
@@ -67,7 +68,9 @@ export function Sidebar({
             </div>
             <ul className="">
           {friends.map((friend) => (
-            <Friend key={friend.name} {...friend} />
+                <a key={friend.name} target="_blank" href={friend.url}> {/* Use a for navigation */}
+                <Friend {...friend} />
+              </a>
           ))}
         </ul>
 
