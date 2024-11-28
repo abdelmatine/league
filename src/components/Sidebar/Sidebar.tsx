@@ -19,9 +19,9 @@ interface SidebarProps {
 }
 
 const friends = [
-  { name: 'Github', status: 'Online', avatarUrl: 'src/assets/git.png' },
+  { name: 'Github', status: 'InGame', avatarUrl: 'src/assets/git.png' },
   { name: 'Facebook', status: 'Online', avatarUrl: 'src/assets/fb.png' },
-  { name: 'LinkedIn', status: 'InGame', avatarUrl: 'src/assets/linkedin.png' },
+  { name: 'LinkedIn', status: 'OffLine', avatarUrl: 'src/assets/linkedin.png' },
   { name: 'Instagram', status: 'OffLine', avatarUrl: 'src/assets/insta.png' },
   // ... more friends
 ];

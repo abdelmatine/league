@@ -11,14 +11,14 @@ interface NavbarProps {
 
 export function Navbar({ isSidebarMinimized }: NavbarProps) {
   return (
-    <nav className="bg-[#111111]/10 backdrop-blur-sm border-b border-[#1E282D] py-2 fixed top-0 left-0 right-0 z-40">
+    <nav className="bg-[#111111]/90 backdrop-blur-sm border-b border-[#1E282D] py-2 fixed top-0 left-0 right-0 z-40">
       <div className="flex items-center justify-between pr-4  lg:mr-8 max-w-[2000px] mx-auto">
         <div className="flex items-center space-x-8">
           <Logo />
           <div className="hidden md:flex items-center">
             <NavLink isActive>HOME</NavLink>
-            <NavLink>STACK</NavLink>
             <NavLink>PROJECTS</NavLink>
+            <NavLink>STACK</NavLink>
             <NavLink>ABOUT</NavLink>
           </div>
         </div>

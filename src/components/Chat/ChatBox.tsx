@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageSquare, ChevronUp, Send } from 'lucide-react';
+import { MessageSquare, Send, ChevronDown } from 'lucide-react';
 
 interface ChatMessage {
   id: number;
@@ -34,7 +34,7 @@ export function ChatBox() {
               onClick={toggleMinimized}
               className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors"
             >
-              <ChevronUp className="w-4 h-4" />
+              <ChevronDown className="w-4 h-4" />
             </button>
           </div>
 
