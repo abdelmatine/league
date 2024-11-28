@@ -9,15 +9,15 @@ const Hero: React.FC = () => {
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6">
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-          Hi, I'm <span className="text-purple-500">[Your Name]</span>
+          Hi, I'm <span className="text-[#0AC8B9]">Abdelmatine Sfar</span>
         </h1>
-        <p className="mt-4 text-lg md:text-2xl text-gray-300">
-          I’m a passionate <span className="text-purple-400">[Your Role]</span> crafting digital experiences and solving complex problems.
+        <p className="mt-8 mr-40 ml-40 mx-auto text-sm md:text-xl text-gray-300">
+          I&apos;m a fresh graduate <span className="text-[#20ecdb]">Software Engineer</span>, a passionate problem-solver with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results.
         </p>
         <div className="mt-8 flex justify-center gap-4">
           <a
             href="#portfolio"
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-lg shadow-md transition duration-300"
+            className="px-6 py-3 bg-[#0AC8B9] hover:bg-[#044e48] text-white rounded-lg shadow-md transition duration-300"
           >
             See My Work
           </a>

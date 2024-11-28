@@ -1,77 +1,98 @@
-import React, { useState } from 'react';
-import { FloatingGrid } from './FloatingGrid';
-import { UserProfile } from './UserProfile';
-import { ChevronUp, ChevronDown, Github, Linkedin, Facebook, Instagram } from 'lucide-react';
+import React from "react";
+import { FloatingGrid } from "./FloatingGrid";
+import { UserProfile } from "./UserProfile";
+import {
+  ChevronUp,
+  ChevronDown,
+  Github,
+  Linkedin,
+  Facebook,
+  Instagram,
+} from "lucide-react";
+import Friend from "./Friend";
 
-export function Sidebar() {
-  const [isOpen, setIsOpen] = useState(true); // Tracks if sidebar is fully open
-  const [isMinimized, setIsMinimized] = useState(false); // Tracks if sidebar is minimized
+interface SidebarProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onMinimize: () => void;
+  isMinimized: boolean;
+}
 
-  const handleClose = () => {
-    setIsOpen(false);
-    setIsMinimized(false);
-  };
+const friends = [
+  { name: 'Github', status: 'Online', avatarUrl: 'src/assets/git.png' },
+  { name: 'Facebook', status: 'Online', avatarUrl: 'src/assets/fb.png' },
+  { name: 'LinkedIn', status: 'InGame', avatarUrl: 'src/assets/linkedin.png' },
+  { name: 'Instagram', status: 'OffLine', avatarUrl: 'src/assets/insta.png' },
+  // ... more friends
+];
 
-  const handleMinimize = () => {
-    setIsMinimized(true);
-    setIsOpen(true); // Ensure it's visible even when minimized
-  };
-
-  const handleReopen = () => {
-    setIsMinimized(false);
-  };
-
+export function Sidebar({
+  isOpen,
+  onClose,
+  onMinimize,
+  isMinimized,
+}: SidebarProps) {
   return (
     <div
-      className={`fixed ${
-        isMinimized ? 'bottom-0 left-0 right-0 h-16' : 'right-0 top-0 h-screen w-72'
-      } bg-[#111111] border-l border-[#1E282D] transform transition-transform duration-300 ease-in-out z-50`}
+      className={`fixed right-0 bottom-0 ${
+        isMinimized ? "h-16" : "h-screen"
+      } w-72 bg-[#010e18] border-l border-[#1E282D] transition-all duration-300 ease-in-out z-50 `}
     >
       {!isMinimized && (
         <div className="pt-12 p-4">
-          <UserProfile onClose={handleClose} onMinimize={handleMinimize} />
+          <UserProfile onClose={onClose} onMinimize={onMinimize} />
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-[#F0E6D2] font-medium">SOCIAL</h2>
             <div className="flex gap-3">
-            <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
-              <Github className="w-4 h-4" />
-            </button>
-            <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
-              <Linkedin className="w-4 h-4" />
-            </button>
-            <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
-              <Facebook className="w-4 h-4" />
-            </button>
-            <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
-              <Instagram className="w-4 h-4" />
-            </button>
+              <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
+                <Github className="w-4 h-4" />
+              </button>
+              <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
+                <Linkedin className="w-4 h-4" />
+              </button>
+              <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
+                <Facebook className="w-4 h-4" />
+              </button>
+              <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
+                <Instagram className="w-4 h-4" />
+              </button>
+            </div>
           </div>
+
+          <div>
+            {/* New section for friends list */}
+            <div className="flex items-center mb-4">
+              <ChevronDown className="text-[#A09B8C] mr-2" />
+              <h6 className="text-[#F0E6D2] text-sm font-medium">GENERAL (18/66)</h6>
+            </div>
+            <ul className="">
+          {friends.map((friend) => (
+            <Friend key={friend.name} {...friend} />
+          ))}
+        </ul>
+
           </div>
         </div>
       )}
 
-      <div
-        className={`absolute ${
-          isMinimized ? 'top-0' : 'bottom-0'
-        } left-0 right-0 p-4 border-t border-[#1E282D] bg-[#0A0A0A]`}
-      >
-        <FloatingGrid />
-      </div>
-
-      {/* Minimize or Reopen Button */}
-      <div
-        className={`absolute ${isMinimized ? 'bottom-16' : 'bottom-4'} right-4`}
-      >
-        <button
-          onClick={isMinimized ? handleReopen : handleMinimize}
-          className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
-        >
-          {isMinimized ? (
-            <ChevronUp className="w-4 h-4" />
-          ) : (
-            <ChevronDown className="w-4 h-4" />
-          )}
-        </button>
+      <div className="absolute bottom-0 left-0 w-full p-4 bg-[#0A0A0A] border-t border-[#1E282D]">
+        <div className="grid grid-cols-5 gap-4">
+          <div className="col-span-4 ">
+            <FloatingGrid />
+          </div>
+          <div className="flex justify-end">
+            <button
+              onClick={onMinimize}
+              className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
+            >
+              {isMinimized ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChevronDown className="w-4 h-4" />
+              )}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
   return (
     <div>
       <div className="relative -mt-14 mb-6">
-        <div className="flex items-center gap-3 bg-[#111111] p-4 rounded-lg shadow-lg">
+        <div className="flex items-center gap-3  p-4 rounded-lg shadow-lg">
           <div className="relative">
             <div className="w-12 h-12 rounded-full bg-[#2E2E2E] overflow-hidden border-2 border-[#C8AA6E]">
               <img

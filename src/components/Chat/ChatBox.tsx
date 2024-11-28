@@ -9,9 +9,10 @@ interface ChatMessage {
 }
 
 const mockMessages: ChatMessage[] = [
-  { id: 1, user: "Tewtsmageswts", message: "gg wp", timestamp: "2:31" },
-  { id: 2, user: "Riot kuniso", message: "nice game everyone!", timestamp: "2:32" },
-  { id: 3, user: "doublelift", message: "thanks for carry", timestamp: "2:33" },
+  { id: 1, user: "EXJIIN", message: "EJ", timestamp: "2:31" },
+  { id: 2, user: "Sharouna", message: "gg ez!", timestamp: "2:32" },
+  { id: 3, user: "Patchini", message: "go next", timestamp: "2:33" },
+  { id: 4, user: "Efferalgon", message: "support diff", timestamp: "2:35" },
 ];
 
 export function ChatBox() {
@@ -20,14 +21,14 @@ export function ChatBox() {
   const toggleMinimized = () => setIsMinimized(!isMinimized);
 
   return (
-    <div className="fixed mb-4 ml-4 bottom-0 left-0 sm:w-64 w-full hidden sm:block z-50">
+    <div className="mb-4 ml-4 fixed bottom-0 left-0 sm:w-64 w-full hidden sm:block z-50">
       {!isMinimized ? (
-        <div className="bg-[#1E2328]/50 backdrop-blur-lg rounded-t-lg shadow-lg">
+        <div className="bg-[#1E2328]/1 backdrop-blur-md rounded-t-lg shadow-lg">
           {/* Header */}
-          <div className="flex items-center justify-between p-2 border-b border-[#111111] bg-[#1E2328]/60 backdrop-blur-lg rounded-t-lg">
+          <div className="flex items-center justify-between p-2 border-b border-[#111111] bg-[#1E2328]/50 backdrop-blur-md rounded-t-lg">
             <div className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-[#A09B8C]" />
-              <span className="text-[#F0E6D2] text-sm">GENERAL (18/66)</span>
+              <span className="text-[#F0E6D2] text-sm">Chat</span>
             </div>
             <button
               onClick={toggleMinimized}
@@ -38,7 +39,7 @@ export function ChatBox() {
           </div>
 
           {/* Messages */}
-          <div className="h-48 overflow-y-auto p-2 space-y-2 bg-[#1E2328]/40 backdrop-blur-md">
+          <div className="h-48 overflow-y-auto p-2 space-y-2 bg-[#1E2328]/30 backdrop-blur-sm">
             {mockMessages.map((msg) => (
               <div key={msg.id} className="text-sm">
                 <span className="text-[#C8AA6E]">{msg.user}: </span>
@@ -63,10 +64,9 @@ export function ChatBox() {
           </div>
         </div>
       ) : (
-        // Minimized View
         <div
           onClick={toggleMinimized}
-          className="flex items-center justify-center h-12 bg-[#1E2328]/50 backdrop-blur-lg cursor-pointer border-t border-[#111111] rounded-t-lg"
+          className="flex items-center justify-center h-12 bg-[#1E2328]/50 backdrop-blur-md cursor-pointer border-t border-[#111111] rounded-t-lg"
         >
           <MessageSquare className="w-5 h-5 text-[#A09B8C]" />
         </div>
