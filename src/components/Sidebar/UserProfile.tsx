@@ -8,7 +8,7 @@ interface UserProfileProps {
 
 export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
   return (
-    <div className='mt-2 mt-4 mr-2'>
+    <div className='mt-4 mr-2'>
       <div className="relative -mt-14 mb-6">
         <div className="flex items-center gap-3  p-2 rounded-lg shadow-lg">
           <div className="relative">

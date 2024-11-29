@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #091428 inset !important;
+  -webkit-text-fill-color: #C8AA6E !important;
+}
+
 .vault-container {
     /* Overall container styles */
     @apply bg-gray-900 text-white;
@@ -23,3 +31,21 @@
   }
   
   /* ... other styles for specific elements */
+  .glow-effect {
+    filter: drop-shadow(0 0 10px yellow);
+  }
+
+  .transition-transform {
+    transition: transform 0.5s ease, opacity 0.5s ease;
+  }
+  .translate-y-0 {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  .translate-y-negative {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  
+  
+  

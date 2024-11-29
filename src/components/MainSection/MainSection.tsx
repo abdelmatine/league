@@ -4,25 +4,59 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import React from 'react';
-import { FiMic, FiArrowLeft, FiArrowRight } from 'react-icons/fi';
+import React, { useRef, useState, useEffect } from 'react';
+import { FiMic, FiArrowLeft, FiArrowRight, FiMicOff } from 'react-icons/fi';
+import SwiperCore from 'swiper';
 
-export function MainSection({ cards }: { cards: { id: number; name: string; role: string; avatar: string; rating: number; frameworks: { asset: string; url: string }[]; backgroundImage: string }[] }) {
+export function MainSection({ projects }: { projects: { id: number; name: string; role: string; avatar: string; rating: number; frameworks: { asset: string; url: string }[]; backgroundImage: string }[] }) {
+  const swiperRef = useRef<SwiperCore | null>(null);
+  const [isMuted, setIsMuted] = useState(false);
+  const [clickedIndex, setClickedIndex] = useState<number | null>(null);
+
+  const handleMicClick = () => {
+    setIsMuted(!isMuted);
+  };
+
+  const handleSlideClick = (index: number) => {
+    if (swiperRef.current) {
+      swiperRef.current.autoplay.stop();
+      swiperRef.current.slideToLoop(index, 500); // Slide to the clicked index with a smooth transition
+    }
+    setClickedIndex(clickedIndex === index ? null : index);
+  };
+
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (swiperRef.current && !event.composedPath().includes(swiperRef.current.el)) {
+      swiperRef.current.autoplay.start();
+      setClickedIndex(null);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleOutsideClick);
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
+
   return (
-    <div id="main-section" className="w-screen h-screen flex flex-col pt-20 relative">
+    <div id="main-section" className="w-screen h-screen flex flex-col relative overflow-hidden">
       {/* Header */}
-      <h2 className="text-2xl font-bold text-white text-center py-4">SR · Ranked Projects</h2>
+      <h2 className="text-2xl font-bold text-white text-center pt-20 py-4">SR · Ranked Projects</h2>
 
       {/* Swiper Section */}
-      <div className="flex-1 relative group">
+      <div className="flex-1 relative group overflow-hidden">
         <Swiper
+          onSwiper={(swiper) => {
+            swiperRef.current = swiper;
+          }}
           spaceBetween={25} // Adding some gap between slides here
           centeredSlides={true}
           autoplay={{
             delay: 3000,
-            disableOnInteraction: true,
+            disableOnInteraction: false,
           }}
-          loop={true} // Disable looping
+          loop={true} // Enable looping
           resistance={true} // Enable bounce-back resistance
           resistanceRatio={0.85} // Set resistance strength
           modules={[Navigation, Autoplay]}
@@ -33,10 +67,11 @@ export function MainSection({ cards }: { cards: { id: number; name: string; role
           }}
           className="w-full h-full"
         >
-          {cards.map((card) => (
+          {projects.map((card, index) => (
             <SwiperSlide
               key={card.id}
               className="flex justify-center items-center h-full"
+              onClick={() => handleSlideClick(index)}
             >
               <GameCard
                 name={card.name}
@@ -45,6 +80,7 @@ export function MainSection({ cards }: { cards: { id: number; name: string; role
                 rating={card.rating}
                 frameworks={card.frameworks}
                 backgroundImage={card.backgroundImage}
+                isClicked={index === clickedIndex}
               />
             </SwiperSlide>
           ))}
@@ -53,14 +89,23 @@ export function MainSection({ cards }: { cards: { id: number; name: string; role
 
       {/* Find Match Button and Custom Buttons */}
       <div className="py-8 flex justify-center items-center space-x-4">
-        <button className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors">
+        <button
+          className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
+          onClick={() => (swiperRef.current as SwiperCore).slidePrev()}
+        >
           <FiArrowLeft className="size-4" />
         </button>
         <FindMatch />
-        <button className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors">
-          <FiMic className="size-4" />
+        <button
+          className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
+          onClick={handleMicClick}
+        >
+          {isMuted ? <FiMicOff className="size-4" /> : <FiMic className="size-4" />}
         </button>
-        <button className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors">
+        <button
+          className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
+          onClick={() => (swiperRef.current as SwiperCore).slideNext()}
+        >
           <FiArrowRight className="size-4" />
         </button>
       </div>

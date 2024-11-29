@@ -8,6 +8,7 @@ export function GameCard({
   rating,
   frameworks,
   backgroundImage,
+  isClicked,
 }: {
   name: string;
   role: string;
@@ -15,14 +16,15 @@ export function GameCard({
   rating: number;
   frameworks: { asset: string; url: string }[];
   backgroundImage: string;
+  isClicked: boolean;
 }) {
   return (
-    <div className="relative w-full h-full rounded-lg overflow-hidden border border-transparent hover:border-yellow-500 hover:shadow-lg shadow-gray-700 transition-all duration-300">
+    <div className={`relative w-full h-full rounded-lg overflow-hidden border ${isClicked ? 'border-yellow-500 shadow-lg' : 'border-transparent'} hover:border-yellow-500 hover:shadow-lg shadow-gray-700 transition-all duration-300`}>
       {/* Center and maintain aspect ratio of avatar image */}
       <div
-        className="absolute size-28 mt-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-800 overflow-hidden" // Adjust size as needed
+        className={`absolute size-28 mt-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-800 overflow-hidden ${isClicked ? 'ring-4 ring-yellow-500' : ''}`} // Adjust size as needed
       >
-        <img src={avatar} alt={name} className="w-full h-full object-cover" />
+        <img src={avatar} alt={name} className={`w-full h-full object-cover ${isClicked ? 'animate-pulse' : ''}`} />
       </div>
 
       <div className=" inset-0 bg-gray-900 " />
@@ -32,18 +34,18 @@ export function GameCard({
         <h3 className="text-xl text-white font-semibold mb-2">{name}</h3>
         <p className="text-sm text-gray-400 mb-2">{role}</p>
         <div className="flex items-center gap-2">
-      {frameworks.map((framework, index) => (
-        <a href={framework.url} target="_blank" rel="noopener noreferrer" key={index}>
-          <div className='gap-6 items-center justify-center m-2'>
-          <img
-            src={framework.asset}
-            alt={framework.url}
-            className="w-6 h-6 object-contain cursor-pointer"
-          />
-          </div>
-        </a>
-      ))}
-    </div>
+          {frameworks.map((framework, index) => (
+            <a href={framework.url} target="_blank" rel="noopener noreferrer" key={index}>
+              <div className='gap-6 items-center justify-center m-2'>
+                <img
+                  src={framework.asset}
+                  alt={framework.url}
+                  className="w-6 h-6 object-contain cursor-pointer"
+                />
+              </div>
+            </a>
+          ))}
+        </div>
         <div className="flex items-center justify-center gap-1">
           {/* Add rating logic here using FaStar, FaStarHalfAlt, FaRegStar */}
         </div>

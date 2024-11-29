@@ -64,7 +64,7 @@ export function Sidebar({
             {/* New section for friends list */}
             <div className="flex items-center mb-4">
               <ChevronDown className="text-[#A09B8C] mr-2" />
-              <h6 className="text-[#F0E6D2] text-sm font-medium">GENERAL (18/66)</h6>
+              <h6 className="text-[#F0E6D2] text-sm font-medium">GENERAL (2/66)</h6>
             </div>
             <ul className="">
           {friends.map((friend) => (

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 interface StackProps {
-  items: {
+  stacks: {
     id: string;
     icon: string;
     count: number;
@@ -11,14 +11,14 @@ interface StackProps {
   timeRemaining: number;
 }
 
-export default function Stack({ items, timeRemaining }: StackProps) {
-  const [selectedItem, setSelectedItem] = useState(items[0]);
+export default function Stack({ stacks, timeRemaining }: StackProps) {
+  const [selectedItem, setSelectedItem] = useState(stacks[0]);
 
   return (
     <div className="flex flex-col h-screen w-screen p-6">
       {/* Top Div */}
       <div className="mb-4">
-        <h2 className="text-4xl font-bold text-white text-center">
+        <h2 className="text-4xl pt-20 font-bold text-white text-center">
           Stack Overview
         </h2>
       </div>
@@ -27,7 +27,7 @@ export default function Stack({ items, timeRemaining }: StackProps) {
       <div className="flex flex-col md:flex-row flex-1">
         {/* Left Grid Section */}
         <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 p-4">
-          {items.map((item) => (
+          {stacks.map((item) => (
             <div key={item.id} className="border-gold flex justify-center items-center">
               <div
                 className="flex flex-col items-center cursor-pointer p-4 hover:shadow-[0_0_5px_#FFD700] active:shadow-[0_0_10px_#FFD700]"

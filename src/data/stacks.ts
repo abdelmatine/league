@@ -1,0 +1,88 @@
+export const stacks = [
+    {
+      id: '1',
+      icon: "/icons/angular.svg",
+      count: 10,
+      title: 'Angular',
+      description: 'A platform for building mobile and desktop web applications.',
+    },
+    {
+      id: '2',
+      icon: "/icons/react.svg",
+      count: 5,
+      title: 'React',
+      description: 'A JavaScript library for building user interfaces.',
+    },
+    {
+      id: '3',
+      icon: "/icons/springboot.svg",
+      count: 8,
+      title: 'SpringBoot',
+      description: 'A framework for building production-ready Spring applications.',
+    },
+
+    {
+      id: '5',
+      icon: "/icons/flutter.svg",
+      count: 7,
+      title: 'Flutter',
+      description: 'An open-source UI software development toolkit by Google.',
+    },
+    {
+      id: '6',
+      icon: "/icons/qt.svg",
+      count: 3,
+      title: 'Qt',
+      description: 'A free and open-source widget toolkit for creating graphical user interfaces.',
+    },
+    {
+        id: '4',
+        icon: "/icons/react-native.svg",
+        count: 12,
+        title: 'React Native',
+        description: 'A framework for building native apps using React.',
+      },
+    {
+      id: '8',
+      icon: "/icons/js.svg",
+      count: 11,
+      title: 'JavaScript',
+      description: 'A high-level, often just-in-time compiled, and multi-paradigm programming language.',
+    },
+    {
+      id: '9',
+      icon: "/icons/ts.svg",
+      count: 6,
+      title: 'TypeScript',
+      description: 'A strict syntactical superset of JavaScript and adds optional static typing to the language.',
+    },
+    {
+      id: '10',
+      icon: "/icons/java.svg",
+      count: 4,
+      title: 'Java',
+      description: 'A high-level, class-based, object-oriented programming language.',
+    },
+    {
+      id: '11',
+      icon: "/icons/c.svg",
+      count: 2,
+      title: 'C',
+      description: 'A general-purpose, procedural computer programming language.',
+    },
+    {
+      id: '12',
+      icon: "/icons/c++.svg",
+      count: 13,
+      title: 'C++',
+      description: 'A general-purpose programming language created as an extension of the C programming language.',
+    },
+    {
+      id: '13',
+      icon: "/icons/python.svg",
+      count: 1,
+      title: 'Python',
+      description: 'An interpreted, high-level, general-purpose programming language.',
+    },
+  ];
+  

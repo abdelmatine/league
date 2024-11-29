@@ -24,3 +24,5 @@ export function Logo() {
     </div>
   );
 }
+
+//[#ad3c07]
