@@ -22,16 +22,21 @@ export default function Hero() {
 
         {/* Paragraph with Typing Effect */}
         <p className="mt-8 mx-auto text-sm md:text-xl text-gray-300">
-          <Typewriter
-            words={[
-              'A fresh graduate Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results.',
-            ]}
-            loop={false}
-            cursor
-            cursorStyle="|"
-            typeSpeed={50}
-          />
-        </p>
+  <Typewriter
+    loop={false}
+    cursor
+    cursorStyle="|"
+    typeSpeed={50}
+    words={[
+      `"A fresh graduate Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results."`
+    ]}
+  />
+  <span className="block mt-2 text-sm md:text-xl italic font-bold">
+    - "Chat JBL"
+  </span>
+</p>
+
+
 
         {/* Buttons */}
         <div className="mt-8 flex justify-center gap-4">
