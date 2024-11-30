@@ -10,7 +10,6 @@ import {
   Instagram,
 } from "lucide-react";
 import Friend from "./Friend";
-import { Link } from "react-router-dom"; // Import Link for navigation
 
 interface SidebarProps {
   isOpen: boolean;
@@ -20,10 +19,10 @@ interface SidebarProps {
 }
 
 const friends = [
-  { name: 'Github', status: 'InGame', avatarUrl: 'src/assets/git.png', url:'https://github.com/abdelmatine'},
-  { name: 'Facebook', status: 'Online', avatarUrl: 'src/assets/fb.png', url:'https://www.facebook.com/abdou.sfar/'},
-  { name: 'LinkedIn', status: 'OffLine', avatarUrl: 'src/assets/linkedin.png', url:'https://www.linkedin.com/in/abdelmatine-sfar-91a853162/'},
-  { name: 'Instagram', status: 'OffLine', avatarUrl: 'src/assets/insta.png', url:'https://www.instagram.com/abdelmatine_sfar/'},
+  { name: 'Github', status: 'InGame', avatarUrl: '/assets/git.png', url:'https://github.com/abdelmatine'},
+  { name: 'Facebook', status: 'Online', avatarUrl: '/assets/fb.png', url:'https://www.facebook.com/abdou.sfar/'},
+  { name: 'LinkedIn', status: 'OffLine', avatarUrl: '/assets/linkedin.png', url:'https://www.linkedin.com/in/abdelmatine-sfar-91a853162/'},
+  { name: 'Instagram', status: 'OffLine', avatarUrl: '/assets/insta.png', url:'https://www.instagram.com/abdelmatine_sfar/'},
   // ... more friends
 ];
 
