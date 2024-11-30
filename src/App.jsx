@@ -10,7 +10,12 @@ import { projects } from './data/projects'; // Import projects data
 import { stacks } from './data/stacks'; // Import stacks data
 import { Contact } from './components/Contact/Contact';
 
+
+
+
 function App() {
+
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(true);
 
@@ -22,10 +27,18 @@ function App() {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
 
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const toggleSound = () => {
+    setIsPlaying(!isPlaying);
+  };
+
   return (
     <Router>
+
+
       <div className="min-h-screen bg-[#010A13] bg-gradient-to-br from-[#010A13] via-[#062033] to-[#010A13]">
-        <Navbar onMenuClick={handleMenuClick} isSidebarMinimized={isSidebarMinimized} />
+        <Navbar onMenuClick={handleMenuClick} isSidebarMinimized={isSidebarMinimized} isPlaying={isPlaying} toggleSound={toggleSound}/>
         <Sidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}

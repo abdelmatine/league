@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from 'react-router-dom';
+import { Typewriter } from 'react-simple-typewriter';
 
 export default function Hero() {
   const handleSmoothScroll = (event, targetId) => {
@@ -10,18 +11,29 @@ export default function Hero() {
   return (
     <section className="relative text-white min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Animation or Decoration */}
+      <div className="absolute top-0 left-0 w-full h-full"></div>
 
       {/* Hero Content */}
       <div className="relative z-10 text-center px-6 max-w-screen-lg mx-auto">
+        {/* Static H1 */}
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
           Hi, I&apos;m <span className="text-[#0AC8B9]">Abdelmatine Sfar</span>
         </h1>
+
+        {/* Paragraph with Typing Effect */}
         <p className="mt-8 mx-auto text-sm md:text-xl text-gray-300">
-          A fresh graduate{" "}
-          <span className="text-[#20ecdb]">Software Engineer</span> with a knack for turning complex challenges into
-          elegant solutions. Seeking opportunities to leverage my technical
-          skills and creativity to deliver impactful results.
+          <Typewriter
+            words={[
+              'A fresh graduate Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results.',
+            ]}
+            loop={false}
+            cursor
+            cursorStyle="|"
+            typeSpeed={50}
+          />
         </p>
+
+        {/* Buttons */}
         <div className="mt-8 flex justify-center gap-4">
           <NavLink
             to="#projects"

@@ -1,21 +1,17 @@
 import { GameCard } from "./GameCard";
 import { FindMatch } from "./FindMatch";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay,Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import React, { useRef, useState, useEffect } from 'react';
-import { FiMic, FiArrowLeft, FiArrowRight, FiMicOff } from 'react-icons/fi';
+import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
 import SwiperCore from 'swiper';
 
 export function MainSection({ projects }: { projects: { id: number; name: string; role: string; avatar: string; rating: number; frameworks: { asset: string; url: string }[]; backgroundImage: string }[] }) {
   const swiperRef = useRef<SwiperCore | null>(null);
-  const [isMuted, setIsMuted] = useState(false);
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
 
-  const handleMicClick = () => {
-    setIsMuted(!isMuted);
-  };
 
   const handleSlideClick = (index: number) => {
     if (swiperRef.current) {
@@ -45,7 +41,7 @@ export function MainSection({ projects }: { projects: { id: number; name: string
       <h2 className="text-2xl font-bold text-white text-center pt-20 py-4">SR · Ranked Projects</h2>
 
       {/* Swiper Section */}
-      <div className="flex-1 relative group overflow-hidden">
+      <div className="flex-1 mr-20  ml-20 relative group overflow-hidden">
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
@@ -65,6 +61,7 @@ export function MainSection({ projects }: { projects: { id: number; name: string
             1024: { slidesPerView: 3 },
             1280: { slidesPerView: 5 },
           }}
+          pagination={{ clickable: true }}
           className="w-full h-full"
         >
           {projects.map((card, index) => (
@@ -96,12 +93,7 @@ export function MainSection({ projects }: { projects: { id: number; name: string
           <FiArrowLeft className="size-4" />
         </button>
         <FindMatch />
-        <button
-          className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
-          onClick={handleMicClick}
-        >
-          {isMuted ? <FiMicOff className="size-4" /> : <FiMic className="size-4" />}
-        </button>
+
         <button
           className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
           onClick={() => (swiperRef.current as SwiperCore).slideNext()}
