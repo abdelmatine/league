@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^9.118.0",
     "@react-three/fiber": "^8.17.10",
+    "aos": "^2.3.4",
     "classnames": "^2.5.1",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^11.12.0",

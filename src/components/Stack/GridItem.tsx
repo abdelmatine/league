@@ -6,6 +6,7 @@ interface GridItemProps {
   title: string;
   index: number;
   onClick: () => void;
+  
 }
 
 export function GridItem({ icon, title, index, onClick }: GridItemProps) {

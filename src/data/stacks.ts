@@ -4,7 +4,7 @@ export const stacks = [
       icon: "/icons/angular.svg",
       count: 10,
       title: 'Angular',
-      description: 'A platform for building mobile and desktop web applications.',
+      description: 'A Framework for building web UI applications.',
     },
     {
       id: '2',
@@ -18,7 +18,7 @@ export const stacks = [
       icon: "/icons/springboot.svg",
       count: 8,
       title: 'SpringBoot',
-      description: 'A framework for building production-ready Spring applications.',
+      description: 'A framework for building production-ready java back-end applications.',
     },
 
     {
@@ -26,14 +26,14 @@ export const stacks = [
       icon: "/icons/flutter.svg",
       count: 7,
       title: 'Flutter',
-      description: 'An open-source UI software development toolkit by Google.',
+      description: 'An open-source cross platform UI framework using the dart language devoloped by Google.',
     },
     {
       id: '6',
       icon: "/icons/qt.svg",
       count: 3,
       title: 'Qt',
-      description: 'A free and open-source widget toolkit for creating graphical user interfaces.',
+      description: 'A free and open-source widget toolkit for creating graphical user interfaces in C++.',
     },
     {
         id: '4',

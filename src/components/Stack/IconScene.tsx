@@ -5,6 +5,7 @@ import React from 'react';
 
 interface IconSceneProps {
   iconUrl: string;
+  
 }
 
 export function IconScene({ iconUrl }: IconSceneProps) {
