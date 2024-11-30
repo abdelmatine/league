@@ -14,7 +14,7 @@ export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
           <div className="relative">
             <div className="w-12 h-12 rounded-full bg-[#2E2E2E] overflow-hidden border-2 border-[#C8AA6E]">
               <img
-                src="src/assets/foto.jpg"
+                src="/assets/foto.jpg"
                 alt="Profile"
                 className="w-full h-full object-cover"
               />

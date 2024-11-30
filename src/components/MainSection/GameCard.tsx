@@ -29,7 +29,7 @@ export function GameCard({
 
       <div className=" inset-0 bg-gray-900 " />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
+      <div className="pt-2 md:pt-0 absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
         <h3 className="text-xl text-white font-semibold mb-2">{name}</h3>
         <p className="text-sm text-gray-400 mb-2">{role}</p>

@@ -52,7 +52,7 @@ export function Navbar({ isSidebarMinimized, isPlaying, toggleSound }: NavbarPro
 
         {/* Right Section: Icons and User Stats */}
         <div className={`flex items-center space-x-6 ${isSidebarMinimized ? "" : "lg:pr-72"}`}>
-          {isSidebarMinimized && (
+          {!isSidebarMinimized && (
             <div className="flex items-center gap-4">
               {[Shield, Star, Trophy, Gift].map((Icon, index) => (
                 <button

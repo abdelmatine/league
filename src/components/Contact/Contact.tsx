@@ -35,7 +35,7 @@ export function Contact() {
   };
 
   return (
-    <div id="contact" className="min-h-screen flex flex-col items-center justify-center py-16 px-4">
+    <div id="contact" className="min-h-screen pt-[560px] md:pt-0 flex flex-col items-center justify-center py-16 px-4">
       <h2 className="text-3xl font-bold text-white mb-8">Contact Me</h2>
       <form className="w-full max-w-lg bg-[#1E2328] p-8 rounded-lg shadow-lg">
         <div className="mb-6">

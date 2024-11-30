@@ -17,7 +17,7 @@ function App() {
 
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(true);
+  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
   const handleMenuClick = () => {
     setIsSidebarOpen(!isSidebarOpen);
