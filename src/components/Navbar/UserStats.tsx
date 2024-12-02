@@ -3,7 +3,7 @@ import { Hexagon, Crown, Coins } from 'lucide-react';
 
 export function UserStats() {
   return (
-    <div className="flex items-center gap-4 ">
+    <div className="flex items-center gap-4">
       <div className="flex flex-col items-start">
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 relative">

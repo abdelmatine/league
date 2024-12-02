@@ -39,7 +39,7 @@ export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
           <ExternalLink className="w-4 h-4" />
         </button>
         <button
-          onClick={onClose}
+          onClick={onMinimize}
           className="text-[#A09B8C] hover:text-[#C8AA6E] p-1 transition-colors"
         >
           <X className="w-4 h-4" />

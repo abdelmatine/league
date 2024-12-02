@@ -31,9 +31,7 @@ export default function Hero() {
       `"A fresh graduate Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results."`
     ]}
   />
-  <span className="block mt-2 text-sm md:text-xl italic font-bold">
-    - "Chat JBL"
-  </span>
+
 </p>
 
 

@@ -51,19 +51,18 @@ export function Navbar({ isSidebarMinimized, isPlaying, toggleSound }: NavbarPro
         </div>
 
         {/* Right Section: Icons and User Stats */}
-        <div className={`flex items-center space-x-6 ${isSidebarMinimized ? "" : "lg:pr-72"}`}>
-          {!isSidebarMinimized && (
-            <div className="flex items-center gap-4">
-              {[Shield, Star, Trophy, Gift].map((Icon, index) => (
-                <button
-                  key={index}
-                  className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors"
-                >
-                  <Icon className="w-5 h-5" />
-                </button>
-              ))}
-            </div>
-          )}
+        <div className={`flex items-center space-x-6 ${isSidebarMinimized ? "" : "pr-72"}`}>
+          {/* Icons visible only on large screens */}
+          <div className="hidden lg:flex items-center gap-4">
+            {[Shield, Star, Trophy, Gift].map((Icon, index) => (
+              <button
+                key={index}
+                className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors"
+              >
+                <Icon className="w-5 h-5" />
+              </button>
+            ))}
+          </div>
           <Separator className="mx-4" />
           <UserStats />
         </div>
