@@ -3,7 +3,7 @@ export const projects = [
       id: 1,
       name: "Fixed APP",
       role: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-      avatar: "/assets/ord.png",
+      avatar: "/assets/ord.jpg",
       rating: 4.5,
       frameworks: [
         { asset: "/icons/postgresql.svg", url: "https://postgresql.org/" },
@@ -69,7 +69,7 @@ export const projects = [
       id: 7,
       name: "E Commerce",
       role: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia,",
-      avatar: "/assets/eco.png",
+      avatar: "/assets/eco.jpg",
       rating: 4.2,
       frameworks: [
         { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
