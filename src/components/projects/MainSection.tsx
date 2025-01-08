@@ -1,22 +1,30 @@
 import { ProjectCard } from "./ProjectCard";
 import { FindMatch } from "./FindMatch";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay,Pagination } from "swiper/modules";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import React, { useRef, useState, useEffect } from 'react';
-import { FiArrowLeft, FiArrowRight } from 'react-icons/fi';
-import SwiperCore from 'swiper';
+import React, { useRef, useState, useEffect } from "react";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import SwiperCore from "swiper";
 import { ProjectDescription } from "./ProjectDescription";
 
-export function MainSection({ projects }: { projects: {
-  link: string; id: number; name: string; role: string; avatar: string; rating: number; frameworks: { asset: string; url: string }[]; backgroundImage: string 
-}[]; link: string; }) {
+type Project = {
+  id: number;
+  name: string;
+  role: string;
+  avatar: string;
+  rating: number;
+  link: string;
+  frameworks: { asset: string; url: string }[];
+  backgroundImage?: string; // Optional if not always present
+};
+
+export function MainSection({ projects }: { projects: Project[] }) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
   const swiperRef = useRef<SwiperCore | null>(null);
   const [clickedIndex, setClickedIndex] = useState<number | null>(null);
-
-
-  const [selectedProject, setSelectedProject] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleCardClick = (project) => {
@@ -29,49 +37,56 @@ export function MainSection({ projects }: { projects: {
     setSelectedProject(null);
   };
 
-
   const handleSlideClick = (index: number) => {
     if (swiperRef.current) {
       swiperRef.current.autoplay.stop();
-      swiperRef.current.slideToLoop(index, 500); // Slide to the clicked index with a smooth transition
+      swiperRef.current.slideToLoop(index, 500);
     }
     setClickedIndex(clickedIndex === index ? null : index);
   };
 
   const handleOutsideClick = (event: MouseEvent) => {
-    if (swiperRef.current && !event.composedPath().includes(swiperRef.current.el)) {
+    if (
+      swiperRef.current &&
+      !event.composedPath().includes(swiperRef.current.el)
+    ) {
       swiperRef.current.autoplay.start();
       setClickedIndex(null);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
     return () => {
-      document.removeEventListener('click', handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
 
   return (
-    <div id="main-section" className="w-screen h-screen flex flex-col relative overflow-hidden">
+    <div
+      id="main-section"
+      className="w-screen h-screen flex flex-col relative overflow-hidden"
+    >
       {/* Header */}
-      <h2 className="text-2xl font-bold text-white text-center pt-20 py-4">SR · Ranked Projects</h2>
+      <h2 className="text-2xl font-bold text-white text-center pt-20 py-4">
+        SR · Ranked Projects
+      </h2>
 
       {/* Swiper Section */}
-      <div className="flex-1 mr-20  ml-20 relative group overflow-hidden">
+      <div className="flex-1 mr-20 ml-20 relative group overflow-hidden">
         <Swiper
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
           }}
-          spaceBetween={25} // Adding some gap between slides here
+          spaceBetween={25}
           centeredSlides={true}
           autoplay={{
             delay: 3000,
             disableOnInteraction: false,
           }}
-          loop={true} // Enable looping
-          resistance={true} // Enable bounce-back resistance
-          resistanceRatio={0.85} // Set resistance strength
+          loop={true}
+          resistance={true}
+          resistanceRatio={0.85}
           modules={[Navigation, Autoplay]}
           breakpoints={{
             640: { slidesPerView: 1 },
@@ -88,15 +103,14 @@ export function MainSection({ projects }: { projects: {
               onClick={() => handleSlideClick(index)}
             >
               <ProjectCard
+                key={project.id}
                 name={project.name}
                 role={project.role}
                 avatar={project.avatar}
                 rating={project.rating}
                 frameworks={project.frameworks}
-                backgroundImage={project.backgroundImage}
-                isClicked={index === clickedIndex}
-                onClick={() => handleCardClick(project)}
-                />
+                isClicked={selectedProject?.id === project.id}
+                onSelect={() => setSelectedProject(project)} backgroundImage={""}              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -110,8 +124,7 @@ export function MainSection({ projects }: { projects: {
         >
           <FiArrowLeft className="size-4" />
         </button>
-        <FindMatch />
-
+        <FindMatch projectLink={selectedProject?.link} />
         <button
           className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
           onClick={() => (swiperRef.current as SwiperCore).slideNext()}
@@ -119,15 +132,6 @@ export function MainSection({ projects }: { projects: {
           <FiArrowRight className="size-4" />
         </button>
       </div>
-
-      {selectedProject && (
-        <ProjectDescription
-          isOpen={isPopupOpen}
-          onClose={handleClosePopup}
-          project={selectedProject}
-        />
-      )}
-
 
     </div>
   );

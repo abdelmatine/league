@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ChatBox } from './components/Chat/ChatBox';
 import Hero from './components/Hero/Hero';
 import { MainSection } from './components/MainSection/MainSection';
@@ -9,13 +9,9 @@ import Stack from './components/Stack/Stack';
 import { projects } from './data/projects'; // Import projects data
 import { stacks } from './data/stacks'; // Import stacks data
 import { Contact } from './components/Contact/Contact';
-
-
-
+import { NotFoundPage } from './components/notFound/NotFoundPage';
 
 function App() {
-
-
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
@@ -35,33 +31,49 @@ function App() {
 
   return (
     <Router>
-
-
-      <div className="min-h-screen bg-[#010A13] bg-gradient-to-br from-[#010A13] via-[#062033] to-[#010A13]">
-        <Navbar onMenuClick={handleMenuClick} isSidebarMinimized={isSidebarMinimized} isPlaying={isPlaying} toggleSound={toggleSound}/>
-        <Sidebar
-          isOpen={isSidebarOpen}
-          onClose={() => setIsSidebarOpen(false)}
-          onMinimize={toggleSidebarMinimize}
-          isMinimized={isSidebarMinimized}
+      <Navbar
+        onMenuClick={handleMenuClick}
+        isSidebarMinimized={isSidebarMinimized}
+        isPlaying={isPlaying}
+        toggleSound={toggleSound}
+      />
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        onMinimize={toggleSidebarMinimize}
+        isMinimized={isSidebarMinimized}
+      />
+      <Routes>
+        {/* Root route */}
+        <Route
+          path="/"
+          element={
+            <div className="min-h-screen bg-[#010A13] bg-gradient-to-br from-[#010A13] via-[#062033] to-[#010A13]">
+              <div id="home">
+                <Hero />
+              </div>
+              <div id="projects">
+                <MainSection projects={projects} />
+              </div>
+              <div id="stack">
+                <Stack stacks={stacks} timeRemaining={120} />
+              </div>
+              <div id="contact" className="pt-16">
+                <Contact />
+              </div>
+              <ChatBox />
+            </div>
+          }
         />
-        <div id="home">
-          <Hero />
-        </div>
-        <div id="projects">
-          <MainSection projects={projects} />
-        </div>
-        <div id="stack">
-          <Stack stacks={stacks} timeRemaining={120} />
-        </div>
-        <div id="contact" className="pt-16">
-          <Contact />
-        </div>
-        <ChatBox />
-      </div>
+
+        {/* 404 route */}
+        <Route path="/404" element={<NotFoundPage />} />
+
+        {/* Catch-all for unmatched routes */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
     </Router>
   );
 }
-
 
 export default App;

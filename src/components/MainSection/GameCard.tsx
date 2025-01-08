@@ -8,6 +8,7 @@ export function GameCard({
   rating,
   frameworks,
   backgroundImage,
+  onSelect, // New prop to select the project
   isClicked,
 }: {
   name: string;
@@ -16,10 +17,14 @@ export function GameCard({
   rating: number;
   frameworks: { asset: string; url: string }[];
   backgroundImage: string;
+  onSelect: () => void; // Pass the project selection to the parent
   isClicked: boolean;
 }) {
   return (
-    <div className={`relative w-full h-full rounded-lg overflow-hidden border ${isClicked ? 'border-yellow-500 shadow-lg' : 'border-transparent'} hover:border-yellow-500 hover:shadow-lg shadow-gray-700 transition-all duration-300`}>
+    
+    <div 
+    onClick={onSelect} // Trigger onSelect when clicked
+    className={`relative w-full h-full rounded-lg overflow-hidden border ${isClicked ? 'border-yellow-500 shadow-lg' : 'border-transparent'} hover:border-yellow-500 hover:shadow-lg shadow-gray-700 transition-all duration-300`}>
       {/* Center and maintain aspect ratio of avatar image */}
       <div
         className={`absolute size-28 mt-40 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-gray-800 overflow-hidden ${isClicked ? 'ring-4 ring-yellow-500' : ''}`} // Adjust size as needed
