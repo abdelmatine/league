@@ -100,7 +100,7 @@ export const projects = [
     role: "Welcome to VEHICOOL, the smart way to buy, sell, or rent cars. Browse thousands of verified listings, compare prices, and connect with trusted sellers — or easily post your own vehicle for sale or rent in just a few clicks. Whether you're searching for your next car or monetizing the one you own, we've got you covered.",
     avatar: "/assets/veh.png",
     rating: 4.2,
-    link: "https://glimmergrace.vercel.app/",
+    link: "https://vehicool.vercel.app/",
     frameworks: [
       { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
       { asset: "/icons/react.svg", url: "https://reactjs.org/" },
