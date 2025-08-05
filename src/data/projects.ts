@@ -15,7 +15,7 @@ export const projects = [
   {
     id: 2,
     name: "ELECTROCUTE",
-    role: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
+    role: "Discover the latest in tech at ELECTROCUTE — your destination for cutting-edge electronics, unbeatable deals, and trusted brands. Shop laptops, smartphones, gaming gear, and more with fast shipping and expert support.",
     avatar: "/assets/electrocute.png",
     rating: 4.5,
     link: "https://electrocuute.vercel.app",
@@ -24,7 +24,7 @@ export const projects = [
   {
     id: 3,
     name: "PlanIfy",
-    role: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
+    role: "Simplify your scheduling with PlaniFy, the smart meeting planner. Coordinate with ease, find the perfect time for everyone, and manage all your appointments in one place — no back-and-forth emails needed.",
     avatar: "/assets/cal.png",
     rating: 3.8,
     link: "https://planify.vercel.app",
@@ -35,20 +35,20 @@ export const projects = [
   },
   {
     id: 4,
-    name: "Uber Clone",
-    role: "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
-    avatar: "/assets/uber.png",
+    name: "Monda's Restaurant",
+    role: "Welcome to Monda's, where flavor meets ambiance. Explore our chef-crafted menus, reserve your table online, and savor an unforgettable dining experience inspired by seasonal ingredients and global cuisine.",
+    avatar: "/assets/mondas.png",
     rating: 4.2,
-    link: "",
+    link: "https://mondas.lovable.app/",
     frameworks: [
       { asset: "/icons/nodejs.svg", url: "https://nodejs.org/" },
-      { asset: "/icons/angular.svg", url: "https://angular.io/" },
+      { asset: "/icons/react.svg", url: "https://react.org/" },
     ],
   },
   {
     id: 5,
     name: "Gym Park",
-    role: "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.",
+    role: "Push your limits at GIGA GYM PARK — a modern fitness center with expert trainers, cutting-edge equipment, and energizing group classes. Start your transformation today with flexible memberships and personalized workout plans.",
     avatar: "/assets/gym.jpg",
     rating: 4.2,
     link: "https://gympark.example.com",
@@ -60,7 +60,7 @@ export const projects = [
   {
     id: 6,
     name: "E Books",
-    role: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.",
+    role: "Dive into the world of knowledge and imagination with eBooks. Browse thousands of titles across every genre, download instantly, and read anytime, anywhere on your favorite device.",
     avatar: "/assets/book.png",
     rating: 4.2,
     link: "https://ebooks.example.com",
@@ -72,7 +72,7 @@ export const projects = [
   {
     id: 7,
     name: "E Commerce",
-    role: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature.",
+    role: "Shop smarter at SmartShop — your all-in-one online marketplace for fashion, gadgets, home goods, and more. Enjoy curated collections, secure checkout, and fast delivery, all in one seamless experience.",
     avatar: "/assets/eco.jpg",
     rating: 4.2,
     link: "https://ecommerce.example.com",
@@ -81,5 +81,29 @@ export const projects = [
       { asset: "/icons/angular.svg", url: "https://angular.io/" },
       { asset: "/icons/postgresql.svg", url: "https://postgresql.org/" },
     ],
+  },
+  {
+    id: 8,
+    name: "Glimmer & Grace",
+    role: "Shine with elegance at Glimmer & Grace. From timeless classics to modern designs, explore handcrafted pieces made with ethically sourced gems and precious metals. Perfect for every occasion, or just because.",
+    avatar: "/assets/glimmer.png",
+    rating: 4.2,
+    link: "https://glimmergrace.vercel.app/",
+    frameworks: [
+      { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
+      { asset: "/icons/supabase.svg", url: "https://supabase.com/" },
+    ],
+  },
+  {
+    id: 9,
+    name: "VEHICOOL",
+    role: "Welcome to VEHICOOL, the smart way to buy, sell, or rent cars. Browse thousands of verified listings, compare prices, and connect with trusted sellers — or easily post your own vehicle for sale or rent in just a few clicks. Whether you're searching for your next car or monetizing the one you own, we've got you covered.",
+    avatar: "/assets/veh.png",
+    rating: 4.2,
+    link: "https://glimmergrace.vercel.app/",
+    frameworks: [
+      { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
+      { asset: "/icons/react.svg", url: "https://reactjs.org/" },
+      ],
   },
 ];

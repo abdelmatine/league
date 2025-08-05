@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { NavLink } from 'react-router-dom';
-import { Typewriter } from 'react-simple-typewriter';
+import { NavLink } from "react-router-dom";
+import { Typewriter } from "react-simple-typewriter";
 
 export default function Hero() {
   const handleSmoothScroll = (event, targetId) => {
     event.preventDefault();
-    document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -22,25 +22,22 @@ export default function Hero() {
 
         {/* Paragraph with Typing Effect */}
         <p className="mt-8 mx-auto text-sm md:text-xl text-gray-300">
-  <Typewriter
-    loop={false}
-    cursor
-    cursorStyle="|"
-    typeSpeed={50}
-    words={[
-      `"A fresh graduate Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results."`
-    ]}
-  />
-
-</p>
-
-
+          <Typewriter
+            loop={false}
+            cursor
+            cursorStyle="|"
+            typeSpeed={50}
+            words={[
+              `"A Software Engineer with a knack for turning complex challenges into elegant solutions. Seeking opportunities to leverage my technical skills and creativity to deliver impactful results."`,
+            ]}
+          />
+        </p>
 
         {/* Buttons */}
         <div className="mt-8 flex justify-center gap-4">
           <NavLink
             to="#projects"
-            onClick={(e) => handleSmoothScroll(e, 'projects')}
+            onClick={(e) => handleSmoothScroll(e, "projects")}
             className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
             border-[#044e48] px-4 py-2 font-semibold uppercase text-[#0AC8B9] transition-all duration-500
             
@@ -60,7 +57,7 @@ export default function Hero() {
           </NavLink>
           <NavLink
             to="#contact"
-            onClick={(e) => handleSmoothScroll(e, 'contact')}
+            onClick={(e) => handleSmoothScroll(e, "contact")}
             className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
             border-gray-600 px-4 py-2 font-semibold uppercase text-white transition-all duration-500
             
