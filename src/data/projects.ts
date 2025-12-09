@@ -47,11 +47,11 @@ export const projects = [
   },
   {
     id: 5,
-    name: "Gym Park",
-    role: "Push your limits at GIGA GYM PARK — a modern fitness center with expert trainers, cutting-edge equipment, and energizing group classes. Start your transformation today with flexible memberships and personalized workout plans.",
+    name: "Zinine Gym",
+    role: "Push your limits at ZININE GYM PARK — a modern fitness center with expert trainers, cutting-edge equipment, and energizing group classes. Start your transformation today with flexible memberships and personalized workout plans.",
     avatar: "/assets/gym.jpg",
     rating: 4.2,
-    link: "https://gympark.example.com",
+    link: "https://zininegym.netlify.app",
     frameworks: [
       { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
       { asset: "/icons/react.svg", url: "https://reactjs.org/" },
@@ -63,7 +63,7 @@ export const projects = [
     role: "Dive into the world of knowledge and imagination with eBooks. Browse thousands of titles across every genre, download instantly, and read anytime, anywhere on your favorite device.",
     avatar: "/assets/book.png",
     rating: 4.2,
-    link: "https://ebooks.example.com",
+    link: "https://www.bookbub.com/",
     frameworks: [
       { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
       { asset: "/icons/angular.svg", url: "https://angular.io/" },
@@ -104,6 +104,30 @@ export const projects = [
     frameworks: [
       { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
       { asset: "/icons/react.svg", url: "https://reactjs.org/" },
+      ],
+  },
+    {
+    id: 10,
+    name: "AZEMMUR",
+    role: "Welcome to Azemmur, your gateway to premium Tunisian olive oil crafted in the historic lands of Dougga. Sourced from centuries-old groves and cold-pressed for unmatched purity, our oils capture the rich heritage and natural excellence of the region. Explore our selection of authentic, sustainably produced olive oils — where tradition, flavor, and quality meet in every bottle.",
+    avatar: "/assets/azemmur/jpg",
+    rating: 4.2,
+    link: "https://azemmur.vercel.app/",
+    frameworks: [
+      { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
+      { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
+      ],
+  },
+      {
+    id: 11,
+    name: "MONO",
+    role: "Discover MONO, a minimalist fashion destination where simplicity meets statement. Curated for those who appreciate clean lines, timeless forms, and refined essentials, MONO offers thoughtfully designed pieces that elevate everyday style. Shop effortlessly crafted apparel and accessories that embrace modern minimalism and empower you to express more with less.",
+    avatar: "/assets/mono.png",
+    rating: 4.2,
+    link: "https://monoo.lovable.app",
+    frameworks: [
+      { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
+      { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
       ],
   },
 ];
