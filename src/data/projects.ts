@@ -35,14 +35,15 @@ export const projects = [
   },
   {
     id: 4,
-    name: "Monda's Restaurant",
-    role: "Welcome to Monda's, where flavor meets ambiance. Explore our chef-crafted menus, reserve your table online, and savor an unforgettable dining experience inspired by seasonal ingredients and global cuisine.",
-    avatar: "/assets/mondas.png",
-    rating: 4.2,
-    link: "https://mondas.lovable.app/",
+    name: "Mondas Öl",
+    role: "Discover the pure essence of premium, cold-pressed olive oil. Explore our sustainably sourced collections, learn about our traditional harvesting process, and bring the authentic flavors of the Mediterranean straight to your kitchen.",
+    avatar: "/icons/mondas.ico",
+    rating: 4.5,
+    link: "https://mondas-ol.vercel.app/",
     frameworks: [
-      { asset: "/icons/nodejs.svg", url: "https://nodejs.org/" },
-      { asset: "/icons/react.svg", url: "https://react.org/" },
+      { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
+      { asset: "/icons/nestjs.svg", url: "https://nestjs.org/" },
+      { asset: "/icons/postgresql.svg", url: "https://www.postgresql.org/" },
     ],
   },
   {
@@ -97,8 +98,8 @@ export const projects = [
   {
     id: 9,
     name: "VEHICOOL",
-    role: "Welcome to VEHICOOL, the smart way to buy, sell, or rent cars. Browse thousands of verified listings, compare prices, and connect with trusted sellers — or easily post your own vehicle for sale or rent in just a few clicks. Whether you're searching for your next car or monetizing the one you own, we've got you covered.",
-    avatar: "/assets/veh.png",
+    role: "The smart way to buy, sell, or rent cars. Browse thousands of verified listings, compare prices, or easily list your own vehicle in just a few clicks. Whether you're upgrading your ride or renting it out, we've got you covered.",    
+    avatar: "/icons/vehicool.svg",
     rating: 4.2,
     link: "https://vehicool.vercel.app/",
     frameworks: [
@@ -106,23 +107,26 @@ export const projects = [
       { asset: "/icons/react.svg", url: "https://reactjs.org/" },
       ],
   },
-    {
+  {
     id: 10,
-    name: "AZEMMUR",
-    role: "Welcome to Azemmur, your gateway to premium Tunisian olive oil crafted in the historic lands of Dougga. Sourced from centuries-old groves and cold-pressed for unmatched purity, our oils capture the rich heritage and natural excellence of the region. Explore our selection of authentic, sustainably produced olive oils — where tradition, flavor, and quality meet in every bottle.",
-    avatar: "/assets/azemmur/jpg",
-    rating: 4.2,
-    link: "https://azemmur.vercel.app/",
+    name: "Sam Médicale",
+    role: "Your trusted e-store for premium biomedical equipment and certified medical supplies. We provide healthcare professionals and institutions with high-quality precision instruments and advanced medical devices to ensure optimal patient care.",    
+    avatar: "/icons/sam.svg",
+    rating: 4.5,
+    link: "https://sam-front-test.vercel.app/",
     frameworks: [
-      { asset: "/icons/springboot.svg", url: "https://spring.io/projects/spring-boot/" },
       { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
-      ],
+      { asset: "/icons/nestjs.svg", url: "https://nestjs.org/" },
+      { asset: "/icons/postgresql.svg", url: "https://www.postgresql.org/" },
+      { asset: "/icons/minio.svg", url: "https://min.io/" },
+      { asset: "/icons/redis.svg", url: "https://redis.io/" },
+    ],
   },
-      {
+  {
     id: 11,
     name: "MONO",
-    role: "Discover MONO, a minimalist fashion destination where simplicity meets statement. Curated for those who appreciate clean lines, timeless forms, and refined essentials, MONO offers thoughtfully designed pieces that elevate everyday style. Shop effortlessly crafted apparel and accessories that embrace modern minimalism and empower you to express more with less.",
-    avatar: "/assets/mono.png",
+    role: "A minimalist fashion destination where simplicity meets statement. Curated with clean lines and refined essentials, MONO offers thoughtfully crafted apparel and accessories designed to elevate everyday style with modern, timeless forms.",    
+    avatar: "/icons/mono.svg",
     rating: 4.2,
     link: "https://monoo.lovable.app",
     frameworks: [
