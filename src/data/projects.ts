@@ -113,7 +113,7 @@ export const projects = [
     role: "Your trusted e-store for premium biomedical equipment and certified medical supplies. We provide healthcare professionals and institutions with high-quality precision instruments and advanced medical devices to ensure optimal patient care.",    
     avatar: "/icons/sam.svg",
     rating: 4.5,
-    link: "https://sam-front-test.vercel.app/",
+    link: "https://sammedicale.com.tn/",
     frameworks: [
       { asset: "/icons/nextjs.svg", url: "https://nextjs.org/" },
       { asset: "/icons/nestjs.svg", url: "https://nestjs.org/" },
