@@ -1,0 +1,144 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/181-1794242977/content/hextech-direction.html"
+        ],
+        "createdAt": "2026-11-09T16:51:30.182Z",
+        "reason": "Claude: throwaway brainstorm mockup; flagged pairs read border-box gradient as background, text actually sits on dark padding-box fill"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/181-1794242977/content/hextech-direction.html"
+        ],
+        "createdAt": "2026-11-09T16:51:49.310Z",
+        "reason": "Claude: hextech teal glow is the League client's own visual language per docs/research/2026-11-09-lol-client-ui.md; throwaway mockup"
+      },
+      {
+        "rule": "wide-tracking",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/181-1794242977/content/hextech-direction.html"
+        ],
+        "createdAt": "2026-11-09T16:52:13.792Z",
+        "reason": "Claude: throwaway brainstorm mockup; miniature screen thumbnails are drawn scaled-down on purpose, tracking is on uppercase labels"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/181-1794242977/content/hextech-direction.html"
+        ],
+        "createdAt": "2026-11-09T16:52:14.101Z",
+        "reason": "Claude: throwaway brainstorm mockup; miniature screen thumbnails are drawn scaled-down on purpose, tracking is on uppercase labels"
+      },
+      {
+        "rule": "undersized-ui-text",
+        "value": "*",
+        "files": [
+          ".superpowers/brainstorm/181-1794242977/content/hextech-direction.html"
+        ],
+        "createdAt": "2026-11-09T16:52:14.391Z",
+        "reason": "Claude: throwaway brainstorm mockup; miniature screen thumbnails are drawn scaled-down on purpose, tracking is on uppercase labels"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/kit/hextech.css"
+        ],
+        "createdAt": "2026-11-10T00:25:00.000Z",
+        "reason": "Claude: .hx-gradient-text / crest monogram use the League client's measured 'promoted number' gradient (docs/research/2026-11-09-shell-lobby-screens.md §7.1); throwaway hi-fi mockup kit"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/home/home.css"
+        ],
+        "createdAt": "2026-11-10T01:43:11.883Z",
+        "reason": "Claude: hero name and stat numerals use the client's promoted-number gold ramp, sanctioned by docs/research/2026-11-09-type-sound-legal.md A.6 (hero name: gold gradient) and shell-lobby-screens 7.1; throwaway hi-fi mockup"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/home.html",
+          ".superpowers/hifi/home/home.css"
+        ],
+        "createdAt": "2026-11-10T01:43:12.447Z",
+        "reason": "Claude: teal hextech glow is the client's own visual language per docs/research/2026-11-09-lol-client-ui.md and ready-check.md (ring halo, studs); throwaway hi-fi mockup"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/home.html"
+        ],
+        "createdAt": "2026-11-10T01:43:12.792Z",
+        "reason": "Claude: flagged pairs read kit border-box gradients or SVG fill as the background/colour; text sits on dark padding-box fills (checked in screenshots); the greyed ACCEPT! label is the client's disabled state and aria-hidden"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:45:58.519Z",
+        "reason": "Claude: false positive on the contact hi-fi mockup; banner text sits on the dark .bn__body fill (#041824), the #C8AA6E it reports is the 2px banner trim behind; the real pair (#2CC0DE on the queue card) was fixed"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:45:59.087Z",
+        "reason": "Claude: hextech teal glow is the League client's own visual language (docs/research/2026-11-09-lol-client-ui.md magic-button hover text-shadow, ready-check ring); several hits come from kit/hextech.css; throwaway mockup"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:45:59.551Z",
+        "reason": "Claude: kit crest monogram uses the client's measured promoted-number gradient (docs/research/2026-11-09-shell-lobby-screens.md §7.1), same exception as kit/hextech.css"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:46:00.208Z",
+        "reason": "Claude: rule fires on kit/hextech.css (.hxh-row[aria-current] drawer marker = client open-party marker, shell report §4.1), not editable from this page"
+      },
+      {
+        "rule": "radial-halo",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:46:00.734Z",
+        "reason": "Claude: transient crest gem flash (radial #CDFAFA -> transparent, opacity 0 at rest) specified in docs/research/2026-11-09-shell-lobby-screens.md §5.2"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          ".superpowers/hifi/contact.html"
+        ],
+        "createdAt": "2026-11-10T01:46:01.353Z",
+        "reason": "Claude: the 'raster' is a decorative SVG hex lattice deliberately faded into the vignette (replaces a mask to save a full-screen GPU layer)"
+      }
+    ]
+  }
+}
