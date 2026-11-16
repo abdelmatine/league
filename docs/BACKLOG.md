@@ -6,7 +6,7 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**T00 · Commit the planning docs** (partial: committed on the local branch `docs/hextech-planning`; needs the owner's OK to push and merge). After it: T01.
+**T01 · Decision log** (S; needs no owner input). After it: T04. T02 opens for the owner once T01 has written the form.
 
 How the next task is chosen:
 - Take the first task in "Suggested order" whose status is `todo` or `partial` and whose dependencies are `done`.
@@ -39,20 +39,20 @@ How the next task is chosen:
 
 Each task has points: XS = 1, S = 2, M = 4, L = 6. Done % = done points / total points.
 
-**Today: 16 of 119 points done = 13%. 103 points (87%) left.**
+**Today: 17 of 119 points done = 14%. 102 points (86%) left.**
 
 This points count replaces the earlier rough "about 20%" estimate. It is stricter, because half-built mockups score nothing until they are finished.
 
 | Phase | Points done / total | Status |
 |---|---|---|
 | Discovery so far (D1–D7) | 16 / 16 | done |
-| 0. Housekeeping (T00) | 0 / 1 | partial (committed locally; waiting for the owner's OK) |
+| 0. Housekeeping (T00) | 1 / 1 | done |
 | 1. Decide (T01–T04) | 0 / 6 | ready |
 | 2. Mockups (T09–T14) | 0 / 20 | ready (kit done; screens half built) |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 0 / 70 | L01–L05 ready after T00; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 0 / 70 | L01–L05 ready; the rest after phase 3 |
 
-### Already done (16 points)
+### Done before this backlog (16 points)
 
 | ID | What | Points | Output |
 |---|---|---|---|
@@ -112,8 +112,8 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 
 ## Phase 0: Housekeeping
 
-### T00 · Commit the planning docs · XS · status: partial (2026-11-16: committed locally, not pushed)
-- **Pick up:** the files are committed on the local branch `docs/hextech-planning`. Nothing is pushed. Get the owner's OK, then push, open the PR, merge it, check production, and set this card to `done`.
+### T00 · Commit the planning docs · XS · status: done 2026-11-16
+- **Output:** `CLAUDE.md`, `docs/`, `.gitignore`, `.claude/launch.json` and `.impeccable/config.json` are on `main`, merged from the branch `docs/hextech-planning`.
 - **Why:** everything since 2026-11-09 is uncommitted. A fresh session on another machine would see nothing.
 - **Do:**
   - Branch `docs/hextech-planning`.
@@ -407,4 +407,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 ## Log
 
 - 2026-11-16: backlog created from `docs/CHECKPOINT.md`. The mockup workflow can now run one screen per session (`args.only`) and reuses the built kit by default. The 23 unanswered research items are folded into T01 (decision log) and lot spikes instead of a research fan-out.
-- 2026-11-16: T00 partial. The planning docs are committed on the local branch `docs/hextech-planning`. Push, PR and merge wait for the owner's OK.
+- 2026-11-16: T00 done. The planning docs are merged to `main` from `docs/hextech-planning`, with the owner's OK. Next: T01.
