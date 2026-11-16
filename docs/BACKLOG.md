@@ -6,7 +6,13 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**T01 · Decision log** (S; needs no owner input). After it: T04. T02 opens for the owner once T01 has written the form.
+**L01 · Cleanup and compliance** is built on the local branch `lot/L01-cleanup` (tip `382b3d0`) and waits for the owner's OK to push and open the PR. After that: **L02 · Tailwind 4** (not started), then **T10 · Mockup: home**.
+
+Waiting on the owner:
+- **T02**: fill in `docs/OWNER-QUESTIONS.md` (51 answer lines).
+- **T03**: OK to install the three.js skills.
+- OK to push `docs/decisions-legal` and `lot/L01-cleanup`.
+- Legal calls in `docs/DECISIONS.md` → "Legal": follow the strict logo rules (no logo for React, Spring, Docker, Java) or accept the risk; keep or drop the game and publisher names in the footer notice.
 
 How the next task is chosen:
 - Take the first task in "Suggested order" whose status is `todo` or `partial` and whose dependencies are `done`.
@@ -39,7 +45,7 @@ How the next task is chosen:
 
 Each task has points: XS = 1, S = 2, M = 4, L = 6. Done % = done points / total points.
 
-**Today: 17 of 119 points done = 14%. 102 points (86%) left.**
+**Today: 23 of 119 points done = 19%. 96 points (81%) left.** L01 (2 points) is built but counts only after the merge.
 
 This points count replaces the earlier rough "about 20%" estimate. It is stricter, because half-built mockups score nothing until they are finished.
 
@@ -47,10 +53,10 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 |---|---|---|
 | Discovery so far (D1–D7) | 16 / 16 | done |
 | 0. Housekeeping (T00) | 1 / 1 | done |
-| 1. Decide (T01–T04) | 0 / 6 | ready |
-| 2. Mockups (T09–T14) | 0 / 20 | ready (kit done; screens half built) |
+| 1. Decide (T01–T04) | 4 / 6 | T01, T04 done; T02, T03 wait on the owner |
+| 2. Mockups (T09–T14) | 2 / 20 | T09 done; screens half built |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 0 / 70 | L01–L05 ready; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 0 / 70 | L01 built, waits for owner OK; L02–L05 ready; the rest after phase 3 |
 
 ### Done before this backlog (16 points)
 
@@ -126,7 +132,9 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 
 ## Phase 1: Decide
 
-### T01 · Decision log · S · status: todo
+### T01 · Decision log · S · status: done 2026-11-16
+- **Output:** `docs/DECISIONS.md` (18 contradiction rows C01–C18, 10 gap rows G01–G10: 12 decided, 8 owner, 6 lot spikes, 2 sent to T04) and `docs/OWNER-QUESTIONS.md` (51 answer lines). A second agent matched all 28 rows to the critic file and spot-checked 11 decided rows against the reports.
+- **Weak rows:** C13 (easing names) and C14 (toast position, 5 s) rest on the critic's text, not a report §0. G04's NEUTRAL tone mapping on the 8-bit path is a reconciliation; L09 must measure it.
 - **Why:** the reports disagree on 18 points, and 10 gaps were left open. Most are already settled by the reports' own "§0 Decisions" sections. This turns them into one table instead of running 23 more research agents.
 - **Read:**
   - `docs/checkpoints/critic-result.json` (gaps + contradictions)
@@ -154,7 +162,10 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 - **Note:** the skills target React 19 + r3f 9. They're most useful from L04 on.
 - **Done when:** the skills appear in the skill list.
 
-### T04 · Legal limits check · S · status: todo
+### T04 · Legal limits check · S · status: done 2026-11-16
+- **Output:** `docs/DECISIONS.md` → "Legal": do/don't rules, a per-mark table (19 marks), footer notice and credits. A second agent re-fetched the five main claims and corrected four overstated ones.
+- **Result:** gold 3D extrusion only for Angular (CC BY 4.0) and the community JS shield. All other marks: flat unaltered logo or name only. No Java cup, no Duke (licence unread), no Spring or Docker logo.
+- **Unconfirmed:** case law on GUI look, trade dress law, Oracle and OpenJDK pages (HTTP 403), the rows for Node.js, Kubernetes, PostgreSQL and MongoDB. Not legal advice.
 - **Read:** `docs/research/2026-11-09-type-sound-legal.md` §C, and critic gap "Legal limits on copying the client GUI, and on 3D versions of framework marks".
 - **Do:** one focused web-research pass (single agent):
   - trade dress and copyright risk of a site styled after a game client's UI
@@ -177,7 +188,12 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 
 Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 
-### T09 · Mockup kit refresh · S · status: todo
+### T09 · Mockup kit refresh · S · status: done 2026-11-16
+- **Output:** `.superpowers/hifi/kit/hextech.css` and `kit/demo.html` (local). Screenshots `shots/kit/t09-*.png`: 0 console errors at 1440 and 390 wide.
+- **Fonts:** not switched (owner pick C06 is open). `--font-display` and `--font-body` now sit in one block at the top of `hextech.css`. The swap also needs self-hosted Literata and Source Sans 3 files; the kit still loads Google Fonts.
+- **Copy:** banned nouns removed from visible text. "Champion pedestal", "Champ select", "Loot" and "Lobby" stay until the owner decides.
+- **Checker flags:** the one-side border and the 10px text are fixed. Glows and uppercase display text are kept (they are the look). Open: section numbers "01"–"06" at about 3:1 contrast; repeated text in one demo container, not looked at.
+- **Not re-shot:** the four screen pages, which share `hextech.css`.
 - **Depends:** T01 (fonts and copy decisions).
 - **Do:**
   - Apply the decided fonts to `.superpowers/hifi/kit/hextech.css` (if Literata/Source Sans 3: self-host or Google Fonts, tabular numerals).
@@ -258,7 +274,11 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - Vercel preview screenshots at 1440×900 and 390×844.
 - Owner OK → merge → production check → tick here.
 
-### L01 · Cleanup and compliance · S · status: todo
+### L01 · Cleanup and compliance · S · status: partial (built 2026-11-16; waits for owner OK to push)
+- **Where:** local branch `lot/L01-cleanup`, 5 commits, tip `382b3d0`. Not pushed.
+- **Result:** `dist` 6.31 MB → 5.11 MB, 452 lockfile packages removed, music and howler gone, build passes, lint unchanged (3 old errors), 38 asset URLs resolve, clean console. A second agent reviewed the diff: no defect.
+- **Pick up:** push the branch, open the PR, check the Vercel preview at 1440×900 and 390×844 against production (no screenshot diff was made), confirm the `/_app/` cache header and that `engines.node: 24.x` builds on Vercel, get the owner's OK, merge, check production.
+- **Known:** the Headphones button in the sidebar still toggles its colour but plays nothing.
 - **Story:** as the owner, I want the live site free of ripped audio and dead code, so it is legally safe and lighter.
 - **Read:** stack-modernization §8, §9, §11 "Lot A"; codebase-audit §0, §10.
 - **Do:**
@@ -268,6 +288,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - **Done when:** the site looks the same, the music is gone, and the build is smaller.
 
 ### L02 · Tailwind 4 · S · status: todo
+- **Note 2026-11-16:** a run started and was stopped by the usage guard before any change. Branch from `lot/L01-cleanup` if L01 is not merged yet.
 - **Read:** stack-modernization §3, §11 "Lot B".
 - **Done when:** the site looks identical on the preview (screenshot diff by eye).
 
@@ -408,3 +429,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 
 - 2026-11-16: backlog created from `docs/CHECKPOINT.md`. The mockup workflow can now run one screen per session (`args.only`) and reuses the built kit by default. The 23 unanswered research items are folded into T01 (decision log) and lot spikes instead of a research fan-out.
 - 2026-11-16: T00 done. The planning docs are merged to `main` from `docs/hextech-planning`, with the owner's OK. Next: T01.
+- 2026-11-16: one run of five tasks, by the owner's request (overrides rule 3 for that run). Done: T01, T04, T09. L01 is built on a local branch and waits for the owner's OK. L02 was stopped by the usage guard at 73% before any change. Progress 19%. Next: L01 push and PR, then L02, then T10.
