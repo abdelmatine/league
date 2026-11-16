@@ -6,12 +6,11 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**L01 · Cleanup and compliance** is built on the local branch `lot/L01-cleanup` (tip `382b3d0`) and waits for the owner's OK to push and open the PR. After that: **L02 · Tailwind 4** (not started), then **T10 · Mockup: home**.
+**L02 · Tailwind 4** (S; not started). After it: T10 · Mockup: home.
 
 Waiting on the owner:
 - **T02**: fill in `docs/OWNER-QUESTIONS.md` (51 answer lines).
 - **T03**: OK to install the three.js skills.
-- OK to push `docs/decisions-legal` and `lot/L01-cleanup`.
 - Legal calls in `docs/DECISIONS.md` → "Legal": follow the strict logo rules (no logo for React, Spring, Docker, Java) or accept the risk; keep or drop the game and publisher names in the footer notice.
 
 How the next task is chosen:
@@ -45,7 +44,7 @@ How the next task is chosen:
 
 Each task has points: XS = 1, S = 2, M = 4, L = 6. Done % = done points / total points.
 
-**Today: 23 of 119 points done = 19%. 96 points (81%) left.** L01 (2 points) is built but counts only after the merge.
+**Today: 25 of 119 points done = 21%. 94 points (79%) left.**
 
 This points count replaces the earlier rough "about 20%" estimate. It is stricter, because half-built mockups score nothing until they are finished.
 
@@ -56,7 +55,7 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 | 1. Decide (T01–T04) | 4 / 6 | T01, T04 done; T02, T03 wait on the owner |
 | 2. Mockups (T09–T14) | 2 / 20 | T09 done; screens half built |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 0 / 70 | L01 built, waits for owner OK; L02–L05 ready; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02–L05 ready; the rest after phase 3 |
 
 ### Done before this backlog (16 points)
 
@@ -274,10 +273,9 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - Vercel preview screenshots at 1440×900 and 390×844.
 - Owner OK → merge → production check → tick here.
 
-### L01 · Cleanup and compliance · S · status: partial (built 2026-11-16; waits for owner OK to push)
-- **Where:** local branch `lot/L01-cleanup`, 5 commits, tip `382b3d0`. Not pushed.
-- **Result:** `dist` 6.31 MB → 5.11 MB, 452 lockfile packages removed, music and howler gone, build passes, lint unchanged (3 old errors), 38 asset URLs resolve, clean console. A second agent reviewed the diff: no defect.
-- **Pick up:** push the branch, open the PR, check the Vercel preview at 1440×900 and 390×844 against production (no screenshot diff was made), confirm the `/_app/` cache header and that `engines.node: 24.x` builds on Vercel, get the owner's OK, merge, check production.
+### L01 · Cleanup and compliance · S · status: done 2026-11-16
+- **Output:** merged to `main` (PR #3, merge `aa867a3`). `dist` 6.31 MB → 5.11 MB, 452 lockfile packages removed, music and howler gone.
+- **Checked on the Vercel preview:** builds on Node 24 in 28 s; `/_app/` assets are `immutable`, `index.html` is not; `/sounds/inqueue.mp3` returns 404; same look at 1440×900 and 390×844.
 - **Known:** the Headphones button in the sidebar still toggles its colour but plays nothing.
 - **Story:** as the owner, I want the live site free of ripped audio and dead code, so it is legally safe and lighter.
 - **Read:** stack-modernization §8, §9, §11 "Lot A"; codebase-audit §0, §10.
@@ -430,3 +428,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-16: backlog created from `docs/CHECKPOINT.md`. The mockup workflow can now run one screen per session (`args.only`) and reuses the built kit by default. The 23 unanswered research items are folded into T01 (decision log) and lot spikes instead of a research fan-out.
 - 2026-11-16: T00 done. The planning docs are merged to `main` from `docs/hextech-planning`, with the owner's OK. Next: T01.
 - 2026-11-16: one run of five tasks, by the owner's request (overrides rule 3 for that run). Done: T01, T04, T09. L01 is built on a local branch and waits for the owner's OK. L02 was stopped by the usage guard at 73% before any change. Progress 19%. Next: L01 push and PR, then L02, then T10.
+- 2026-11-16: L01 done (PR #3). Vercel had built nothing since 2026-06-26: Settings → Git showed "Project Link not found" for `abdelmatine/league`. The link came back after the owner signed in, and a new push built a preview. Previews sit behind Vercel login, so check them in a signed-in browser, not with curl. If a push shows no Vercel status on GitHub, look at Settings → Git first. Progress 21%. Next: L02.
