@@ -1,7 +1,6 @@
 import { Headphones, Mic, Settings } from "lucide-react";
 import React, { useState } from "react";
 import { FiMic, FiMicOff } from "react-icons/fi";
-import SoundPlayer from "../../hooks/SoundPlayer";
 
 export function FloatingGrid() {
   const [isMuted, setIsMuted] = useState(false);
@@ -41,7 +40,6 @@ export function FloatingGrid() {
       <button className="bg-[#1E2328] text-[#A09B8C] p-2 rounded hover:bg-[#252931] transition-colors">
         <Settings className="w-4 h-4 mx-auto" />
       </button>
-      <SoundPlayer isPlaying={isPlaying} />
     </div>
   );
 }
