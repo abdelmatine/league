@@ -1,0 +1,61 @@
+/* Design tokens: our own ramps (spec §4). Tailwind exposes each one as a utility and a CSS variable.
+   static: always emit every variable, since inline styles, GSAP and the 3D stage read them at runtime. */
+@theme static {
+  --color-ink-950: #01080f;
+  --color-ink-900: #03111c;
+  --color-ink-800: #0a1b27;
+  --color-ink-700: #13242f;
+  --color-gold-50: #f3ead6;
+  --color-gold-200: #d1b47c;
+  --color-gold-300: #c9a45a;
+  --color-gold-500: #87672f;
+  --color-gold-700: #4a3918;
+  --color-teal-100: #d3faf6;
+  --color-teal-300: #2fd0c4;
+  --color-teal-500: #0e98ae;
+  --color-teal-700: #0a5f7e;
+  --color-teal-900: #08313f;
+  --color-stone-200: #aba592;
+  --color-stone-400: #7f7a6c;
+  --color-stone-600: #45443f;
+  --color-ruby-400: #de4b60;
+  --color-jade-400: #3ccb86;
+
+  --font-display: 'Literata Caps', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --default-font-family: var(--font-body);
+
+  --text-hero: clamp(2.75rem, 8vw, 7rem);
+  --text-hero--line-height: 0.95;
+  --text-h2: clamp(1.875rem, 4vw, 2.75rem);
+  --text-h2--line-height: 1.05;
+  --text-h3: clamp(1.25rem, 1.1rem + 0.3vw, 1.375rem);
+  --text-h3--line-height: 1.2;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.625rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.25rem;
+
+  --tracking-display: 0.02em;
+  --tracking-label: 0.14em;
+
+  --ease-*: initial;
+  --ease-settle: cubic-bezier(0.12, 0.8, 0.16, 1);
+  --ease-show: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-glow: cubic-bezier(0.3, 0.1, 0.3, 1);
+  --ease-snap: cubic-bezier(0.95, 0, 0.8, 0.4);
+  --ease-in: cubic-bezier(0.6, 0, 0.9, 0.5);
+
+  /* Not a Tailwind namespace (its duration-* reads --transition-duration-*): plain variables for component CSS. */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --duration-slower: 480ms;
+  --duration-glow: 640ms;
+
+  /* Square UI: no radius except avatars and pills. */
+  --radius-*: initial;
+  --radius-full: 9999px;
+}

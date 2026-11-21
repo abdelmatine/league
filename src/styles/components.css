@@ -1,0 +1,310 @@
+/* Component styles (hx-*). Every ornament here is drawn in CSS or inline SVG; no third-party art.
+
+   Ornament construction rules (our own, spike G03/G08):
+   - Grid: whole pixels. Gems are 9 px (odd, so they centre on a 1 px line); chamfers are 10 px.
+   - Angles: 0, 45 and 90 degrees only. Gems are squares turned 45 degrees; chamfers cut at 45 degrees.
+   - Strokes: 1 px everywhere. A frame is a 1 px gradient border plus a 1 px hairline 3 px inside it.
+   - Gold runs gold-700 -> gold-500 -> gold-200 towards the anchored (bright) edge. Teal is energy only:
+     gem cores, game-action fills, progress.
+   - A gem is a 1 px gold-200 outline on ink with a teal-300 core, centred on the line or corner it marks.
+   - Hairlines fade out over the outer 10 % of their length.
+   - Buttons cut the top-left and bottom-right corners; frames keep square corners and carry gems. */
+
+@layer components {
+  :root {
+    --hx-gem: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 9 9'%3E%3Cpath d='M4.5.5 8.5 4.5 4.5 8.5.5 4.5Z' fill='%2301080f' stroke='%23d1b47c'/%3E%3Cpath d='M4.5 2.75 6.25 4.5 4.5 6.25 2.75 4.5Z' fill='%232fd0c4'/%3E%3C/svg%3E");
+    --hx-hairline: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-gold-700) 10%,
+      var(--color-gold-500) 32%,
+      var(--color-gold-200) 50%,
+      var(--color-gold-500) 68%,
+      var(--color-gold-700) 90%,
+      transparent
+    );
+  }
+
+  /* ---------- Type roles (spec §4) ---------- */
+  .hx-hero,
+  .hx-h2,
+  .hx-h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    color: var(--color-gold-50);
+  }
+  .hx-hero {
+    font-size: var(--text-hero);
+    line-height: var(--text-hero--line-height);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+  }
+  .hx-h2 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+  }
+  .hx-h3 {
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .hx-eyebrow {
+    margin: 0;
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    font-weight: 600;
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--color-gold-200);
+  }
+  .hx-num {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .hx-gold-text {
+    background: linear-gradient(180deg, var(--color-gold-50) 18%, var(--color-gold-200) 58%, var(--color-gold-500));
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------- Frame: 1 px gradient border, inner hairline, optional corner gems ---------- */
+  .hx-frame {
+    --frame-dir: to bottom;
+    --frame-hi: var(--color-gold-200);
+    --frame-mid: var(--color-gold-500);
+    --frame-lo: var(--color-gold-700);
+    --frame-fill: var(--color-ink-900);
+    position: relative;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--frame-fill), var(--frame-fill)) padding-box,
+      linear-gradient(var(--frame-dir), var(--frame-hi), var(--frame-mid) 40%, var(--frame-lo)) border-box;
+    box-shadow:
+      0 0 0 1px rgb(1 8 15 / 0.7),
+      0 18px 40px -18px rgb(0 0 0 / 0.8);
+  }
+  .hx-frame::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border: 1px solid color-mix(in oklab, var(--frame-mid) 45%, transparent);
+    pointer-events: none;
+  }
+  .hx-frame[data-anchor='bottom'] {
+    --frame-dir: to top;
+  }
+  .hx-frame[data-anchor='left'] {
+    --frame-dir: to right;
+  }
+  .hx-frame[data-anchor='right'] {
+    --frame-dir: to left;
+  }
+  .hx-frame[data-tone='dim'] {
+    --frame-hi: var(--color-gold-500);
+    --frame-mid: var(--color-gold-700);
+    --frame-lo: color-mix(in oklab, var(--color-gold-700) 55%, transparent);
+  }
+  .hx-frame[data-corners]::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    z-index: 1;
+    background:
+      var(--hx-gem) left top / 9px no-repeat,
+      var(--hx-gem) right top / 9px no-repeat,
+      var(--hx-gem) left bottom / 9px no-repeat,
+      var(--hx-gem) right bottom / 9px no-repeat;
+    opacity: var(--hx-orn, 1);
+    pointer-events: none;
+  }
+
+  /* ---------- Buttons: chamfered rim + fill layers, sheen sweep, press .97 ---------- */
+  .hx-btn {
+    --cut: 10px;
+    --btn-h: 2.5rem;
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: var(--btn-h);
+    padding: 0 1.375rem;
+    border: 0;
+    background: none;
+    color: var(--btn-ink);
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      transform var(--duration-fast) var(--ease-settle),
+      color var(--duration-slower) var(--ease-glow),
+      filter var(--duration-slower) var(--ease-glow);
+  }
+  .hx-btn::before,
+  .hx-btn::after,
+  .hx-btn__fx {
+    position: absolute;
+    z-index: -2;
+    pointer-events: none;
+    clip-path: polygon(
+      var(--c) 0,
+      100% 0,
+      100% calc(100% - var(--c)),
+      calc(100% - var(--c)) 100%,
+      0 100%,
+      0 var(--c)
+    );
+  }
+  .hx-btn::before {
+    --c: var(--cut);
+    content: '';
+    inset: 0;
+    background: var(--btn-rim);
+    transition: filter var(--duration-slower) var(--ease-glow);
+  }
+  .hx-btn::after,
+  .hx-btn__fx {
+    --c: calc(var(--cut) - 0.41px); /* keeps the diagonal rim 1 px wide */
+    inset: 1px;
+  }
+  .hx-btn::after {
+    content: '';
+    background: var(--btn-fill);
+    transition: filter var(--duration-slower) var(--ease-glow);
+  }
+  .hx-btn__fx {
+    z-index: -1;
+    overflow: hidden;
+  }
+  .hx-btn__fx::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 55%;
+    background: linear-gradient(100deg, transparent, var(--btn-sheen), transparent);
+    transform: translateX(-120%) skewX(-14deg);
+  }
+  .hx-btn--lg {
+    --btn-h: 3rem;
+    padding: 0 2rem;
+    font-size: var(--text-body);
+  }
+
+  .hx-btn--gold {
+    --btn-ink: var(--color-gold-200);
+    --btn-rim: linear-gradient(to bottom, var(--color-gold-200), var(--color-gold-500) 55%, var(--color-gold-300));
+    --btn-fill: linear-gradient(to bottom, var(--color-ink-800), var(--color-ink-950));
+    --btn-sheen: rgb(243 234 214 / 0.22);
+  }
+  .hx-btn--magic {
+    --btn-ink: var(--color-teal-100);
+    --btn-rim: linear-gradient(to bottom, var(--color-gold-200), var(--color-gold-500) 50%, var(--color-gold-300));
+    --btn-fill:
+      radial-gradient(120% 100% at 50% 135%, rgb(47 208 196 / 0.6), transparent 62%),
+      linear-gradient(to bottom, var(--color-teal-700), var(--color-teal-900));
+    --btn-sheen: rgb(211 250 246 / 0.3);
+    text-shadow: 0 0 10px rgb(47 208 196 / 0.45);
+  }
+
+  .hx-btn:focus-visible,
+  .hx-btn[data-force='hover'] {
+    --btn-ink: var(--color-gold-50);
+  }
+  .hx-btn--magic:focus-visible,
+  .hx-btn--magic[data-force='hover'] {
+    --btn-ink: #fff;
+    filter: drop-shadow(0 0 10px rgb(47 208 196 / 0.5));
+  }
+  .hx-btn:is(:focus-visible, [data-force='hover'])::before,
+  .hx-btn:is(:focus-visible, [data-force='hover'])::after {
+    filter: brightness(1.3);
+  }
+  .hx-btn:is(:focus-visible, [data-force='hover']) .hx-btn__fx::before {
+    transform: translateX(280%) skewX(-14deg);
+    transition: transform var(--duration-glow) var(--ease-settle);
+  }
+  @media (hover: hover) {
+    .hx-btn:hover {
+      --btn-ink: var(--color-gold-50);
+      transition-duration: var(--duration-fast);
+    }
+    .hx-btn--magic:hover {
+      --btn-ink: #fff;
+      filter: drop-shadow(0 0 10px rgb(47 208 196 / 0.5));
+    }
+    .hx-btn:hover::before,
+    .hx-btn:hover::after {
+      filter: brightness(1.3);
+      transition-duration: var(--duration-fast);
+    }
+    .hx-btn:hover .hx-btn__fx::before {
+      transform: translateX(280%) skewX(-14deg);
+      transition: transform var(--duration-glow) var(--ease-settle);
+    }
+  }
+  .hx-btn:active,
+  .hx-btn[data-force='active'] {
+    transform: scale(0.97);
+  }
+  .hx-btn:is(:disabled, [aria-disabled='true']) {
+    --btn-ink: var(--color-stone-400);
+    --btn-rim: var(--color-stone-600);
+    --btn-fill: var(--color-ink-800);
+    cursor: not-allowed;
+    filter: none;
+    text-shadow: none;
+    transform: none;
+  }
+  .hx-btn:is(:disabled, [aria-disabled='true'])::before,
+  .hx-btn:is(:disabled, [aria-disabled='true'])::after {
+    filter: none;
+  }
+  .hx-btn:is(:disabled, [aria-disabled='true']) .hx-btn__fx {
+    display: none;
+  }
+
+  /* ---------- Divider: gold hairline with a centre gem ---------- */
+  .hx-divider {
+    position: relative;
+    height: 1px;
+    margin: 1.5rem 0;
+    border: 0;
+    overflow: visible;
+    background: var(--hx-hairline);
+  }
+  .hx-divider::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 9px;
+    height: 9px;
+    translate: -50% -50%;
+    background: var(--hx-gem) center / 9px no-repeat;
+    filter: drop-shadow(0 0 4px rgb(47 208 196 / 0.55));
+  }
+  .hx-divider--short {
+    width: min(15rem, 100%);
+    margin-inline: auto;
+  }
+
+  /* ---------- Icon ---------- */
+  .hx-icon {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}

@@ -1,0 +1,112 @@
+/* Self-hosted, versioned fonts (vercel.json marks /fonts/* immutable; bump -vN when a file changes). */
+@font-face {
+  font-family: 'Literata Caps';
+  src: url('/fonts/literata-caps-v1.woff2') format('woff2');
+  font-weight: 500 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonts/source-sans-3-v1.woff2') format('woff2');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --hdr: 72px;
+  }
+  @media (width < 48rem) {
+    :root {
+      --hdr: 56px;
+    }
+  }
+
+  html {
+    background: var(--color-ink-950);
+    scroll-padding-top: var(--hdr);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100svh;
+    overflow-x: clip;
+    background: var(--color-ink-950);
+    color: var(--color-stone-200);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-synthesis: style;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgb(209 180 124 / 0.35);
+    color: var(--color-gold-50);
+  }
+
+  a {
+    color: var(--color-gold-200);
+    text-decoration: none;
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold-200);
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    background: var(--color-gold-500) padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-gold-200);
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-gold-500) transparent;
+    }
+  }
+
+  /* Reveal gate (spec §8). Without JS nothing is hidden. With JS, [data-reveal] waits for its reveal;
+     a component that arms a reveal sets data-reveal="armed" (no failsafe: JS owns it from there),
+     the reveal sets "done". If JS dies before arming, the failsafe shows the content after 3 s. */
+  html.js [data-reveal=''],
+  [data-reveal='armed'] {
+    opacity: 0;
+  }
+  html.js [data-reveal=''] {
+    animation: hx-failsafe 1ms 3s both;
+  }
+  @keyframes hx-failsafe {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 1ms !important;
+      transition-delay: 0s !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

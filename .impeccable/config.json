@@ -138,6 +138,15 @@
         ],
         "createdAt": "2026-11-10T01:46:01.353Z",
         "reason": "Claude: the 'raster' is a decorative SVG hex lattice deliberately faded into the vignette (replaces a mask to save a full-screen GPU layer)"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "src/styles/components.css"
+        ],
+        "createdAt": "2026-11-21T18:22:48.876Z",
+        "reason": "Claude (L06): metallic gold display text is part of the approved hi-fi mockup look (.superpowers/hifi/shots/t14/home-1440x900-9000.png) that the caller asked to port"
       }
     ]
   }
