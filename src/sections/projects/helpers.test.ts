@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { profile } from '../../content/profile'
 import { shownProjects } from '../../lib/content'
-import { centreOut, EMBLEM_SIZES, emblemSrc, hostOf, lobbies, monogram } from './helpers'
+import { monogram } from '../../lib/content'
+import { centreOut, EMBLEM_SIZES, emblemSrc, hostOf, lobbies } from './helpers'
 
 describe('lobby helpers', () => {
   it('splits the projects into lobbies of the visible count', () => {
@@ -21,7 +22,7 @@ describe('lobby helpers', () => {
   })
 
   it('makes monograms and display hosts', () => {
-    expect(['React', 'Spring Boot', 'React Native', 'PostgreSQL', 'C++', 'Qt'].map(monogram)).toEqual(['R', 'SB', 'RN', 'P', 'C++', 'Qt'])
+    expect(['react', 'springboot', 'react-native', 'postgresql', 'c++', 'qt'].map((id, i) => monogram({ id, name: ['React', 'Spring Boot', 'React Native', 'PostgreSQL', 'C++', 'Qt'][i] }))).toEqual(['R', 'SB', 'RN', 'PG', 'C++', 'Qt'])
     expect(hostOf('https://www.example.com/path')).toBe('example.com')
     expect(hostOf('https://monoo.lovable.app')).toBe('monoo.lovable.app')
   })

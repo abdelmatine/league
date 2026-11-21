@@ -1,5 +1,5 @@
 import { techById } from '../../lib/content'
-import { monogram } from './helpers'
+import { monogram } from '../../lib/content'
 import './techchip.css'
 
 /** A tech as a small gold diamond, following its logo policy: the official logo, flat and unaltered,
@@ -10,7 +10,7 @@ export function TechChip({ id, named = true, className = '' }: { id: string; nam
   return (
     <span className={`tc ${className}`}>
       <span className="tc__face" aria-hidden="true">
-        {t.logo ? <img src={t.logo} alt="" loading="lazy" decoding="async" draggable={false} /> : <span className="tc__mono">{monogram(t.name)}</span>}
+        {t.logo ? <img src={t.logo} alt="" loading="lazy" decoding="async" draggable={false} /> : <span className="tc__mono">{monogram(t)}</span>}
       </span>
       {named && <span className="sr-only">{t.name}</span>}
     </span>

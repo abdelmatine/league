@@ -13,6 +13,12 @@ export const techCount = (list: readonly Tech[] = tech) => list.length
 
 export const techById = (id: string, list: readonly Tech[] = tech) => list.find((t) => t.id === id)
 
+/** Our monogram for marks shown by name only: short names whole, otherwise word initials.
+ *  Names whose initials read badly get a fixed one. One helper for every section. */
+const MONO: Record<string, string> = { postgresql: 'PG' }
+export const monogram = (t: Pick<Tech, 'id' | 'name'>) =>
+  MONO[t.id] ?? (t.name.length <= 3 ? t.name : (t.name.match(/\b\w/g) ?? []).join('').toUpperCase())
+
 /** The five lane mains with their shown-project counts, most used first (ties keep lane order). */
 export function mainsByUsage(mains: Record<Lane, string> = profile.mains, list: readonly Project[] = shownProjects(), techs: readonly Tech[] = tech) {
   return laneOrder

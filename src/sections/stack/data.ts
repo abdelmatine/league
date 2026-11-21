@@ -6,8 +6,7 @@ export type LaneFilter = Lane | 'all'
 /** Usage line for a tech: real counts only, never a rating. */
 export const usageLabel = (n: number) => (n ? `${n} project${n === 1 ? '' : 's'}` : 'No listed projects yet')
 
-/** Our monogram for 'name' marks: short names whole, otherwise initials (PostgreSQL reads as PG). */
-export const monogram = (t: Tech) => (t.id === 'postgresql' ? 'PG' : t.name.length <= 3 ? t.name : (t.name.match(/\b\w/g) ?? []).join('').toUpperCase())
+export { monogram } from '../../lib/content'
 
 /** Lane filter plus a case-insensitive search over name, id and lane. */
 export function matches(t: Tech, filter: LaneFilter, query: string) {

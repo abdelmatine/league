@@ -14,15 +14,5 @@ export function centreOut<T>(items: readonly T[]): T[] {
   return row
 }
 
-/** Our own monogram for marks shown by name only: short names as they are, else up to two initials. */
-export const monogram = (name: string) =>
-  name.length <= 3
-    ? name
-    : name
-        .split(/\s+/)
-        .map((w) => w[0])
-        .join('')
-        .slice(0, 2)
-
 /** Host name for display: https://www.example.com/ -> example.com. */
 export const hostOf = (url: string) => new URL(url).hostname.replace(/^www\./, '')

@@ -14,6 +14,7 @@ import { armIntro } from './stack/intro'
 import { playLockIn } from './stack/lockin'
 import { TechMark } from './stack/TechMark'
 import './stack/stack.css'
+import { Emblem } from './projects/Emblem'
 
 const LANE_IDS = Object.keys(LANES) as Lane[]
 const FILTERS: LaneFilter[] = ['all', ...LANE_IDS]
@@ -302,6 +303,7 @@ export function Stack() {
           </p>
         </div>
 
+        <div className="cs-deck">
         <div className="cs-box">
           <div className="cs-pick" inert={sheet}>
             <div className="cs-gridhead">
@@ -424,6 +426,7 @@ export function Stack() {
             {sheet ? 'Locked in' : 'Lock in'}
           </MagicButton>
         </div>
+        </div>
       </div>
 
       {/* RIGHT: the title, what it shipped alongside, then the projects that use it */}
@@ -476,7 +479,7 @@ export function Stack() {
                 <li key={p.slug}>
                   <a className="cs-skin" href={`#projects/${p.slug}`}>
                     <span className="cs-skin__pic">
-                      <img src={p.image} alt="" width={44} height={44} loading="lazy" decoding="async" />
+                      <Emblem slug={p.slug} sizes="44px" />
                     </span>
                     <span className="cs-skin__txt">
                       <b>{p.name}</b>
