@@ -11,6 +11,8 @@ Status values:
 - **spike in lot LNN**: needs a measurement in real code. Do it first in that lot.
 - **T04**: waits for the legal check.
 
+**2026-11-21:** every row marked **owner** now has a working default, taken from `docs/OWNER-QUESTIONS.md` ("Default (Claude, 2026-11-21)") and applied in the design spec `docs/superpowers/specs/2026-11-21-portfolio-design.md` §2. The owner can still change any of them. Two later rules override older rows: the easing table in C13 is replaced by our own curves (spec §4), because the legal section says not to ship the client's easing and timing values as a set; C12 is settled by the legal section (no measured client outlines in production).
+
 Report names are short for `docs/research/2026-11-09-<name>.md`. "gap-results" is `docs/checkpoints/gap-results.json`.
 
 ## Fonts, copy and naming
@@ -237,3 +239,15 @@ Credits list (credits page; keep only the lines for marks actually shown):
 - CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
 
 ## Mockup feedback
+
+### Claude's self-review, 2026-11-21 (T10–T14)
+
+The owner has not reviewed the mockups yet. These notes come from Claude's own pass; the owner's reactions still go here.
+
+- **All four screens are complete.** The builders of 2026-11-10 had finished more than the checkpoint said; the pages only looked stuck because the browser pane pauses animations while it is hidden. Fresh captures at 1440×900 and 390×844 (`.superpowers/hifi/shots/t14/`) show 0 console errors, 0 page errors and 0 failed requests. The gallery is `.superpowers/hifi/index.html`.
+- **Home (T10):** loader, header, 3D core and About band read well on both sizes. "Open to work", "5 years" and the mastery numbers are placeholders; the build uses real data only.
+- **Stack (T11):** strongest screen. Lane labels mix game terms (Top, Jungle, Mid, Bot, Support) with roles; the build uses roles only. Several marks are extruded in 3D (Next.js, React, Spring Boot); the build follows the legal table (3D for Angular and JS only).
+- **Contact (T12):** the full storyboard works: blur validation, IN QUEUE card, MATCH FOUND dialog with a 12 s ring, ACCEPT → persistent toast, DECLINE → back to the form. It answers C04 as the spec's default.
+- **Projects (T13):** lobby banners, career cards and the post-game screen look finished. Ratings and ranks ("DIAMOND · 4.5") come from made-up data and are dropped in the build; the career cards are sample content and stay hidden until real entries exist.
+- **Fonts:** the mockups use Marcellus SC + Barlow from Google Fonts. The build self-hosts the report pick, Literata + Source Sans 3 (C06 default).
+
