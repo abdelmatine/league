@@ -6,11 +6,10 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**L03 · Vite 8, TypeScript 7, oxlint** (M; not started). It stacks on the L02 branch. After it: T10 · Mockup: home.
-
-Waiting on the owner's OK: push `lot/L02-tailwind4` (it also carries the L01 backlog tick), open the PR, check the preview, merge.
+**L04 · React 19 + 3D stack + GSAP/Lenis** (S; not started). It stacks on the L03 branch. After it: L05, then T10 · Mockup: home.
 
 Waiting on the owner:
+- **OK to push** `lot/L02-tailwind4` and `lot/L03-vite8-ts7` (stacked: merge L02 first), open the PRs, check the previews, merge.
 - **T02**: fill in `docs/OWNER-QUESTIONS.md` (51 answer lines).
 - **T03**: OK to install the three.js skills.
 - Legal calls in `docs/DECISIONS.md` → "Legal": follow the strict logo rules (no logo for React, Spring, Docker, Java) or accept the risk; keep or drop the game and publisher names in the footer notice.
@@ -57,7 +56,7 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 | 1. Decide (T01–T04) | 4 / 6 | T01, T04 done; T02, T03 wait on the owner |
 | 2. Mockups (T09–T14) | 2 / 20 | T09 done; screens half built |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02 built, waits for merge; L03–L05 ready; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02 and L03 built, wait for merge; L04–L05 ready; the rest after phase 3 |
 
 ### Done before this backlog (16 points)
 
@@ -295,13 +294,13 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - **Left for later:** the border compatibility layer stays until L06 sets explicit Hextech borders. Add `dialog { margin: auto }` with the `Dialog` component in L07 (v4 preflight zeroes it).
 - **Still to do:** push, PR, Vercel preview check at 1440×900 and 390×844, owner OK, merge.
 
-### L03 · Vite 8, TypeScript 7, oxlint · M · status: todo
-- **Read:** stack-modernization §5, §10.1, §11 "Lot C".
-- **Do:**
-  - Add the tsconfigs and convert `.jsx` → `.tsx`.
-  - Replace ESLint with oxlint.
-  - Fix the type errors.
-- **Done when:** `tsc` and oxlint are clean, and the site is unchanged.
+### L03 · Vite 8, TypeScript 7, oxlint · M · status: built 2026-11-21 (local branch `lot/L03-vite8-ts7`, stacked on L02; waits for the owner's OK)
+- **Output:** vite 8.3.7, @vitejs/plugin-react 6.3.0, typescript 7.0.2, oxlint 1.93.0, @types/node 24.19.2. ESLint and its 5 plugins are gone. `main.tsx`, `App.tsx`, `vite.config.ts`, three tsconfigs (create-vite react-ts template), `.oxlintrc.json` (report §10.1). `build` is now `tsc -b && vite build`; `lint` is `oxlint`. Vite build 9 s → 1 s; JS 1,304 → 1,274 kB.
+- **Type fixes:** 20 unused `React` imports and other unused imports or props, Hero event types, one `Material` cast. `src/shims.d.ts` declares `swiper/css`, `swiper/css/navigation` and `aos`; delete each line when L12 or L13 removes the library.
+- **oxlint fixes (5 errors):** the chat restore bar is a `<button>`; project cards get `role="button"`, `tabIndex` and Enter/Space (one `prefer-tag-over-role` suppression with its reason, since the card holds links); the texture setup in `FloatingIcon` moved into `useTexture`'s `onLoad`.
+- **Checked:** `tsc -b` and `oxlint` clean. Computed-style diff against the L02 build: the same, apart from colour notation (oklab) and the pointer cursor on project cards. No console errors. AOS reveals all 13 elements. The contact button reaches `emailjs.send` (request blocked in the test, nothing sent). The lockfile holds the Linux binaries for rolldown, oxlint, tsc, oxide and lightningcss.
+- **Found, not fixed (pre-existing on `main`):** the contact form has no `onSubmit`, so the button also does a native submit that reloads the page. L15 replaces the form.
+- **Still to do:** push, PR, Vercel preview check, owner OK, merge (after L02).
 
 ### L04 · React 19 + 3D stack + GSAP/Lenis · S · status: todo
 - **Read:** stack-modernization §6, §7, §11 "Lot D"; webgl-magic §0.1 (pins).
@@ -435,3 +434,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-16: one run of five tasks, by the owner's request (overrides rule 3 for that run). Done: T01, T04, T09. L01 is built on a local branch and waits for the owner's OK. L02 was stopped by the usage guard at 73% before any change. Progress 19%. Next: L01 push and PR, then L02, then T10.
 - 2026-11-16: L01 done (PR #3). Vercel had built nothing since 2026-06-26: Settings → Git showed "Project Link not found" for `abdelmatine/league`. The link came back after the owner signed in, and a new push built a preview. Previews sit behind Vercel login, so check them in a signed-in browser, not with curl. If a push shows no Vercel status on GitHub, look at Settings → Git first. Progress 21%. Next: L02.
 - 2026-11-21: L02 built on `lot/L02-tailwind4` (from `main`, with the L01 backlog commit cherry-picked). A computed-style diff of every element found three v4 changes that showed (button cursor, placeholder colour, `space-x` margins); all three are back to the v3 look. Points count once it is merged. Progress stays 21%. Next: L03, stacked on the L02 branch.
+- 2026-11-21: L03 built on `lot/L03-vite8-ts7`, stacked on L02. `tsc` and oxlint are clean; the site matches the L02 build. Same session as L02, by the owner's request to continue through the backlog. Progress stays 21% until the lots merge. Next: L04.
