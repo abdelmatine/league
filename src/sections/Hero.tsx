@@ -1,10 +1,12 @@
 import { useRef } from 'react'
+import { heroRig } from '../components/stage/rig'
 import { GoldButton, MagicButton } from '../components/ui/Button'
 import { Divider } from '../components/ui/Divider'
 import { profile } from '../content/profile'
-import { useGSAP } from '../lib/motion'
+import { onReveal, reach } from '../lib/loader'
+import { gsap, prefersReducedMotion, useGSAP } from '../lib/motion'
 import { onAnchorClick } from '../lib/scroll'
-import { useStageScene } from '../lib/stageStore'
+import { stageSupported, useStageScene } from '../lib/stageStore'
 import { heroIntro, heroScroll } from './hero/motion'
 import { Poster } from './hero/Poster'
 import './hero/hero.css'
@@ -17,9 +19,17 @@ export function Hero() {
   const copy = useRef<HTMLDivElement>(null)
   useStageScene('home', section)
   useGSAP(
-    () => {
-      heroScroll(section.current!, copy.current!)
-      heroIntro(section.current!)
+    (_, contextSafe) => {
+      const root = section.current!
+      heroScroll(root, copy.current!)
+      if (!prefersReducedMotion()) gsap.set(heroRig, { intro: 0 }) // the core waits dark under the loader
+      reach('app')
+      if (!stageSupported()) {
+        reach('stage') // no 3D on this device: nothing to wait for, the poster is the first frame
+        reach('frame')
+      }
+      // The entrance plays as the loader leaves; after a skip or the failsafe everything is simply in place.
+      return onReveal(contextSafe!((intro: boolean) => void (intro ? heroIntro(root) : gsap.set(heroRig, { intro: 1 }))))
     },
     { scope: section },
   )

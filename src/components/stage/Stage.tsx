@@ -1,6 +1,7 @@
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import { Color, HalfFloatType, LinearSRGBColorSpace, NeutralToneMapping, WebGLRenderTarget } from 'three'
+import { reach } from '../../lib/loader'
 import { gsap } from '../../lib/motion'
 import { stageStore } from '../../lib/stageStore'
 import { createMonitor, dprFor, ORDER, stagePlan, TIERS, type StagePlan, type Tier } from '../../lib/tiers'
@@ -69,7 +70,11 @@ function Warmup({ tier, post }: { tier: Tier; post: boolean }) {
     }
   }, [gl, scene, camera, tier, post])
   useFrame(() => {
-    if (html.dataset.stage !== 'live') requestAnimationFrame(() => (html.dataset.stage = 'live')) // after this frame is on screen
+    if (html.dataset.stage === 'live') return
+    requestAnimationFrame(() => {
+      html.dataset.stage = 'live' // after this frame is on screen
+      reach('frame')
+    })
   })
   return null
 }
@@ -101,7 +106,10 @@ export default function Stage() {
     html.style.setProperty('--hdr-blur', spec.hdrBlur)
     return () => void html.style.removeProperty('--hdr-blur')
   }, [spec.hdrBlur])
-  useEffect(() => () => void delete html.dataset.stage, [])
+  useEffect(() => {
+    reach('stage') // the chunk is in and mounted
+    return () => void delete html.dataset.stage
+  }, [])
 
   // Idle: hidden, so the last drawn frame never lingers once its anchor has scrolled away.
   const idle = !scenes.some((s) => s.visible)
