@@ -1,74 +1,44 @@
-import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { ChatBox } from './components/Chat/ChatBox';
-import Hero from './components/Hero/Hero';
-import { MainSection } from './components/MainSection/MainSection';
-import { Navbar } from './components/Navbar/Navbar';
-import { Sidebar } from './components/Sidebar/Sidebar';
-import Stack from './components/Stack/Stack';
-import { projects } from './data/projects'; // Import projects data
-import { stacks } from './data/stacks'; // Import stacks data
-import { Contact } from './components/Contact/Contact';
-import { NotFoundPage } from './components/notFound/NotFoundPage';
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { Footer } from './components/footer/Footer'
+import { Header } from './components/header/Header'
+import { ToastRegion } from './components/ui/Toast'
+import { playStore } from './lib/playStore'
+import { initScroll } from './lib/scroll'
+import { stageSupported } from './lib/stageStore'
+import { About } from './sections/About'
+import { Contact } from './sections/Contact'
+import { Hero } from './sections/Hero'
+import { Projects } from './sections/Projects'
+import { Stack } from './sections/Stack'
 
-function App() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+const Stage = lazy(() => import('./components/stage/Stage'))
 
-  const toggleSidebarMinimize = () => {
-    setIsSidebarMinimized(!isSidebarMinimized);
-  };
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const toggleSound = () => {
-    setIsPlaying(!isPlaying);
-  };
-
+export default function App() {
+  const [stage] = useState(stageSupported)
+  useEffect(() => {
+    initScroll()
+    playStore.dispatch({ type: 'ready' }) // L11: the loader drives patching -> play instead
+  }, [])
   return (
-    <Router>
-      <Navbar
-        isSidebarMinimized={isSidebarMinimized}
-        isPlaying={isPlaying}
-        toggleSound={toggleSound}
-      />
-      <Sidebar
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-        onMinimize={toggleSidebarMinimize}
-        isMinimized={isSidebarMinimized}
-      />
-      <Routes>
-        {/* Root route */}
-        <Route
-          path="/"
-          element={
-            <div className="min-h-screen bg-[#010A13] bg-linear-to-br from-[#010A13] via-[#062033] to-[#010A13]">
-              <div id="home">
-                <Hero />
-              </div>
-              <div id="projects">
-                <MainSection projects={projects} />
-              </div>
-              <div id="stack">
-                <Stack stacks={stacks} />
-              </div>
-              <div id="contact" className="pt-16">
-                <Contact />
-              </div>
-              <ChatBox />
-            </div>
-          }
-        />
-
-        {/* 404 route */}
-        <Route path="/404" element={<NotFoundPage />} />
-
-        {/* Catch-all for unmatched routes */}
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Router>
-  );
+    <>
+      <a href="#main" className="hx-skip">
+        Skip to content
+      </a>
+      <Header />
+      {stage && (
+        <Suspense>
+          <Stage />
+        </Suspense>
+      )}
+      <main id="main" tabIndex={-1}>
+        <Hero />
+        <About />
+        <Projects />
+        <Stack />
+        <Contact />
+      </main>
+      <Footer />
+      <ToastRegion />
+    </>
+  )
 }
-
-export default App;

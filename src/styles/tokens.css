@@ -1,6 +1,8 @@
 /* Design tokens: our own ramps (spec §4). Tailwind exposes each one as a utility and a CSS variable.
    static: always emit every variable, since inline styles, GSAP and the 3D stage read them at runtime. */
 @theme static {
+  /* Only our palette and type scale exist: Tailwind's defaults are cleared. */
+  --color-*: initial;
   --color-ink-950: #01080f;
   --color-ink-900: #03111c;
   --color-ink-800: #0a1b27;
@@ -25,6 +27,7 @@
   --font-body: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
   --default-font-family: var(--font-body);
 
+  --text-*: initial;
   --text-hero: clamp(2.75rem, 8vw, 7rem);
   --text-hero--line-height: 0.95;
   --text-h2: clamp(1.875rem, 4vw, 2.75rem);

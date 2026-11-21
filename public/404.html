@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/as.svg" />
+    <title>Page not found · Abdelmatine Sfar</title>
+    <style>
+      @font-face {
+        font-family: 'Literata Caps';
+        src: url('/fonts/literata-caps-v1.woff2') format('woff2');
+        font-weight: 500 800;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Source Sans 3';
+        src: url('/fonts/source-sans-3-v1.woff2') format('woff2');
+        font-weight: 200 900;
+        font-display: swap;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        color-scheme: dark;
+        background: #01080f;
+      }
+      body {
+        display: grid;
+        place-items: center;
+        min-height: 100svh;
+        padding: 1rem;
+        background: radial-gradient(50% 40% at 50% 40%, rgb(14 152 174 / 0.14), transparent 70%) #01080f;
+        color: #aba592;
+        font: 400 1rem/1.625 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+        text-align: center;
+      }
+      main {
+        position: relative;
+        display: grid;
+        justify-items: center;
+        gap: 1.25rem;
+        width: min(32rem, 100%);
+        padding: 2.5rem 1.5rem;
+        border: 1px solid #87672f;
+        border-top-color: #d1b47c;
+        background: #03111c;
+      }
+      main::before {
+        content: '';
+        position: absolute;
+        inset: 3px;
+        border: 1px solid rgb(135 103 47 / 0.45);
+        pointer-events: none;
+      }
+      .code {
+        color: #2fd0c4;
+        font: 600 0.75rem/1rem 'Source Sans 3', sans-serif;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      h1 {
+        color: #f3ead6;
+        font: 700 clamp(1.875rem, 6vw, 2.75rem) / 1.05 'Literata Caps', Georgia, serif;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+      hr {
+        width: min(15rem, 100%);
+        height: 1px;
+        border: 0;
+        background: linear-gradient(90deg, transparent, #4a3918 10%, #87672f 32%, #d1b47c 50%, #87672f 68%, #4a3918 90%, transparent);
+      }
+      a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 2.5rem;
+        padding: 0 1.375rem;
+        border: 1px solid #c9a45a;
+        background: linear-gradient(#0a1b27, #01080f);
+        color: #d1b47c;
+        font: 600 0.875rem/1 'Literata Caps', Georgia, serif;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      a:hover {
+        color: #f3ead6;
+        border-color: #d1b47c;
+      }
+      a:focus-visible {
+        outline: 2px solid #d1b47c;
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="code">Error 404</p>
+      <h1>Page not found</h1>
+      <hr />
+      <p>This address leads nowhere. The portfolio is one page, and it is a click away.</p>
+      <a href="/">Back to the portfolio</a>
+    </main>
+  </body>
+</html>

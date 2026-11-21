@@ -33,10 +33,10 @@
     text-size-adjust: 100%;
   }
 
+  /* No body background: the fixed 3D canvas sits at z-index -1, between html and the content. */
   body {
     min-height: 100svh;
     overflow-x: clip;
-    background: var(--color-ink-950);
     color: var(--color-stone-200);
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
@@ -71,6 +71,10 @@
   :focus-visible {
     outline: 2px solid var(--color-gold-200);
     outline-offset: 3px;
+  }
+  /* Programmatic focus targets (main, sections after in-page navigation) need no ring. */
+  :is(main, section)[tabindex='-1']:focus {
+    outline: none;
   }
 
   ::-webkit-scrollbar {

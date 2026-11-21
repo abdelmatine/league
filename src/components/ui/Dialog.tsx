@@ -1,9 +1,10 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react'
+import { lenis } from '../../lib/scroll'
 import { Icon } from './Icon'
 
 export interface DialogProps {
   open: boolean
-  /** Called for every close: Esc, the close button, a backdrop click or `open` going false. */
+  /** Called after every close (Esc, close button, backdrop, `open` going false), once scrolling works again. */
   onClose: () => void
   title: ReactNode
   children: ReactNode
@@ -30,6 +31,7 @@ export function Dialog({ open, onClose, title, children, actions, role = 'dialog
     if (open) {
       opener.current = document.activeElement
       d.showModal()
+      lenis?.stop() // the page behind a modal stays put (base.css locks native scroll)
     } else d.close()
   }, [open])
 
@@ -50,6 +52,7 @@ export function Dialog({ open, onClose, title, children, actions, role = 'dialog
       className={`hx-frame hx-dialog ${className}`}
       data-corners=""
       onClose={() => {
+        if (!document.querySelector('dialog:modal')) lenis?.start()
         if (opener.current instanceof HTMLElement) opener.current.focus({ preventScroll: true })
         onClose()
       }}
