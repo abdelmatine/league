@@ -7,12 +7,16 @@ import { playStore } from './lib/playStore'
 import { initScroll } from './lib/scroll'
 import { stageSupported } from './lib/stageStore'
 import { About } from './sections/About'
-import { Achievements } from './sections/Achievements'
-import { Career } from './sections/Career'
-import { Contact } from './sections/Contact'
 import { Hero } from './sections/Hero'
-import { Projects } from './sections/Projects'
-import { Stack } from './sections/Stack'
+
+// Below-the-fold sections are their own chunks: the first paint only waits for the hero and About.
+// Each fallback keeps the section's id and rough height, so anchors and the scroll-spy work meanwhile.
+const Projects = lazy(() => import('./sections/Projects').then((m) => ({ default: m.Projects })))
+const Stack = lazy(() => import('./sections/Stack').then((m) => ({ default: m.Stack })))
+const Career = lazy(() => import('./sections/Career').then((m) => ({ default: m.Career })))
+const Achievements = lazy(() => import('./sections/Achievements').then((m) => ({ default: m.Achievements })))
+const Contact = lazy(() => import('./sections/Contact').then((m) => ({ default: m.Contact })))
+const Hold = ({ id }: { id: string }) => <section id={id} className="hx-hold" aria-busy="true" />
 
 // A failed chunk fetch (offline, a deploy swapping files) keeps the CSS poster and lets the loader finish.
 const Stage = lazy<ComponentType>(() =>
@@ -43,12 +47,20 @@ export default function App() {
       <main id="main" tabIndex={-1}>
         <Hero />
         <About />
-        <Projects />
-        <Stack />
+        <Suspense fallback={<Hold id="projects" />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<Hold id="stack" />}>
+          <Stack />
+        </Suspense>
         {/* Content-gated: each renders nothing until career.ts has entries for it. */}
-        <Career />
-        <Achievements />
-        <Contact />
+        <Suspense>
+          <Career />
+          <Achievements />
+        </Suspense>
+        <Suspense fallback={<Hold id="contact" />}>
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
       <ToastRegion />

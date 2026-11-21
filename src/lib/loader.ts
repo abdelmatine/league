@@ -11,7 +11,7 @@ const ALL = Object.keys(WEIGHT).length
 
 /** ms. hold: MATCH ACCEPTED on screen; out: the overlay's exit; quick: exit after a skip, the failsafe or under
  *  reduced motion; returning: a same-session visit leaves by then and fades as fast (the 600 ms version). */
-export const TIMING = { hold: 400, out: 600, quick: 200, failsafe: 10_000, returning: 300 } as const
+export const TIMING = { hold: 400, out: 600, quick: 200, failsafe: 10_000, returning: 300, stageWait: 1200 } as const
 
 export type Phase = 'loading' | 'accepted' | 'leaving' | 'gone'
 export interface LoaderState {
@@ -106,8 +106,16 @@ function leave() {
   })
 }
 
-/** A milestone happened (idempotent). */
-export const reach = (milestone: Milestone) => dispatch({ type: 'reach', milestone })
+/** A milestone happened (idempotent). Once the app is up, the 3D gets `stageWait` ms: a slow phone still
+ *  compiling it gets the poster and the page; the core appears behind the hero when it is ready. */
+export function reach(milestone: Milestone) {
+  dispatch({ type: 'reach', milestone })
+  if (milestone === 'app')
+    setTimeout(() => {
+      reach('stage')
+      reach('frame')
+    }, TIMING.stageWait)
+}
 
 /** Leave now, without the entrance (dev kit page, visitor input). */
 export const skipLoader = () => dispatch({ type: 'skip' })

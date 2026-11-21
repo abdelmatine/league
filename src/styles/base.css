@@ -46,6 +46,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Placeholder while a lazy section loads (App.tsx): holds its place so anchors still land. */
+  .hx-hold {
+    min-height: 100svh;
+  }
+
   ::selection {
     background: rgb(209 180 124 / 0.35);
     color: var(--color-gold-50);
