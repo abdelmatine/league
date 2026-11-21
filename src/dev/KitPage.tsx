@@ -1,9 +1,20 @@
-import type { ReactNode } from 'react'
+import { useRef, useState, useSyncExternalStore, type ReactNode } from 'react'
 import { GoldButton, MagicButton } from '../components/ui/Button'
+import { Counter } from '../components/ui/Counter'
+import { Crest } from '../components/ui/Crest'
+import { Dialog } from '../components/ui/Dialog'
 import { Divider } from '../components/ui/Divider'
+import { Field } from '../components/ui/Field'
 import { Frame } from '../components/ui/Frame'
 import { Icon } from '../components/ui/Icon'
 import { glyphs, type IconName } from '../components/ui/glyphs'
+import { TabPanel, Tabs } from '../components/ui/Tabs'
+import { ToastRegion } from '../components/ui/Toast'
+import { Tooltip } from '../components/ui/Tooltip'
+import { useField } from '../components/ui/useField'
+import { counterUp, frameBuildIn, splitReveal } from '../lib/motion'
+import { CUES, sfx, type Cue } from '../lib/sfx'
+import { push } from '../lib/toast'
 
 // Dev-only component sheet (open /?kit with `npm run dev`). main.tsx imports it behind import.meta.env.DEV.
 
@@ -33,6 +44,154 @@ function Spec({ label, children }: { label: string; children: ReactNode }) {
       {children}
       <Cap>{label}</Cap>
     </div>
+  )
+}
+
+const tabItems = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'gallery', label: 'Gallery' },
+]
+
+function TabsDemo() {
+  const [tab, setTab] = useState('overview')
+  return (
+    <Frame className="grid gap-4 p-6">
+      <Tabs label="Project detail" idBase="kit-tabs" items={tabItems} value={tab} onChange={setTab} />
+      {tabItems.map((t) => (
+        <TabPanel key={t.id} idBase="kit-tabs" id={t.id} value={tab} className="text-small">
+          {t.label} panel. Focus a tab, then use the arrow keys, Home and End.
+        </TabPanel>
+      ))}
+    </Frame>
+  )
+}
+
+const required = (v: string) => (v.trim() ? '' : 'Please add your name.')
+const email = (v: string) => (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Please check the address: it needs a name, an @ and a domain.')
+
+function FieldDemo() {
+  const name = useField(required)
+  const mail = useField(email)
+  return (
+    <Frame className="p-6">
+      <form
+        className="grid gap-x-6 gap-y-2 md:grid-cols-2"
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault()
+          if ([name.check(), mail.check()].every(Boolean)) push({ title: 'Valid', text: 'Both fields pass.' })
+        }}
+      >
+        <Field label="Name" placeholder="What should I call you?" autoComplete="off" {...name.input} />
+        <Field label="Email" type="email" placeholder="name@domain.com" autoComplete="off" {...mail.input} />
+        <Field label="Message" multiline className="md:col-span-2" placeholder="Blur-first: errors wait for you to leave a field." hint="Static hint text sits in the reserved line." />
+        <Field label="Disabled" disabled defaultValue="Read only" />
+        <div className="flex items-start md:justify-end">
+          <MagicButton type="submit">Send</MagicButton>
+        </div>
+      </form>
+    </Frame>
+  )
+}
+
+function FeedbackDemo() {
+  const [dialog, setDialog] = useState(false)
+  const [alert, setAlert] = useState(false)
+  return (
+    <Frame className="flex flex-wrap gap-4 p-6">
+      <GoldButton onClick={() => push({ title: 'Link copied', text: 'Closes after 5 seconds.' })}>Timed toast</GoldButton>
+      <GoldButton onClick={() => push({ title: 'Message delivered', text: 'Stays until you close it.', icon: 'mail', persistent: true })}>Persistent toast</GoldButton>
+      <GoldButton onClick={() => push({ title: 'Not sent', text: 'Your text is still in the form.', tone: 'error' })}>Error toast</GoldButton>
+      <GoldButton onClick={() => setDialog(true)}>Dialog</GoldButton>
+      <MagicButton onClick={() => setAlert(true)}>Alert dialog</MagicButton>
+      <Dialog open={dialog} onClose={() => setDialog(false)} title="Credits and legal" actions={<GoldButton onClick={() => setDialog(false)}>Close</GoldButton>}>
+        <p className="max-w-[60ch]">Native dialog: Esc closes, focus returns to the button that opened it, a full-screen sheet below 768 px.</p>
+      </Dialog>
+      <Dialog
+        open={alert}
+        onClose={() => setAlert(false)}
+        role="alertdialog"
+        describedBy="kit-alert-desc"
+        title="Match found"
+        actions={
+          <>
+            <MagicButton onClick={() => setAlert(false)}>Accept</MagicButton>
+            <GoldButton onClick={() => setAlert(false)}>Decline</GoldButton>
+          </>
+        }
+      >
+        <p id="kit-alert-desc">An alertdialog: no close button, backdrop clicks ignored, Esc declines.</p>
+      </Dialog>
+    </Frame>
+  )
+}
+
+function IdentityDemo() {
+  return (
+    <Frame className="grid gap-8 p-6">
+      <div className="flex flex-wrap items-center gap-8">
+        <Crest size="sm" initials="AS" xp={0.3} />
+        <Crest src="/assets/foto.jpg" focus="54% 32%" zoom={1.6} xp={0.6} />
+        <Crest size="lg" src="/assets/foto.jpg" alt="Portrait" focus="54% 32%" zoom={1.6} xp={0.8} level={8} levelLabel="8 projects" />
+      </div>
+      <div className="flex flex-wrap items-center gap-8">
+        <Counter icon="hex" value={8} label="Projects" />
+        <Counter icon="crystal" value={18} label="Technologies" className="text-teal-300" />
+      </div>
+      <div className="flex flex-wrap items-center gap-8 pt-10">
+        <Tooltip content="Shows after 150 ms on hover or keyboard focus. Esc hides it.">
+          <GoldButton>Tooltip top</GoldButton>
+        </Tooltip>
+        <Tooltip side="bottom" content="Bottom side.">
+          <GoldButton>Tooltip bottom</GoldButton>
+        </Tooltip>
+      </div>
+    </Frame>
+  )
+}
+
+function MotionDemo() {
+  const title = useRef<HTMLHeadingElement>(null)
+  const frames = useRef<HTMLDivElement>(null)
+  const count = useRef<HTMLSpanElement>(null)
+  return (
+    <Frame className="grid gap-6 p-6">
+      <h3 ref={title} className="hx-h2">
+        Abdelmatine Sfar
+      </h3>
+      <div ref={frames} className="grid gap-6 sm:grid-cols-3">
+        {['One', 'Two', 'Three'].map((n) => (
+          <Frame key={n} corners className="grid h-24 place-items-center">
+            <Cap>{n}</Cap>
+          </Frame>
+        ))}
+      </div>
+      <p className="hx-num text-h2 text-gold-200">
+        <span ref={count}>8</span>
+      </p>
+      <div className="flex flex-wrap gap-4">
+        <GoldButton onClick={() => title.current && splitReveal(title.current)}>Replay title</GoldButton>
+        <GoldButton onClick={() => frames.current?.querySelectorAll<HTMLElement>('.hx-frame').forEach((f, i) => frameBuildIn(f, { delay: i * 0.08 }))}>Replay frames</GoldButton>
+        <GoldButton onClick={() => count.current && counterUp(count.current, 8)}>Replay counter</GoldButton>
+      </div>
+    </Frame>
+  )
+}
+
+function SoundDemo() {
+  const on = useSyncExternalStore(sfx.subscribe, sfx.isEnabled)
+  return (
+    <Frame className="flex flex-wrap items-center gap-4 p-6">
+      <GoldButton aria-pressed={on} onClick={() => sfx.setEnabled(!on)}>
+        <Icon name={on ? 'sound-on' : 'sound-off'} className="size-4" /> Sound {on ? 'on' : 'off'}
+      </GoldButton>
+      {(Object.keys(CUES) as Cue[]).map((c) => (
+        <GoldButton key={c} disabled={!on} onClick={() => sfx.play(c)}>
+          {c}
+        </GoldButton>
+      ))}
+    </Frame>
   )
 }
 
@@ -166,6 +325,37 @@ export default function KitPage() {
           ))}
         </Frame>
       </Section>
+
+      <Section title="Tabs">
+        <TabsDemo />
+      </Section>
+
+      <Section title="Field">
+        <FieldDemo />
+      </Section>
+
+      <Section title="Toast and dialog">
+        <FeedbackDemo />
+      </Section>
+
+      <Section title="Crest, counter, tooltip">
+        <IdentityDemo />
+      </Section>
+
+      <Section title="Motion">
+        <MotionDemo />
+      </Section>
+
+      <Section title="Sound">
+        <SoundDemo />
+      </Section>
+
+      <Section title="Build-in on scroll">
+        <Frame buildIn corners className="grid h-40 place-items-center">
+          <Cap>Builds in when 20% into view</Cap>
+        </Frame>
+      </Section>
+      <ToastRegion />
     </main>
   )
 }

@@ -28,6 +28,7 @@
   html {
     background: var(--color-ink-950);
     scroll-padding-top: var(--hdr);
+    scrollbar-gutter: stable;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
@@ -57,6 +58,14 @@
   button:not(:disabled),
   [role='button']:not([aria-disabled='true']) {
     cursor: pointer;
+  }
+
+  /* Preflight zeroes margins; native dialogs centre with margin: auto. */
+  dialog {
+    margin: auto;
+  }
+  html:has(dialog:modal) {
+    overflow: hidden;
   }
 
   :focus-visible {

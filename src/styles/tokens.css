@@ -41,6 +41,7 @@
   --tracking-display: 0.02em;
   --tracking-label: 0.14em;
 
+  /* Easings and durations are mirrored in src/lib/motion.ts; motion.test.ts fails if they drift. */
   --ease-*: initial;
   --ease-settle: cubic-bezier(0.12, 0.8, 0.16, 1);
   --ease-show: cubic-bezier(0.22, 1, 0.36, 1);
