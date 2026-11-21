@@ -5,6 +5,18 @@
 > - **Mockups:** run one screen per session. The resume steps below are replaced by the backlog's T10–T13, which use `docs/checkpoints/mockups-resume.workflow.js` with `args.only`.
 > - **Research:** `docs/checkpoints/research-resume.workflow.js` is superseded by T01 (decision log).
 
+## State on 2026-11-21 (latest)
+
+The owner asked to finish the whole backlog in one run, stopping only if usage reached 90%, and said "not yet" to pushing. Everything except the owner-gated items is built on local branches; the tip is `integrate/parallel-lots`.
+
+- Design phase done: owner-form defaults (T02), mockup review and gallery (T10–T14), spec (T20), plans (T21).
+- Lots L02–L18 built and verified: L02–L08 by Claude and a foundation agent; L09–L16 by four agents in parallel git worktrees (under `.claude/worktrees/`, safe to clean up once merged); L17–L18 by Claude.
+- Checks on the tip: `npm run check` (75 unit tests), `npm run build`, `npx playwright test` (42 passed, 8 skipped by design), keyed contact e2e (6 passed). Lighthouse accessibility, best practices and SEO 100.
+- Open: push and merge (owner OK), EmailJS env vars, the Playwright bypass secret, T03, L19, the owner's review of defaults. Not verified: Safari, Firefox, real phones, a discrete GPU, real email delivery.
+- To resume: read `docs/BACKLOG.md` → "Next up".
+
+---
+
 Last saved 2026-11-10, at the owner's request ("checkpoint & stop"). To pick it up, say: "resume from docs/CHECKPOINT.md".
 
 ## Where we are
