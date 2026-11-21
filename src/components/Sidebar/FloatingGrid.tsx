@@ -1,5 +1,5 @@
-import { Headphones, Mic, Settings } from "lucide-react";
-import React, { useState } from "react";
+import { Headphones, Settings } from "lucide-react";
+import { useState } from "react";
 import { FiMic, FiMicOff } from "react-icons/fi";
 
 export function FloatingGrid() {

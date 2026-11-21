@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ChatBox } from './components/Chat/ChatBox';
 import Hero from './components/Hero/Hero';
@@ -15,10 +15,6 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
-  const handleMenuClick = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
   const toggleSidebarMinimize = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };
@@ -32,7 +28,6 @@ function App() {
   return (
     <Router>
       <Navbar
-        onMenuClick={handleMenuClick}
         isSidebarMinimized={isSidebarMinimized}
         isPlaying={isPlaying}
         toggleSound={toggleSound}
@@ -56,7 +51,7 @@ function App() {
                 <MainSection projects={projects} />
               </div>
               <div id="stack">
-                <Stack stacks={stacks} timeRemaining={120} />
+                <Stack stacks={stacks} />
               </div>
               <div id="contact" className="pt-16">
                 <Contact />

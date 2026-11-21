@@ -1,7 +1,6 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera } from '@react-three/drei';
 import { FloatingIcon } from './FloatingIcon';
-import React from 'react';
 
 interface IconSceneProps {
   iconUrl: string;

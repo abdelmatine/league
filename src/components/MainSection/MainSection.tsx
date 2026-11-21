@@ -1,10 +1,10 @@
 import { GameCard } from "./GameCard";
 import { FindMatch } from "./FindMatch";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import SwiperCore from "swiper";
 type Project = {

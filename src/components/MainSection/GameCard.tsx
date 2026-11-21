@@ -1,13 +1,9 @@
-import React from 'react';
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 
 export function GameCard({
   name,
   role,
   avatar,
-  rating,
   frameworks,
-  backgroundImage,
   onSelect, // New prop to select the project
   isClicked,
 }: {
@@ -21,9 +17,11 @@ export function GameCard({
   isClicked: boolean;
 }) {
   return (
-    
-    <div 
-    onClick={onSelect} // Trigger onSelect when clicked
+    // oxlint-disable-next-line jsx-a11y/prefer-tag-over-role -- the card holds links, which a <button> cannot nest; L12 replaces it
+    <div role="button"
+    tabIndex={0}
+    onClick={onSelect}
+    onKeyDown={(e) => { if (e.target === e.currentTarget && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onSelect(); } }}
     className={`relative w-full h-full rounded-lg overflow-hidden border ${isClicked ? 'border-yellow-500 shadow-lg' : 'border-transparent'} hover:border-yellow-500 hover:shadow-lg shadow-gray-700 transition-all duration-300`}>
       {/* Center and maintain aspect ratio of avatar image */}
       <div

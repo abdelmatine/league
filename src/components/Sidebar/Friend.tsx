@@ -7,7 +7,7 @@ interface FriendProps {
   url: string;
 }
 
-const Friend: React.FC<FriendProps> = ({ name, status, avatarUrl, url }) => {
+const Friend: React.FC<FriendProps> = ({ name, status, avatarUrl }) => {
   return (
       <div className="flex items-center hover:bg-black gap-3 p-2 mt-1 rounded-lg shadow-lg">
         <div className="relative">

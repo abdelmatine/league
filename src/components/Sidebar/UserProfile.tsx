@@ -1,4 +1,3 @@
-import React from 'react';
 import { X, Minus, ExternalLink } from 'lucide-react';
 
 interface UserProfileProps {
@@ -6,7 +5,7 @@ interface UserProfileProps {
   onMinimize: () => void;
 }
 
-export function UserProfile({ onClose, onMinimize }: UserProfileProps) {
+export function UserProfile({ onMinimize }: UserProfileProps) {
   return (
     <div className='mt-4 mr-2'>
       <div className="relative -mt-14 mb-6">

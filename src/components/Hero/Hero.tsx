@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import type { MouseEvent } from "react";
 import { NavLink } from "react-router-dom";
 import { Typewriter } from "react-simple-typewriter";
 
 export default function Hero() {
-  const handleSmoothScroll = (event, targetId) => {
+  const handleSmoothScroll = (event: MouseEvent, targetId: string) => {
     event.preventDefault();
     document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
   };

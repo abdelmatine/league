@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MessageSquare, Send, ChevronDown } from 'lucide-react';
 
 interface ChatMessage {
@@ -64,12 +64,14 @@ export function ChatBox() {
           </div>
         </div>
       ) : (
-        <div
+        <button
+          type="button"
+          aria-label="Open chat"
           onClick={toggleMinimized}
-          className="flex items-center justify-center h-12 bg-[#1E2328]/50 backdrop-blur-md cursor-pointer border-t border-[#111111] rounded-t-lg"
+          className="w-full flex items-center justify-center h-12 bg-[#1E2328]/50 backdrop-blur-md cursor-pointer border-t border-[#111111] rounded-t-lg"
         >
           <MessageSquare className="w-5 h-5 text-[#A09B8C]" />
-        </div>
+        </button>
       )}
     </div>
   );

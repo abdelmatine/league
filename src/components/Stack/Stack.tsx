@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { IconScene } from "./IconScene";
 import { GridItem } from "./GridItem";
 import { motion } from "framer-motion";

@@ -1,4 +1,3 @@
-import React from "react";
 import { FloatingGrid } from "./FloatingGrid";
 import { UserProfile } from "./UserProfile";
 import {
@@ -27,7 +26,6 @@ const friends = [
 ];
 
 export function Sidebar({
-  isOpen,
   onClose,
   onMinimize,
   isMinimized,

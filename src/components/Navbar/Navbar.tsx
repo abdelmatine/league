@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Shield, Star, Trophy, Gift } from "lucide-react";
 import Separator from "../ui/Separator";
 import { Logo } from "./Logo";

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Hexagon, Crown, Coins } from 'lucide-react';
+import { Hexagon } from 'lucide-react';
 
 export function UserStats() {
   return (

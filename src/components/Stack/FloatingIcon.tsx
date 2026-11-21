@@ -1,8 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Box, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
-import React from 'react';
 
 interface FloatingIconProps {
   iconUrl: string;
@@ -11,15 +10,11 @@ interface FloatingIconProps {
 export function FloatingIcon({ iconUrl }: FloatingIconProps) {
   const boxRef = useRef<THREE.Mesh>(null);
   const shadowRef = useRef<THREE.Mesh>(null);
-  const texture = useTexture(iconUrl);
-
-  useEffect(() => {
-    if (texture) {
-      texture.colorSpace = THREE.SRGBColorSpace;
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-    }
-  }, [texture]);
+  const texture = useTexture(iconUrl, (t) => {
+    t.colorSpace = THREE.SRGBColorSpace;
+    t.minFilter = THREE.LinearFilter;
+    t.magFilter = THREE.LinearFilter;
+  });
 
   useFrame((state) => {
     if (boxRef.current && shadowRef.current) {
@@ -30,7 +25,7 @@ export function FloatingIcon({ iconUrl }: FloatingIconProps) {
       // Update shadow size based on box height
       const scale = THREE.MathUtils.mapLinear(yPos, 0.8, 1.2, 1.2, 0.8);
       shadowRef.current.scale.set(scale, scale, 1);
-      shadowRef.current.material.opacity = THREE.MathUtils.mapLinear(yPos, 0.8, 1.2, 0.4, 0.2);
+      (shadowRef.current.material as THREE.Material).opacity = THREE.MathUtils.mapLinear(yPos, 0.8, 1.2, 0.4, 0.2);
     }
   });
 
