@@ -117,7 +117,8 @@
     ::after {
       animation-duration: 1ms !important;
       animation-iteration-count: 1 !important;
-      transition-duration: 1ms !important;
+      /* 0s, not 1ms: a 1ms visibility transition keeps a just-shown control unfocusable for a frame */
+      transition-duration: 0s !important;
       transition-delay: 0s !important;
       scroll-behavior: auto !important;
     }

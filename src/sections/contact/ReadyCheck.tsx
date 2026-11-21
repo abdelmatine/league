@@ -326,11 +326,11 @@ export function ReadyCheck({ open, onResult, onClosed }: { open: boolean; onResu
       }}
       actions={
         <>
-          <MagicButton size="lg" className="rc-accept" aria-disabled={decided ? true : undefined} onClick={() => choose('accepted')}>
+          <MagicButton size="lg" className="rc-accept" data-sfx="none" aria-disabled={decided ? true : undefined} onClick={() => choose('accepted')}>
             <span className="rc-accept__flash" aria-hidden="true" />
             Accept
           </MagicButton>
-          <button type="button" className="rc-decline" aria-disabled={decided ? true : undefined} onClick={() => choose('declined')}>
+          <button type="button" className="rc-decline" data-sfx="none" aria-disabled={decided ? true : undefined} onClick={() => choose('declined')}>
             Decline
           </button>
         </>

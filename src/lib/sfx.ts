@@ -59,6 +59,8 @@ export const CUES: Record<Cue, Voice[]> = {
 }
 
 const KEY = 'hx:sound'
+/** Elements that tick on hover and click (see the delegated layer at the bottom). */
+export const UI_SELECTOR = 'button:not(:disabled), a[href], [role="tab"], [role="radio"], label:has(> input[type="radio"])'
 /** Stored value to on/off. Anything but 'on' (missing, blocked, garbage) means off. */
 export const parsePref = (v: string | null | undefined) => v === 'on'
 
@@ -176,4 +178,18 @@ if (typeof window !== 'undefined') {
   }
   addEventListener('pointerdown', unlock, true)
   addEventListener('keydown', unlock, true)
+
+  // One delegated layer gives every control its hover tick and click. Controls that play their
+  // own cue (SEND, ACCEPT, DECLINE, LOCK IN, the sound toggle) opt out with data-sfx="none".
+  const target = (e: Event) => {
+    const el = (e.target as Element | null)?.closest?.(UI_SELECTOR)
+    return el && !el.closest('[data-sfx="none"]') && el.getAttribute('aria-disabled') !== 'true' ? el : null
+  }
+  addEventListener('pointerover', (e) => {
+    const el = target(e)
+    if (el && (e as PointerEvent).pointerType !== 'touch' && !el.contains((e as PointerEvent).relatedTarget as Node | null)) sfx.play('hover')
+  })
+  addEventListener('click', (e) => {
+    if (target(e)) sfx.play('click')
+  })
 }

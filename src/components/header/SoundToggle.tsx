@@ -15,7 +15,7 @@ export function SoundToggle() {
   const on = useSound()
   return (
     <Tooltip side="bottom" content={on ? 'Sound on' : 'Sound off'}>
-      <button type="button" className="hx-iconbtn" aria-pressed={on} aria-label="Sound" onClick={() => toggle(on)}>
+      <button type="button" className="hx-iconbtn" data-sfx="none" aria-pressed={on} aria-label="Sound" onClick={() => toggle(on)}>
         <Icon name={on ? 'sound-on' : 'sound-off'} />
       </button>
     </Tooltip>
@@ -26,7 +26,7 @@ export function SoundToggle() {
 export function SoundRow() {
   const on = useSound()
   return (
-    <button type="button" className="hx-row" aria-pressed={on} onClick={() => toggle(on)}>
+    <button type="button" className="hx-row" data-sfx="none" aria-pressed={on} onClick={() => toggle(on)}>
       <span className="hx-row__icon">
         <Icon name={on ? 'sound-on' : 'sound-off'} />
       </span>

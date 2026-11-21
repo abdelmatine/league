@@ -420,7 +420,7 @@ export function Stack() {
             <path d="M8 24h120l12-10h20M332 24h-12l-12-10h-20M472 24H352l-12 10h-20" fill="none" stroke="currentColor" />
             <path d="M4 24l4-4 4 4-4 4Zm464 0 4-4 4 4-4 4Z" fill="currentColor" />
           </svg>
-          <MagicButton size="lg" className="cs-lockbtn" aria-disabled={sheet || undefined} onClick={() => lockIn()}>
+          <MagicButton size="lg" className="cs-lockbtn" data-sfx="none" aria-disabled={sheet || undefined} onClick={() => lockIn()}>
             {sheet ? 'Locked in' : 'Lock in'}
           </MagicButton>
         </div>

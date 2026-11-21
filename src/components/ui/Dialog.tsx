@@ -51,6 +51,7 @@ export function Dialog({ open, onClose, title, children, actions, role = 'dialog
       aria-describedby={describedBy}
       className={`hx-frame hx-dialog ${className}`}
       data-corners=""
+      data-lenis-prevent=""
       onClose={() => {
         if (!document.querySelector('dialog:modal')) lenis?.start()
         if (opener.current instanceof HTMLElement) opener.current.focus({ preventScroll: true })

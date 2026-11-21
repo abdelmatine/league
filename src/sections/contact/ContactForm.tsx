@@ -98,7 +98,7 @@ export function ContactForm(props: {
         </div>
         <div className="cx-actions">
           <Wing />
-          <MagicButton type="submit" size="lg" id="contact-send" className="cx-send" aria-disabled={state !== 'send' || undefined} aria-describedby="contact-note">
+          <MagicButton type="submit" size="lg" id="contact-send" className="cx-send" data-sfx="none" aria-disabled={state !== 'send' || undefined} aria-describedby="contact-note">
             {state === 'off' ? (
               'Sending is not set up'
             ) : (

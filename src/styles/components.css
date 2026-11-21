@@ -1343,38 +1343,7 @@
     }
   }
 
-  /* Queue card under the header profile (PLAY state `queue`). */
-  .hx-queue {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    right: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.875rem;
-    padding: 0.25rem 0.25rem 0.25rem 1rem;
-    border: 1px solid transparent;
-    background:
-      linear-gradient(var(--color-ink-900), var(--color-ink-900)) padding-box,
-      linear-gradient(to bottom, var(--color-teal-300), var(--color-gold-500) 60%, var(--color-gold-700)) border-box;
-    box-shadow: 0 14px 30px -14px rgb(0 0 0 / 0.85);
-    transform-origin: 50% 0;
-    animation: hx-toast-in var(--duration-slower) var(--ease-settle) both;
-  }
-  .hx-queue__label {
-    color: var(--color-teal-300);
-    font-size: var(--text-label);
-    font-weight: 600;
-    letter-spacing: var(--tracking-label);
-    text-transform: uppercase;
-  }
-  .hx-queue__clock {
-    min-width: 3.5ch;
-    color: var(--color-gold-50);
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums lining-nums;
-  }
+
 
   /* Mobile drawer: the Dialog as a right-hand sheet. */
   .hx-dialog.hx-drawer {
