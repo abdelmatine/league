@@ -19,7 +19,10 @@ test('nothing overflows the page width', async ({ page }) => {
   const width = page.viewportSize()!.width
   for (const id of ['home', 'about', 'projects', 'stack', 'contact']) {
     await page.locator(`#${id}`).scrollIntoViewIfNeeded()
-    // Phones widen the layout viewport to fit overflowing content, so innerWidth catches it too.
-    expect(await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth])).toEqual([width, width])
+    // scrollWidth must fit clientWidth (the scrollbar gutter is excluded); phones also widen the
+    // layout viewport to fit overflowing content, so innerWidth must still be the device width.
+    const [scroll, client, inner] = (await page.evaluate('[document.documentElement.scrollWidth, document.documentElement.clientWidth, innerWidth]')) as number[]
+    expect(scroll).toBeLessThanOrEqual(client)
+    expect(inner).toBe(width)
   }
 })
