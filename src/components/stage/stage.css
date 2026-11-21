@@ -1,0 +1,51 @@
+/* 3D stage extras (loaded with the lazy chunk; the base .hx-stage rule is in components.css). */
+
+/* Frame build-in over the live canvas (G03). --hx-orn only fades a frame's own ornaments, so it need not inherit:
+   inherited, every tick of its tween restyled the frame's whole subtree (+5.7 ms per frame measured). */
+@property --hx-orn {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+@layer components {
+  .hx-frame::before,
+  .hx-frame::after {
+    --hx-orn: inherit;
+  }
+  /* One glow on the drawn lines instead of two: each drop-shadow re-rasterises the frame-sized SVG per tick. */
+  html[data-stage='live'] .hx-build {
+    filter: drop-shadow(0 0 3px rgb(243 234 214 / 0.85));
+  }
+
+  /* Large-viewport height: the buffer keeps its size while mobile toolbars slide in and out. */
+  .hx-stage {
+    inset: 0 0 auto;
+    height: 100vh;
+    height: 100lvh;
+  }
+  .hx-stage canvas {
+    transition: opacity var(--duration-glow) var(--ease-glow);
+  }
+  /* Until the first frame is on screen the hero's CSS poster stands in (data-stage is set by Stage.tsx). */
+  html:not([data-stage='live']) .hx-stage canvas {
+    opacity: 0;
+  }
+  /* No composer (LOW, or no float buffers): the Vignette effect's falloff in CSS (stops from postprocessing's
+     vignette shader at offset .3, darkness .65; gap-results gap:1). */
+  .hx-stage:not([data-post])::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse farthest-corner at 50% 50%,
+      transparent 38%,
+      rgb(0 0 0 / 0.036) 50%,
+      rgb(0 0 0 / 0.099) 60%,
+      rgb(0 0 0 / 0.189) 70%,
+      rgb(0 0 0 / 0.302) 80%,
+      rgb(0 0 0 / 0.439) 90%,
+      rgb(0 0 0 / 0.6) 100%
+    );
+  }
+}

@@ -6,7 +6,7 @@ import { Frame } from '../components/ui/Frame'
 export function Section({ id, title, eyebrow, children }: { id: string; title: string; eyebrow?: string; children: ReactNode }) {
   return (
     <section id={id} tabIndex={-1} aria-labelledby={`${id}-title`} className="hx-section">
-      <Frame corners className="hx-section__frame">
+      <Frame corners buildIn className="hx-section__frame">
         {eyebrow && <p className="hx-eyebrow">{eyebrow}</p>}
         <h2 id={`${id}-title`} className="hx-h2">
           {title}
