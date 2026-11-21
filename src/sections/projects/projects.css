@@ -1,0 +1,636 @@
+/* Projects (L12): the lobby of short banners and the detail panel. Every shape is ours, drawn in CSS.
+   Banner insides are sized in cqw (the banner is the container), so one design scales from phone to desktop. */
+@layer components {
+  .pj {
+    background: radial-gradient(ellipse 62% 46% at 50% 60%, rgb(14 152 174 / 0.12), transparent 70%);
+  }
+  .pj__in {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'head' 'stage' 'pager';
+    gap: 1.75rem;
+    max-width: 75rem;
+    margin: 0 auto;
+  }
+  @media (width >= 48rem) {
+    .pj__in {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas: 'head pager' 'stage stage';
+      align-items: end;
+      row-gap: 3rem;
+    }
+  }
+  .pj__head {
+    grid-area: head;
+  }
+  .pj__head .hx-h2 {
+    margin-top: 0.25rem;
+  }
+
+  /* ---------- Stage: arrows either side of the row ---------- */
+  .pj__stage {
+    --bw: min(15.5rem, 100vw - 9rem); /* phones: one banner between the arrows */
+    --gap: 1rem;
+    grid-area: stage;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    touch-action: pan-y; /* horizontal drags reach the swipe handler, vertical ones scroll */
+  }
+  @media (width >= 48rem) {
+    .pj__stage {
+      --bw: 11.5rem;
+    }
+  }
+  @media (width >= 64rem) {
+    .pj__stage {
+      --bw: 12.5rem;
+      --gap: 1.5rem;
+    }
+  }
+  @media (width >= 80rem) {
+    .pj__stage {
+      --bw: 12.25rem;
+      --gap: 1.25rem;
+    }
+  }
+  .pj__row {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    justify-content: center;
+    gap: var(--gap);
+    min-width: 0;
+    padding-top: 0.5rem; /* room for the rods */
+    translate: var(--drag, 0) 0;
+    transition: translate var(--duration-slow) var(--ease-settle);
+  }
+  /* A teal glow behind the centre slot (out of the flex flow). */
+  .pj__row::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: -10%;
+    left: 50%;
+    width: calc(var(--bw) * 2.4);
+    height: 110%;
+    translate: -50% 0;
+    background: radial-gradient(closest-side, rgb(47 208 196 / 0.16), transparent);
+    pointer-events: none;
+  }
+  .pj__stage[data-drag] .pj__row {
+    transition: none;
+  }
+
+  .pj__arrow {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    background:
+      radial-gradient(circle at 50% 35%, var(--color-ink-800), var(--color-ink-950) 72%) padding-box,
+      linear-gradient(var(--color-gold-200), var(--color-gold-700)) border-box;
+    box-shadow:
+      0 0 0 3px rgb(1 8 15 / 0.85),
+      0 0 0 4px var(--color-gold-700);
+    color: var(--color-gold-200);
+    transition:
+      color var(--duration-slower) var(--ease-glow),
+      box-shadow var(--duration-slower) var(--ease-glow);
+  }
+  .pj__arrow .hx-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  @media (hover: hover) {
+    .pj__arrow:hover {
+      color: var(--color-gold-50);
+      box-shadow:
+        0 0 0 3px rgb(1 8 15 / 0.85),
+        0 0 0 4px var(--color-gold-500),
+        0 0 16px rgb(209 180 124 / 0.35);
+      transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
+    }
+  }
+
+  /* ---------- Pager: count + gem dots (24 px targets) ---------- */
+  .pj__pager {
+    grid-area: pager;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+  .pj__count {
+    color: var(--color-stone-200);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .pj__count b {
+    color: var(--color-gold-50);
+    font-variant-numeric: tabular-nums;
+  }
+  .pj__dots {
+    display: flex;
+  }
+  .pj__dot {
+    display: grid;
+    place-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    border: 0;
+    background: none;
+  }
+  .pj__dot::before {
+    content: '';
+    width: 9px;
+    height: 9px;
+    rotate: 45deg;
+    border: 1px solid var(--color-gold-500);
+    background: var(--color-ink-950);
+    transition:
+      border-color var(--duration-slower) var(--ease-glow),
+      background-color var(--duration-slower) var(--ease-glow),
+      box-shadow var(--duration-slower) var(--ease-glow);
+  }
+  .pj__dot[aria-current]::before {
+    border-color: var(--color-gold-200);
+    background: var(--color-teal-300);
+    box-shadow: 0 0 8px rgb(47 208 196 / 0.8);
+  }
+  @media (hover: hover) {
+    .pj__dot:hover::before {
+      border-color: var(--color-gold-50);
+      transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
+    }
+  }
+
+  /* ---------- Crest: round gold rim around an emblem (banner, panel lockup, panel splash) ---------- */
+  .pj-crest {
+    --rim: 3px;
+    position: relative;
+    display: block;
+    flex: none;
+    aspect-ratio: 1;
+    padding: var(--rim);
+    border-radius: var(--radius-full);
+    background: conic-gradient(
+      from 210deg,
+      var(--color-gold-500),
+      var(--color-gold-200) 14%,
+      var(--color-gold-50) 20%,
+      var(--color-gold-300) 30%,
+      var(--color-gold-700) 52%,
+      var(--color-gold-500) 66%,
+      var(--color-gold-50) 74%,
+      var(--color-gold-200) 82%,
+      var(--color-gold-500)
+    );
+    box-shadow:
+      0 0 0 2px rgb(1 8 15 / 0.9),
+      0 6px 16px rgb(0 0 0 / 0.6);
+  }
+  .pj-crest::after {
+    content: '';
+    position: absolute;
+    inset: var(--rim);
+    border-radius: inherit;
+    box-shadow:
+      inset 0 0 0 2px rgb(1 8 15 / 0.85),
+      inset 0 0 10px rgb(0 0 0 / 0.4);
+    pointer-events: none;
+  }
+  .pj-crest picture {
+    display: block;
+  }
+  .pj-crest img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+
+  /* ---------- Banner: rod, cloth (gold trim + accent-tinted fill), crest, name, tag, chips, VIEW ---------- */
+  .pb {
+    --accent: var(--color-teal-500);
+    position: relative;
+    isolation: isolate;
+    flex: none;
+    width: var(--bw);
+    aspect-ratio: 196 / 330;
+    container-type: inline-size;
+    filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.55));
+  }
+  .pb__rod {
+    position: absolute;
+    z-index: 1;
+    top: -1.6cqw;
+    left: -4cqw;
+    right: -4cqw;
+    height: max(5px, 3cqw);
+    border-radius: var(--radius-full);
+    background: linear-gradient(var(--color-gold-50), var(--color-gold-200) 35%, var(--color-gold-500) 72%, var(--color-gold-700));
+    box-shadow:
+      0 0 0 1px rgb(1 8 15 / 0.85),
+      0 3px 6px rgb(0 0 0 / 0.7);
+  }
+  .pb__rod::before,
+  .pb__rod::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: max(7px, 4.6cqw);
+    aspect-ratio: 1;
+    translate: 0 -50%;
+    rotate: 45deg;
+    background: linear-gradient(135deg, var(--color-gold-50), var(--color-gold-200) 40%, var(--color-gold-500));
+    box-shadow: 0 0 0 1px rgb(1 8 15 / 0.85);
+  }
+  .pb__rod::before {
+    left: -2.4cqw;
+  }
+  .pb__rod::after {
+    right: -2.4cqw;
+  }
+  .pb__cloth,
+  .pb__cloth::before,
+  .pb__cloth::after {
+    --tail: 9cqw;
+    position: absolute;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--tail)), 50% 100%, 0 calc(100% - var(--tail)));
+  }
+  .pb__cloth {
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(180deg, var(--color-gold-200), var(--color-gold-700) 38%, var(--color-gold-700) 80%, var(--color-gold-500));
+    transition: filter var(--duration-slower) var(--ease-glow);
+  }
+  .pb__cloth::before,
+  .pb__cloth::after {
+    content: '';
+    inset: 2px;
+  }
+  .pb__cloth::before {
+    background:
+      radial-gradient(95% 30% at 50% 20%, color-mix(in oklab, var(--accent) 38%, transparent), transparent 78%),
+      linear-gradient(180deg, color-mix(in oklab, var(--accent) 24%, var(--color-teal-900)), var(--color-ink-900) 50%, var(--color-ink-950));
+  }
+  /* Folds: shade at the edges and three soft highlights. */
+  .pb__cloth::after {
+    background: linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.5),
+      transparent 10%,
+      rgb(255 255 255 / 0.05) 20%,
+      transparent 32%,
+      rgb(0 0 0 / 0.18) 40%,
+      rgb(255 255 255 / 0.06) 50%,
+      rgb(0 0 0 / 0.18) 60%,
+      transparent 68%,
+      rgb(255 255 255 / 0.05) 80%,
+      transparent 90%,
+      rgb(0 0 0 / 0.5)
+    );
+  }
+  .pb__body {
+    position: relative; /* the link's hit area fills this box */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    padding: 11cqw 7cqw 0;
+    text-align: center;
+  }
+  .pb__crest {
+    --rim: max(3px, 1.6cqw);
+    width: 58cqw;
+    transition:
+      scale var(--duration-slower) var(--ease-glow),
+      filter var(--duration-slower) var(--ease-glow);
+  }
+  .pb__name {
+    margin-top: 6cqw;
+    color: var(--color-gold-50);
+    font-family: var(--font-display);
+    font-size: max(0.875rem, 8.2cqw);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .pb__link {
+    color: inherit;
+    outline: none; /* the banner draws the focus ring */
+  }
+  .pb__link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+  }
+  .pb__tag {
+    margin-top: 1.5cqw;
+    color: var(--color-stone-200);
+    font-size: max(0.8125rem, 7cqw);
+    line-height: 1.3;
+  }
+  .pb__stack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4cqw;
+    margin-top: 6cqw;
+  }
+  .pb .tc {
+    --tc: max(2rem, 18cqw);
+  }
+  .pb__more {
+    color: var(--color-gold-200);
+    font-size: max(0.75rem, 6.2cqw);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .pb__view {
+    --btn-h: 2.25rem;
+    margin: auto 0 13cqw;
+    padding: 0 1.25rem;
+    font-size: 0.8125rem;
+    pointer-events: none;
+  }
+
+  /* The lobby's first project, in the centre: brighter trim, larger crest, an accent glow behind. */
+  .pb[data-order='0'] .pb__cloth {
+    background: linear-gradient(180deg, var(--color-gold-50), var(--color-gold-200) 22%, var(--color-gold-500) 55%, var(--color-gold-500) 80%, var(--color-gold-200));
+  }
+  .pb[data-order='0'] .pb__crest {
+    width: 64cqw;
+  }
+
+  /* Hover and keyboard focus: the trim brightens, the crest lifts, VIEW lights up like a hovered button. */
+  .pb:has(.pb__link:focus-visible) {
+    outline: 2px solid var(--color-gold-200);
+    outline-offset: 6px;
+  }
+  .pb:has(.pb__link:focus-visible) .pb__cloth {
+    filter: brightness(1.2);
+  }
+  .pb:has(.pb__link:focus-visible) .pb__view {
+    --btn-ink: var(--color-gold-50);
+  }
+  .pb:has(.pb__link:focus-visible) .pb__view::before,
+  .pb:has(.pb__link:focus-visible) .pb__view::after {
+    filter: brightness(1.3);
+  }
+  @media (hover: hover) {
+    .pb:hover .pb__cloth {
+      filter: brightness(1.2);
+      transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
+    }
+    .pb:hover .pb__crest {
+      scale: 1.04;
+      filter: drop-shadow(0 0 10px rgb(211 250 246 / 0.28));
+      transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
+    }
+    .pb:hover .pb__view {
+      --btn-ink: var(--color-gold-50);
+    }
+    .pb:hover .pb__view::before,
+    .pb:hover .pb__view::after {
+      filter: brightness(1.3);
+    }
+    .pb:hover .pb__view .hx-btn__fx::before {
+      transform: translateX(280%) skewX(-14deg);
+      transition: transform var(--duration-glow) var(--ease-settle);
+    }
+  }
+
+  /* ---------- Detail panel: full width under the header, a full-screen sheet below 768 px ---------- */
+  .hx-dialog.pd {
+    --frame-fill: var(--color-ink-950);
+  }
+  .hx-dialog.pd[open] {
+    display: grid;
+    grid-template-columns: 4rem minmax(0, 1fr);
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+    grid-template-areas: 'crest title' 'crest tag' 'tabs tabs' 'main main';
+    column-gap: 1rem;
+    padding: 1.25rem 1rem 0;
+    overflow: hidden;
+    background:
+      radial-gradient(70% 55% at 85% 30%, rgb(14 152 174 / 0.1), transparent 70%) padding-box,
+      linear-gradient(var(--frame-fill), var(--frame-fill)) padding-box,
+      linear-gradient(to bottom, var(--frame-hi), var(--frame-mid) 40%, var(--frame-lo)) border-box;
+  }
+  .hx-dialog.pd[open]::backdrop {
+    background: rgb(1 8 15 / 0.55);
+  }
+  .pd .hx-dialog__body {
+    display: contents;
+  }
+  .pd .hx-dialog__title {
+    grid-area: title;
+    align-self: end;
+    padding: 0 3rem 0 0;
+    color: var(--color-gold-50);
+    font-size: clamp(1.375rem, 1rem + 1.4vw, 2.25rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .pd__crest {
+    grid-area: crest;
+    align-self: center;
+    width: 100%;
+  }
+  .pd__tag {
+    grid-area: tag;
+    margin-top: 0.25rem;
+    color: var(--color-gold-200);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .pd__tabs {
+    grid-area: tabs;
+    margin-top: 1rem;
+    border-bottom: 1px solid rgb(135 103 47 / 0.45);
+  }
+  .pd__main {
+    grid-area: main;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 1.5rem 0.25rem 2.5rem 0;
+  }
+  .pd__panel:not([hidden]) {
+    animation: pd-crossfade 500ms linear;
+  }
+  .pd__panel:focus-visible {
+    outline-offset: -2px;
+  }
+  .pd__desc {
+    max-width: 68ch;
+  }
+  .pd__label {
+    margin-top: 1.75rem;
+  }
+  .pd__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    margin-top: 0.75rem;
+  }
+  .pd__chips li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-gold-50);
+    font-size: var(--text-small);
+  }
+  .pd__live {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    margin-top: 2rem;
+  }
+  .pd__host {
+    color: var(--color-stone-400);
+    font-size: var(--text-small);
+  }
+  .pd__techs {
+    display: grid;
+    max-width: 42rem;
+  }
+  .pd__techs li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgb(74 57 24 / 0.7);
+  }
+  .pd__techs .tc {
+    --tc: 2.75rem;
+  }
+  .pd__tech {
+    color: var(--color-gold-50);
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .pd__lane {
+    color: var(--color-teal-300);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .pd__blurb {
+    margin-top: 0.25rem;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  .pd__figure {
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+  }
+  .pd__figure-art img {
+    display: block;
+    width: min(22rem, 100%);
+    height: auto;
+    border: 1px solid var(--color-gold-500);
+    box-shadow:
+      0 0 0 4px var(--color-ink-950),
+      0 0 0 5px var(--color-gold-700);
+  }
+  .pd__figure figcaption {
+    color: var(--color-stone-400);
+    font-size: var(--text-small);
+  }
+  .pd__splash {
+    display: none;
+  }
+  @media (width >= 48rem) {
+    .hx-dialog.pd {
+      inset: var(--hdr) 0 0;
+      width: 100%;
+      height: calc(100dvh - var(--hdr));
+      max-height: none;
+      margin: 0;
+    }
+    .hx-dialog.pd[open] {
+      grid-template-columns: 5rem minmax(0, 1fr) minmax(14rem, 0.8fr);
+      grid-template-areas: 'crest title splash' 'crest tag splash' 'tabs tabs splash' 'main main splash';
+      column-gap: 1.25rem;
+      padding: 2.25rem max(2rem, (100% - 75rem) / 2) 0;
+    }
+    /* The splash: the emblem large in its crest, an accent glow and two rings of our own. */
+    .pd__splash {
+      position: relative;
+      grid-area: splash;
+      display: grid;
+      place-items: center;
+      align-self: stretch;
+      margin-bottom: 2.5rem;
+      background: radial-gradient(closest-side, color-mix(in oklab, var(--accent, var(--color-teal-500)) 28%, transparent), transparent 85%);
+    }
+    .pd__splash::before,
+    .pd__splash::after {
+      content: '';
+      position: absolute;
+      width: min(26rem, 96%);
+      aspect-ratio: 1;
+      border: 1px solid rgb(209 180 124 / 0.28);
+      border-radius: var(--radius-full);
+      pointer-events: none;
+    }
+    .pd__splash::after {
+      width: min(23rem, 85%);
+      border-style: dashed;
+      border-color: rgb(209 180 124 / 0.18);
+    }
+    .pd__splash-art {
+      --rim: 5px;
+      width: min(19rem, 72%);
+      animation: pd-cover 125ms linear;
+    }
+  }
+}
+
+@keyframes pd-crossfade {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pd-cover {
+  from {
+    opacity: 0.2;
+  }
+}
