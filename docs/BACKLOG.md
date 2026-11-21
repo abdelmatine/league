@@ -6,10 +6,12 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**L04 · React 19 + 3D stack + GSAP/Lenis** (S; not started). It stacks on the L03 branch. After it: L05, then T10 · Mockup: home.
+**Blocked on the owner.** Three lots are built and stacked on local branches: `lot/L02-tailwind4` → `lot/L03-vite8-ts7` → `lot/L04-react19-3d`. Each needs push, PR, a Vercel preview check and a merge, in that order.
+
+After that: **L05 · Test gates** (M). It needs the pushed branches, since its Playwright job runs on Vercel previews, and the owner must add the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET`. Then T10 · Mockup: home (runs a workflow of about 5 agents; needs the owner's go-ahead for that).
 
 Waiting on the owner:
-- **OK to push** `lot/L02-tailwind4` and `lot/L03-vite8-ts7` (stacked: merge L02 first), open the PRs, check the previews, merge.
+- **OK to push** the three lot branches and open the PRs.
 - **T02**: fill in `docs/OWNER-QUESTIONS.md` (51 answer lines).
 - **T03**: OK to install the three.js skills.
 - Legal calls in `docs/DECISIONS.md` → "Legal": follow the strict logo rules (no logo for React, Spring, Docker, Java) or accept the risk; keep or drop the game and publisher names in the footer notice.
@@ -56,7 +58,7 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 | 1. Decide (T01–T04) | 4 / 6 | T01, T04 done; T02, T03 wait on the owner |
 | 2. Mockups (T09–T14) | 2 / 20 | T09 done; screens half built |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02 and L03 built, wait for merge; L04–L05 ready; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02–L04 built, wait for merge; L05 next; the rest after phase 3 |
 
 ### Done before this backlog (16 points)
 
@@ -302,10 +304,12 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - **Found, not fixed (pre-existing on `main`):** the contact form has no `onSubmit`, so the button also does a native submit that reloads the page. L15 replaces the form.
 - **Still to do:** push, PR, Vercel preview check, owner OK, merge (after L02).
 
-### L04 · React 19 + 3D stack + GSAP/Lenis · S · status: todo
-- **Read:** stack-modernization §6, §7, §11 "Lot D"; webgl-magic §0.1 (pins).
-- **Pins:** react 19.3.1, three 0.187.0, @react-three/fiber 9.8.2, drei 10.7.9, @react-three/postprocessing 3.2.2, postprocessing 6.39.6, gsap 3.15.1, @gsap/react 2.1.2, lenis 1.3.27.
-- **Done when:** the old site runs on the new stack with no console errors.
+### L04 · React 19 + 3D stack + GSAP/Lenis · S · status: built 2026-11-21 (local branch `lot/L04-react19-3d`, stacked on L03; waits for the owner's OK)
+- **Output:** react/react-dom 19.3.1, three 0.187.0, @react-three/fiber 9.8.2, drei 10.7.9, @react-three/postprocessing 3.2.2, postprocessing 6.39.6, gsap 3.15.1, @gsap/react 2.1.2, lenis 1.3.27, framer-motion 14.11.1 (temporary, Stack lot deletes it), @types/react(-dom) 19.3.0, @types/three 0.187.0. No source changes. The `react-three-fiber@6` duplicate was already gone.
+- **Checked:** `npm ls` clean (3 "overriding peer dependency" warnings at install, as the report predicted). `tsc -b` and oxlint clean. All 4 sections mount, AOS reveals 13 elements, the stack canvas renders the 3D logo (WebGL2). The only console line is the expected `THREE.Clock` deprecation warning. Computed-style diff against the L03 build: no change beyond typewriter timing.
+- **Cost:** eager JS 363 → 424 kB gz, as expected until L09 lazy-loads the 3D chunk.
+- **Still to do:** push, PR, Vercel preview check, owner OK, merge (after L03).
+
 
 ### L05 · Test gates · M · status: todo
 - **Read:** stack-modernization §10, §11 "Lot E".
@@ -435,3 +439,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-16: L01 done (PR #3). Vercel had built nothing since 2026-06-26: Settings → Git showed "Project Link not found" for `abdelmatine/league`. The link came back after the owner signed in, and a new push built a preview. Previews sit behind Vercel login, so check them in a signed-in browser, not with curl. If a push shows no Vercel status on GitHub, look at Settings → Git first. Progress 21%. Next: L02.
 - 2026-11-21: L02 built on `lot/L02-tailwind4` (from `main`, with the L01 backlog commit cherry-picked). A computed-style diff of every element found three v4 changes that showed (button cursor, placeholder colour, `space-x` margins); all three are back to the v3 look. Points count once it is merged. Progress stays 21%. Next: L03, stacked on the L02 branch.
 - 2026-11-21: L03 built on `lot/L03-vite8-ts7`, stacked on L02. `tsc` and oxlint are clean; the site matches the L02 build. Same session as L02, by the owner's request to continue through the backlog. Progress stays 21% until the lots merge. Next: L04.
+- 2026-11-21: L04 built on `lot/L04-react19-3d`, stacked on L03. No source changes needed; the 3D canvas renders on r3f 9. The run stops here: L05 needs the branches pushed and a repo secret. Progress stays 21% until L02–L04 merge; then it is 33 of 119 points = 28%.
