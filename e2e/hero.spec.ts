@@ -7,6 +7,15 @@ test('without a hardware GPU the hero keeps its CSS poster and loads no 3D', asy
   await expect(page.locator('.hx-stage canvas')).toHaveCount(0)
 })
 
+test('section frames build in once they scroll into view, and end fully visible', async ({ page }) => {
+  await page.goto('/')
+  const frame = page.locator('#about .hx-section__frame')
+  await expect(frame).toHaveAttribute('data-reveal', 'armed')
+  await frame.scrollIntoViewIfNeeded()
+  await expect(frame).toHaveAttribute('data-reveal', 'done')
+  await expect(frame).toHaveCSS('opacity', '1')
+})
+
 test('a pinned tier compiles the core and draws a first frame without errors', async ({ page }) => {
   test.setTimeout(90_000) // SwiftShader compiles and draws slowly
   const errors: string[] = []

@@ -86,9 +86,9 @@ export function HomeScene({ anchor }: SceneProps) {
     const b = box.current
     const out = smooth(MathUtils.clamp(pull, 0, 1))
 
-    // Scroll: the core rises at about half the scroll speed (the copy slides past it), pulls back and drifts aside on wide screens.
+    // Scroll: the core rises at a fifth of the scroll speed (the copy slides past it), pulls back and drifts aside on wide screens.
     const sx = b.cx - scrollX + (size.width >= 1024 ? size.width * 0.16 * out : 0)
-    const sy = b.cy - (frame.still ? 0 : scrollY * 0.55)
+    const sy = b.cy - (frame.still ? 0 : scrollY * 0.2)
     const z = -3.2 * out
     const k = unitsPerPx(cam.position.z - z)
     const g = rig.current!

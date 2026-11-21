@@ -4,7 +4,7 @@
     justify-content: flex-end;
     gap: 0;
     min-height: max(calc(100svh - var(--hdr)), 34rem);
-    padding: 0.5rem 1rem clamp(5.5rem, 13svh, 8rem);
+    padding: 0.5rem 1rem clamp(7rem, 14svh, 8.5rem); /* room for the scroll cue under the CTAs */
     background: none;
   }
 
@@ -15,6 +15,73 @@
     width: 100%;
     height: auto;
     min-height: 13rem;
+  }
+
+  /* ---------- Copy: name, rule, title line, CTAs (faded out by the scroll pull-back) ---------- */
+  .hx-hero-copy {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  /* A soft pool of shade under the type, so drifting motes never sit on the letters. */
+  .hx-hero-copy::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -8%;
+    z-index: -1;
+    width: min(74rem, 130%);
+    height: 110%;
+    translate: -50% 0;
+    background: radial-gradient(50% 50% at 50% 50%, rgb(1 8 15 / 0.62), transparent);
+    pointer-events: none;
+  }
+  .hx-hero-name {
+    padding: 0 0.04em;
+  }
+  /* While SplitText has the name in pieces, each character carries the gold itself (motion.ts splitReveal). */
+  .hx-hero-name:has(div) {
+    background: none;
+  }
+  .hx-hero-name div div {
+    background: linear-gradient(180deg, var(--color-gold-50) 18%, var(--color-gold-200) 58%, var(--color-gold-500)) 0 0 / 100% 1lh;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hx-hero-section__rule {
+    width: min(38rem, 90%);
+    margin: clamp(0.875rem, 2.2svh, 1.375rem) 0 clamp(0.75rem, 1.8svh, 1.125rem);
+  }
+  .hx-hero-section__title {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.25rem;
+  }
+  .hx-hero-section__title > span {
+    display: inline-flex;
+    align-items: center;
+  }
+  .hx-hero-section__title i {
+    width: 5px;
+    height: 5px;
+    margin: 0 0.9rem;
+    rotate: 45deg;
+    background: var(--color-gold-500);
+    box-shadow: 0 0 0 1px rgb(209 180 124 / 0.3);
+  }
+  .hx-hero-section__ctas {
+    margin-top: clamp(1.25rem, 3.4svh, 2.25rem);
+  }
+
+  .hx-hero-section .hx-cue {
+    bottom: clamp(1rem, 2.4svh, 1.5rem);
+  }
+  .hx-hero-section .hx-cue__track {
+    height: 2.25rem;
   }
 
   /* ---------- Poster: the core in CSS/SVG until the canvas draws (and for good without WebGL) ---------- */

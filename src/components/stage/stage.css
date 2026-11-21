@@ -1,5 +1,23 @@
 /* 3D stage extras (loaded with the lazy chunk; the base .hx-stage rule is in components.css). */
+
+/* Frame build-in over the live canvas (G03). --hx-orn only fades a frame's own ornaments, so it need not inherit:
+   inherited, every tick of its tween restyled the frame's whole subtree (+5.7 ms per frame measured). */
+@property --hx-orn {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
 @layer components {
+  .hx-frame::before,
+  .hx-frame::after {
+    --hx-orn: inherit;
+  }
+  /* One glow on the drawn lines instead of two: each drop-shadow re-rasterises the frame-sized SVG per tick. */
+  html[data-stage='live'] .hx-build {
+    filter: drop-shadow(0 0 3px rgb(243 234 214 / 0.85));
+  }
+
   /* Large-viewport height: the buffer keeps its size while mobile toolbars slide in and out. */
   .hx-stage {
     inset: 0 0 auto;
