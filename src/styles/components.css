@@ -8,7 +8,11 @@
      gem cores, game-action fills, progress.
    - A gem is a 1 px gold-200 outline on ink with a teal-300 core, centred on the line or corner it marks.
    - Hairlines fade out over the outer 10 % of their length.
-   - Buttons cut the top-left and bottom-right corners; frames keep square corners and carry gems. */
+   - Buttons cut the top-left and bottom-right corners; frames keep square corners and carry gems.
+
+   Motion (spec §8): a component's own transition is the hover-out (slower + glow); its :hover rule,
+   inside @media (hover: hover), switches to the hover-in (fast + settle). Transform, opacity and filter
+   carry the effects; nothing animates layout. */
 
 @layer components {
   :root {
@@ -261,6 +265,7 @@
     .hx-btn:hover {
       --btn-ink: var(--color-gold-50);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-btn--magic:hover {
       --btn-ink: #fff;
@@ -270,6 +275,7 @@
     .hx-btn:hover::after {
       filter: brightness(1.3);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-btn:hover .hx-btn__fx::before {
       transform: translateX(280%) skewX(-14deg);
@@ -370,6 +376,7 @@
     .hx-tab:hover {
       color: var(--color-gold-50);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-tab:hover:not([aria-selected='true'])::after {
       transform: scaleX(0.4);
@@ -417,6 +424,7 @@
     .hx-input:hover {
       border-color: var(--color-gold-500);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
   .hx-input:focus-visible {
@@ -550,6 +558,7 @@
     :is(.hx-toast__close, .hx-dialog__close):hover {
       color: var(--color-gold-50);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
 
@@ -927,16 +936,19 @@
       color: var(--color-gold-50);
       text-decoration-color: currentColor;
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-iconbtn:hover {
       color: var(--color-gold-50);
       filter: drop-shadow(0 0 6px rgb(243 234 214 / 0.35));
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-row:hover {
       color: var(--color-gold-50);
       background-color: rgb(243 234 214 / 0.06);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
 
@@ -1058,10 +1070,12 @@
     .hx-nav a:hover {
       color: var(--color-gold-50);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-nav a:not([aria-current]):hover::after {
       opacity: 0.45;
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
 
@@ -1283,14 +1297,17 @@
       --play-ink: var(--color-teal-100);
       filter: drop-shadow(0 0 10px rgb(47 208 196 / 0.45));
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-play[data-state='play']:hover .hx-play__fill::after {
       opacity: 0.7;
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
     .hx-play:not([aria-disabled]):hover .hx-play__plate::before {
       filter: brightness(1.35);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
   @media (width < 48rem) {
@@ -1555,6 +1572,7 @@
     .hx-cue:hover {
       color: var(--color-gold-50);
       transition-duration: var(--duration-fast);
+      transition-timing-function: var(--ease-settle);
     }
   }
   @media (prefers-reduced-motion: reduce) {
