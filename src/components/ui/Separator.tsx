@@ -4,10 +4,10 @@ interface SeparatorProps {
   className?: string;
 }
 
-const Separator: React.FC<SeparatorProps> = ({ className }) => {
+const Separator: React.FC<SeparatorProps> = ({ className = "" }) => {
   return (
     <div
-      className={`h-10 w-px bg-gradient-to-b from-gray-300 to-yellow-400 ${className}`}
+      className={`h-10 w-px bg-linear-to-b from-gray-300 to-yellow-400 ${className}`}
     />
   );
 };

@@ -43,7 +43,7 @@ export function Contact() {
             Name
           </label>
           <input
-            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded focus:outline-none focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
+            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded-sm focus:outline-hidden focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
             id="name"
             type="text"
             placeholder="Your Name"
@@ -57,7 +57,7 @@ export function Contact() {
             Email
           </label>
           <input
-            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded focus:outline-none focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
+            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded-sm focus:outline-hidden focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
             id="email"
             type="email"
             placeholder="Your Email"
@@ -71,7 +71,7 @@ export function Contact() {
             Message
           </label>
           <textarea
-            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded focus:outline-none focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
+            className="w-full px-3 py-2 text-[#C8AA6E] bg-[#091428] border border-[#C8AA6E] rounded-sm focus:outline-hidden focus:ring-2 focus:ring-[#C8AA6E] appearance-none"
             id="message"
             rows={5}
             placeholder="Your Message"
@@ -81,7 +81,7 @@ export function Contact() {
         </div>
         <div className="flex justify-center">
           <button
-            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] border-[#044e48] px-4 py-2 font-semibold uppercase text-[#0AC8B9] transition-all duration-500
+            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border border-[#044e48] px-4 py-2 font-semibold uppercase text-[#0AC8B9] transition-all duration-500
             before:absolute before:inset-0 before:-z-10 before:translate-x-[150%] before:translate-y-[150%] before:scale-[2.5] before:rounded-[100%] before:bg-[#0AC8B9] before:transition-transform before:duration-1000 before:content-['']
             hover:scale-105 hover:text-neutral-900 hover:before:translate-x-[0%] hover:before:translate-y-[0%] active:scale-95"
             type="button"

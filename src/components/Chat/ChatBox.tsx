@@ -39,7 +39,7 @@ export function ChatBox() {
           </div>
 
           {/* Messages */}
-          <div className="h-48 overflow-y-auto p-2 space-y-2 bg-[#1E2328]/30 backdrop-blur-sm">
+          <div className="h-48 overflow-y-auto p-2 space-y-2 bg-[#1E2328]/30 backdrop-blur-xs">
             {mockMessages.map((msg) => (
               <div key={msg.id} className="text-sm">
                 <span className="text-[#C8AA6E]">{msg.user}: </span>
@@ -55,7 +55,7 @@ export function ChatBox() {
               <input
                 type="text"
                 placeholder="Type a message..."
-                className="w-full bg-[#111111] text-[#A09B8C] text-sm rounded px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#C8AA6E]"
+                className="w-full bg-[#111111] text-[#A09B8C] text-sm rounded-sm px-3 py-1.5 focus:outline-hidden focus:ring-1 focus:ring-[#C8AA6E]"
               />
               <button className="text-[#A09B8C] hover:text-[#C8AA6E] transition-colors">
                 <Send className="w-4 h-4" />

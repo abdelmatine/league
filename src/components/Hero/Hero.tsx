@@ -14,7 +14,7 @@ export default function Hero() {
       <div className="absolute top-0 left-0 w-full h-full"></div>
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center px-6 max-w-screen-lg mx-auto">
+      <div className="relative z-10 text-center px-6 max-w-(--breakpoint-lg) mx-auto">
         {/* Static H1 */}
         <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
           Hi, I&apos;m <span className="text-[#0AC8B9]">Abdelmatine Sfar</span>
@@ -38,7 +38,7 @@ export default function Hero() {
           <NavLink
             to="#projects"
             onClick={(e) => handleSmoothScroll(e, "projects")}
-            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
+            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border 
             border-[#044e48] px-4 py-2 font-semibold uppercase text-[#0AC8B9] transition-all duration-500
             
             before:absolute before:inset-0
@@ -58,7 +58,7 @@ export default function Hero() {
           <NavLink
             to="#contact"
             onClick={(e) => handleSmoothScroll(e, "contact")}
-            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
+            className="relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border 
             border-gray-600 px-4 py-2 font-semibold uppercase text-white transition-all duration-500
             
             before:absolute before:inset-0

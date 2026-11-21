@@ -105,7 +105,7 @@ export function MainSection({ projects }: { projects: Project[] }) {
       </div>
 
       {/* Find Match Button and Custom Buttons */}
-      <div className="py-8 flex justify-center items-center space-x-4">
+      <div className="py-8 flex justify-center items-center [&>:not([hidden])~:not([hidden])]:ml-4">
         <button
           className="bg-[#1E2328] text-[#A09B8C] p-2 rounded-full hover:bg-[#252931] transition-colors"
           onClick={() => (swiperRef.current as SwiperCore).slidePrev()}

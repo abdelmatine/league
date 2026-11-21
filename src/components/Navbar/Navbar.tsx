@@ -21,14 +21,14 @@ export function Navbar({ isSidebarMinimized, isPlaying, toggleSound }: NavbarPro
   ];
 
   return (
-    <nav className="bg-[#111111]/90 backdrop-blur-sm border-b border-[#1E282D] py-2 fixed top-0 left-0 right-0 z-40">
+    <nav className="bg-[#111111]/90 backdrop-blur-xs border-b border-[#1E282D] py-2 fixed top-0 left-0 right-0 z-40">
       <div className="flex items-center justify-between px-4 max-w-[2000px] mx-auto">
         {/* Left Section: Logo and NavLinks */}
-        <div className="flex items-center space-x-6">
+        <div className="flex items-center [&>:not([hidden])~:not([hidden])]:ml-6">
           <Logo isPlaying={isPlaying} toggleSound={toggleSound} />
 
           {/* NavLinks */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center [&>:not([hidden])~:not([hidden])]:ml-6">
             {navLinks.map((link) => (
               <a
                 key={link.id}
@@ -51,7 +51,7 @@ export function Navbar({ isSidebarMinimized, isPlaying, toggleSound }: NavbarPro
         </div>
 
         {/* Right Section: Icons and User Stats */}
-        <div className={`flex items-center space-x-6 ${isSidebarMinimized ? "" : "pr-72"}`}>
+        <div className={`flex items-center [&>:not([hidden])~:not([hidden])]:ml-6 ${isSidebarMinimized ? "" : "pr-72"}`}>
           {/* Icons visible only on large screens */}
           <div className="hidden lg:flex items-center gap-4">
             {[Shield, Star, Trophy, Gift].map((Icon, index) => (
@@ -63,7 +63,7 @@ export function Navbar({ isSidebarMinimized, isPlaying, toggleSound }: NavbarPro
               </button>
             ))}
           </div>
-          <Separator className="mx-4" />
+          <Separator />
           <UserStats />
         </div>
       </div>

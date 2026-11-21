@@ -16,7 +16,7 @@ export function FindMatch({ projectLink }: { projectLink?: string }) {
       <button 
             onClick={handleClick}
             className="
-        relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border-[1px] 
+        relative z-0 flex items-center gap-2 overflow-hidden rounded-lg border 
         border-[#044e48] px-4 py-2 font-semibold uppercase text-[#0AC8B9] transition-all duration-500
         
         before:absolute before:inset-0
