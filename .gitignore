@@ -25,3 +25,7 @@ dist-ssr
 
 # brainstorm mockups
 .superpowers/
+
+# Playwright
+test-results/
+playwright-report/
