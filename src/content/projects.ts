@@ -11,6 +11,8 @@ export interface Project {
   stack: string[]
   /** Hidden until it has real content (placeholder text or a link that isn't the project's). */
   draft?: boolean
+  /** Brand colour (hex): tints the project's lobby banner and detail panel. */
+  accent?: string
 }
 
 export const projects: Project[] = [
@@ -34,6 +36,7 @@ export const projects: Project[] = [
     image: '/assets/electrocute.png',
     link: 'https://electrocuute.vercel.app',
     stack: ['react'],
+    accent: '#E3261C',
   },
   {
     slug: 'planify',
@@ -44,6 +47,7 @@ export const projects: Project[] = [
     image: '/assets/cal.png',
     link: 'https://planify.vercel.app',
     stack: ['nextjs', 'react-native'],
+    accent: '#2E9AA6',
   },
   {
     slug: 'mondas-ol',
@@ -54,6 +58,7 @@ export const projects: Project[] = [
     image: '/icons/mondas.ico',
     link: 'https://mondas-ol.vercel.app/',
     stack: ['nextjs', 'nestjs', 'postgresql'],
+    accent: '#F2A900',
   },
   {
     slug: 'zinine-gym',
@@ -64,6 +69,7 @@ export const projects: Project[] = [
     image: '/assets/gym.jpg',
     link: 'https://zininegym.netlify.app',
     stack: ['spring-boot', 'react'],
+    accent: '#9AA3AD',
   },
   {
     slug: 'e-books',
@@ -96,6 +102,7 @@ export const projects: Project[] = [
     image: '/assets/glimmer.png',
     link: 'https://glimmergrace.vercel.app/',
     stack: ['nextjs', 'supabase'],
+    accent: '#E8DCC8',
   },
   {
     slug: 'vehicool',
@@ -106,6 +113,7 @@ export const projects: Project[] = [
     image: '/icons/vehicool.svg',
     link: 'https://vehicool.vercel.app/',
     stack: ['spring-boot', 'react'],
+    accent: '#7F93A8',
   },
   {
     slug: 'sam-medicale',
@@ -116,6 +124,7 @@ export const projects: Project[] = [
     image: '/icons/sam.svg',
     link: 'https://sammedicale.com.tn/',
     stack: ['nextjs', 'nestjs', 'postgresql', 'minio', 'redis'],
+    accent: '#14B39A',
   },
   {
     slug: 'mono',
@@ -126,5 +135,6 @@ export const projects: Project[] = [
     image: '/icons/mono.svg',
     link: 'https://monoo.lovable.app',
     stack: ['spring-boot', 'nextjs'],
+    accent: '#4FD1D9',
   },
 ]

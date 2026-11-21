@@ -6,6 +6,8 @@ import { playStore } from './lib/playStore'
 import { initScroll } from './lib/scroll'
 import { stageSupported } from './lib/stageStore'
 import { About } from './sections/About'
+import { Achievements } from './sections/Achievements'
+import { Career } from './sections/Career'
 import { Contact } from './sections/Contact'
 import { Hero } from './sections/Hero'
 import { Projects } from './sections/Projects'
@@ -35,6 +37,9 @@ export default function App() {
         <About />
         <Projects />
         <Stack />
+        {/* Content-gated: each renders nothing until career.ts has entries for it. */}
+        <Career />
+        <Achievements />
         <Contact />
       </main>
       <Footer />

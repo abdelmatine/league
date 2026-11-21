@@ -29,7 +29,7 @@ export const profile: Profile = {
     'I build web and mobile products end to end: Next.js and React on the front, Spring Boot and NestJS on the back, PostgreSQL, Redis and Supabase for data, and React Native for mobile. The work below includes online stores, a meeting planner, a car marketplace and brand sites.',
   ],
   aboutIsPlaceholder: true,
-  photo: '/assets/foto.jpg',
+  photo: '/assets/profile/foto-480.webp', // from foto.jpg by scripts/optimise-images.mjs
   photoFocus: '54% 32%',
   photoZoom: 1.6,
   socials: [

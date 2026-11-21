@@ -1,0 +1,44 @@
+/* Tech chip: a gold diamond (our own) holding the flat, unaltered logo or our monogram. Size with --tc. */
+@layer components {
+  .tc {
+    --tc: 2.25rem;
+    position: relative;
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: var(--tc);
+    aspect-ratio: 1;
+  }
+  /* A square turned 45 degrees with its points on the box edges. */
+  .tc::before {
+    content: '';
+    position: absolute;
+    inset: 14.6%;
+    rotate: 45deg;
+    border: 1px solid var(--color-gold-300);
+    background: radial-gradient(circle at 30% 30%, var(--color-ink-700), var(--color-ink-950) 75%);
+    box-shadow:
+      0 0 0 1.5px rgb(1 8 15 / 0.9),
+      0 4px 10px rgb(0 0 0 / 0.55);
+  }
+  .tc__face {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 46%;
+    aspect-ratio: 1;
+  }
+  .tc__face img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .tc__mono {
+    color: var(--color-gold-200);
+    font-family: var(--font-display);
+    font-size: calc(var(--tc) * 0.32);
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
