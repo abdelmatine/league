@@ -1,4 +1,5 @@
 import { useEffect, type RefObject } from 'react'
+import { stagePlan } from './tiers'
 
 /** A 3D scene drawn on the shared canvas, anchored to a DOM element. Its component lives in the
  *  lazy stage chunk (components/stage/scenes.ts) under the same id, so sections never import three. */
@@ -63,14 +64,7 @@ export function useStageScene(id: string, ref: RefObject<HTMLElement | null>) {
   }, [id, ref])
 }
 
-/** The 3D chunk loads only with WebGL2 and without Save-Data (L09 adds GPU tiers). */
+/** The 3D chunk loads only with WebGL2, a hardware GPU and without Save-Data (tiers.ts stagePlan, probed once). */
 export function stageSupported() {
-  if ((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData) return false
-  try {
-    const gl = document.createElement('canvas').getContext('webgl2')
-    gl?.getExtension('WEBGL_lose_context')?.loseContext()
-    return gl !== null
-  } catch {
-    return false
-  }
+  return stagePlan() !== null
 }

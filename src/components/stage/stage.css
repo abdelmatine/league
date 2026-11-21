@@ -1,0 +1,33 @@
+/* 3D stage extras (loaded with the lazy chunk; the base .hx-stage rule is in components.css). */
+@layer components {
+  /* Large-viewport height: the buffer keeps its size while mobile toolbars slide in and out. */
+  .hx-stage {
+    inset: 0 0 auto;
+    height: 100vh;
+    height: 100lvh;
+  }
+  .hx-stage canvas {
+    transition: opacity var(--duration-glow) var(--ease-glow);
+  }
+  /* Until the first frame is on screen the hero's CSS poster stands in (data-stage is set by Stage.tsx). */
+  html:not([data-stage='live']) .hx-stage canvas {
+    opacity: 0;
+  }
+  /* No composer (LOW, or no float buffers): the Vignette effect's falloff in CSS (stops from postprocessing's
+     vignette shader at offset .3, darkness .65; gap-results gap:1). */
+  .hx-stage:not([data-post])::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse farthest-corner at 50% 50%,
+      transparent 38%,
+      rgb(0 0 0 / 0.036) 50%,
+      rgb(0 0 0 / 0.099) 60%,
+      rgb(0 0 0 / 0.189) 70%,
+      rgb(0 0 0 / 0.302) 80%,
+      rgb(0 0 0 / 0.439) 90%,
+      rgb(0 0 0 / 0.6) 100%
+    );
+  }
+}
