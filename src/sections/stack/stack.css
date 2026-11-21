@@ -508,12 +508,40 @@
   flex: 1 1 auto;
   width: 100%;
   min-height: 10rem;
+}
+/* The 3D anchor: the stage centres its scene here; the mark floats a little above the middle. */
+.cs-stage {
+  position: absolute;
+  inset: 0;
   container-type: size;
+  pointer-events: none;
+}
+.cs-flash,
+.cs-burst {
+  position: absolute;
+  left: 50%;
+  top: 41%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: var(--radius-full);
+  opacity: 0;
+}
+.cs-flash {
+  width: min(100cqh, 34rem);
+  background: radial-gradient(closest-side, #fff, rgb(211 250 246 / 0.55) 45%, transparent 75%);
+  mix-blend-mode: screen;
+}
+.cs-burst {
+  width: min(64cqh, 22rem);
+  border: 2px solid var(--color-teal-100);
+  box-shadow:
+    0 0 18px var(--color-teal-300),
+    inset 0 0 18px var(--color-teal-300);
 }
 .cs-poster {
   position: absolute;
   left: 50%;
-  top: 48%;
+  top: 41%;
   display: grid;
   place-items: center;
   width: min(13rem, 42cqw, 72cqh);
@@ -535,7 +563,7 @@
 .cs-poster .cs-mono {
   font-size: clamp(2.5rem, 5vw, 4.25rem);
 }
-.cs-view[data-stage='ready'] .cs-poster {
+.cs-stage[data-stage='ready'] .cs-poster {
   opacity: 0;
 }
 .cs-plate {
@@ -1325,6 +1353,9 @@
   .cs-centre {
     display: contents;
   }
+  .cs-glow {
+    background: radial-gradient(80% 30% at 50% 102%, rgb(135 103 47 / 0.14), transparent 72%); /* the side fades would dim the canvas here */
+  }
   .cs-team,
   .cs-timer,
   .cs-view,
@@ -1417,9 +1448,11 @@
   .cs-plate__name {
     font-size: 1.5rem;
   }
+  .cs-stage {
+    inset: 0 0 24%; /* the nameplate docks under the pedestal */
+  }
   .cs-poster {
-    top: 44%;
-    width: 46cqw;
+    width: min(52cqw, 62cqh);
   }
   .cs-banner::before {
     width: 100%;

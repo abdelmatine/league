@@ -28,3 +28,20 @@ test('stack: LOCK IN swaps the grid for the build sheet, Pick another brings it 
   await page.getByRole('button', { name: 'Pick another' }).click()
   await expect(page.locator('#cs-t-nextjs')).toBeFocused()
 })
+
+test.describe('with motion', () => {
+  test.use({ contextOptions: { reducedMotion: 'no-preference' } })
+
+  test('stack: the LOCK IN timeline runs, locks the tile and lights the projects', async ({ page }) => {
+    const errors: string[] = []
+    page.on('pageerror', (e) => errors.push(e.message))
+    page.on('console', (m) => void (m.type() === 'error' && errors.push(m.text())))
+    await page.goto('/#stack/spring-boot')
+    await page.getByRole('button', { name: 'Lock in', exact: true }).click()
+    await expect(page.locator('#cs-t-spring-boot')).toHaveAttribute('data-locked', '')
+    await expect(page.getByRole('heading', { name: 'Built with Spring Boot' })).toBeVisible()
+    await expect(page.getByRole('button', { name: 'Locked in', exact: true })).toHaveAttribute('aria-disabled', 'true')
+    await expect(page.locator('.cs-skins .cs-skin')).toHaveCount(3)
+    expect(errors).toEqual([])
+  })
+})

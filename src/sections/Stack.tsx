@@ -11,6 +11,7 @@ import { stageStore, useStageScene } from '../lib/stageStore'
 import { draftBeats, matches, pairedWith, techFromRoute, usageLabel, type LaneFilter } from './stack/data'
 import { RoleGlyph } from './stack/glyphs'
 import { armIntro } from './stack/intro'
+import { playLockIn } from './stack/lockin'
 import { TechMark } from './stack/TechMark'
 import './stack/stack.css'
 
@@ -29,11 +30,14 @@ const tile = (id: string) => document.getElementById(`cs-t-${id}`)
  *  the projects that use it on the right. Deep link: #stack/<tech id>. */
 export function Stack() {
   const root = useRef<HTMLElement>(null)
-  const view = useRef<HTMLDivElement>(null)
+  const stageBox = useRef<HTMLDivElement>(null)
   const intro = useRef<{ skip: () => void } | null>(null)
   /** Selector to focus once the next render is in the DOM (the box it lives in may still be inert now). */
   const focusNext = useRef('')
-  useStageScene('stack', view)
+  /** Bumped by every pick: a lock-in whose sheet is still on its way checks it before opening. */
+  const run = useRef(0)
+  const pending = useRef(false)
+  useStageScene('stack', stageBox)
 
   const [selected, setSelected] = useState(() => techFromRoute(parseHash(location.hash)) ?? FEATURED)
   const [focusId, setFocusId] = useState(selected)
@@ -69,6 +73,8 @@ export function Stack() {
 
   /** `quiet`: the intro's own picks (no hash, no announcement, the draft keeps its header line). */
   function select(id: string, { quiet = false } = {}) {
+    run.current++
+    pending.current = false
     setSelected(id)
     setFocusId(id)
     setSheet(false)
@@ -80,16 +86,23 @@ export function Stack() {
   }
 
   function lockIn(id = selected) {
-    if (sheet) return
+    if (sheet || pending.current || !root.current) return
     const t = techById(id)!
-    const inGrid = root.current?.querySelector('.cs-pick')?.contains(document.activeElement)
+    const inGrid = root.current.querySelector('.cs-pick')?.contains(document.activeElement)
+    const mine = ++run.current
+    pending.current = true
     setSelected(id)
+    setFocusId(id)
     setLocked(id)
-    setSheet(true)
     setMessage(`${t.name} locked in`)
     setLive(`${t.name} locked in. ${usageLabel(projectsUsing(id).length)}.`)
     history.replaceState(null, '', formatHash({ section: 'stack', item: id }))
-    if (inGrid) focusNext.current = '.cs-sheet__title'
+    playLockIn(root.current, id, () => {
+      if (run.current !== mine) return
+      pending.current = false
+      setSheet(true)
+      if (inGrid) focusNext.current = '.cs-sheet__title'
+    })
   }
 
   function pickAnother() {
@@ -271,9 +284,13 @@ export function Stack() {
           </div>
         </header>
 
-        <div ref={view} className="cs-view">
-          <div className="cs-poster" aria-hidden="true">
-            <TechMark tech={sel} />
+        <div className="cs-view">
+          <div ref={stageBox} className="cs-stage" aria-hidden="true">
+            <div className="cs-poster">
+              <TechMark tech={sel} />
+            </div>
+            <div className="cs-flash" />
+            <div className="cs-burst" />
           </div>
           <p className="cs-plate">
             <span className="cs-plate__lane">
