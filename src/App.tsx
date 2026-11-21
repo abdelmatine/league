@@ -1,7 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState, type ComponentType } from 'react'
 import { Footer } from './components/footer/Footer'
 import { Header } from './components/header/Header'
 import { ToastRegion } from './components/ui/Toast'
+import { reach } from './lib/loader'
 import { playStore } from './lib/playStore'
 import { initScroll } from './lib/scroll'
 import { stageSupported } from './lib/stageStore'
@@ -13,13 +14,20 @@ import { Hero } from './sections/Hero'
 import { Projects } from './sections/Projects'
 import { Stack } from './sections/Stack'
 
-const Stage = lazy(() => import('./components/stage/Stage'))
+// A failed chunk fetch (offline, a deploy swapping files) keeps the CSS poster and lets the loader finish.
+const Stage = lazy<ComponentType>(() =>
+  import('./components/stage/Stage').catch(() => {
+    reach('stage')
+    reach('frame')
+    return { default: () => null }
+  }),
+)
 
 export default function App() {
   const [stage] = useState(stageSupported)
   useEffect(() => {
     initScroll()
-    playStore.dispatch({ type: 'ready' }) // L11: the loader drives patching -> play instead
+    playStore.dispatch({ type: 'ready' }) // fallback only: while the loader is up it holds `ready` (lib/loader.ts)
   }, [])
   return (
     <>

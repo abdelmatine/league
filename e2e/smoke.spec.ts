@@ -13,3 +13,13 @@ test('unknown path returns a real 404', async ({ page }) => {
   test.skip(!process.env.BASE_URL, 'vite preview serves index.html for every path; only Vercel serves 404.html')
   expect((await page.goto('/no-such-page'))?.status()).toBe(404)
 })
+
+test('nothing overflows the page width', async ({ page }) => {
+  await page.goto('/')
+  const width = page.viewportSize()!.width
+  for (const id of ['home', 'about', 'projects', 'stack', 'contact']) {
+    await page.locator(`#${id}`).scrollIntoViewIfNeeded()
+    // Phones widen the layout viewport to fit overflowing content, so innerWidth catches it too.
+    expect(await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth])).toEqual([width, width])
+  }
+})

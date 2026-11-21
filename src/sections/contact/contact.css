@@ -755,8 +755,12 @@
     .cx-wing {
       width: 4rem;
     }
+    .cx-actions {
+      max-width: 100%; /* never wider than the form: wings shrink first */
+    }
     .cx-send {
       min-width: 9.75rem;
+      flex-shrink: 1;
     }
   }
 

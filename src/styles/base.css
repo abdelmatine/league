@@ -29,6 +29,7 @@
     background: var(--color-ink-950);
     scroll-padding-top: var(--hdr);
     scrollbar-gutter: stable;
+    overflow-x: clip; /* phones widen the layout to fit any overflow; clip (not hidden) keeps sticky working */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
   }
