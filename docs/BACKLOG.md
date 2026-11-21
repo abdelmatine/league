@@ -6,7 +6,9 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**L02 · Tailwind 4** (S; not started). After it: T10 · Mockup: home.
+**L03 · Vite 8, TypeScript 7, oxlint** (M; not started). It stacks on the L02 branch. After it: T10 · Mockup: home.
+
+Waiting on the owner's OK: push `lot/L02-tailwind4` (it also carries the L01 backlog tick), open the PR, check the preview, merge.
 
 Waiting on the owner:
 - **T02**: fill in `docs/OWNER-QUESTIONS.md` (51 answer lines).
@@ -55,7 +57,7 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 | 1. Decide (T01–T04) | 4 / 6 | T01, T04 done; T02, T03 wait on the owner |
 | 2. Mockups (T09–T14) | 2 / 20 | T09 done; screens half built |
 | 3. Spec and plans (T20–T21) | 0 / 6 | blocked by phases 1–2 |
-| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02–L05 ready; the rest after phase 3 |
+| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02 built, waits for merge; L03–L05 ready; the rest after phase 3 |
 
 ### Done before this backlog (16 points)
 
@@ -285,10 +287,13 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Add `vercel.json` (immutable caching for hashed assets) and `engines.node`.
 - **Done when:** the site looks the same, the music is gone, and the build is smaller.
 
-### L02 · Tailwind 4 · S · status: todo
-- **Note 2026-11-16:** a run started and was stopped by the usage guard before any change. Branch from `lot/L01-cleanup` if L01 is not merged yet.
-- **Read:** stack-modernization §3, §11 "Lot B".
-- **Done when:** the site looks identical on the preview (screenshot diff by eye).
+### L02 · Tailwind 4 · S · status: built 2026-11-21 (local branch `lot/L02-tailwind4`; waits for the owner's OK to push, PR and preview)
+- **Output:** Tailwind 4.3.5 via `@tailwindcss/vite`. `tailwind.config.js`, `postcss.config.js`, `postcss` and `autoprefixer` are gone. `src/index.css` uses `@import 'tailwindcss' source(none)` with explicit `@source` lines. CSS 72.6 → 79.4 kB raw (12.7 → 14.2 kB gz). Build 28 s → 9 s.
+- **Kept the v3 look** (found by a computed-style diff of every element, old build vs new, at 1440 and 390 wide): pointer cursor on buttons and gray-400 placeholders (base rules in `index.css`); v3 `space-x` margins in the navbar and the project pager (arbitrary `[&>:not([hidden])~:not([hidden])]:ml-*` variants); the navbar separator loses `mx-4`, as v3 overrode it.
+- **Accepted drift:** the v4 palette is oklch, so `gray-*`, `green-500`, `blue-*` and `yellow-400` shift very slightly. `bg-[#1E2328]/1` now renders at 1% alpha (was transparent). Both are invisible by eye; the screenshots match.
+- **Lint:** the same 3 ESLint errors as on `main` (two workflow scripts in `docs/checkpoints/`, unused `React` in `App.jsx`). L03 replaces ESLint.
+- **Left for later:** the border compatibility layer stays until L06 sets explicit Hextech borders. Add `dialog { margin: auto }` with the `Dialog` component in L07 (v4 preflight zeroes it).
+- **Still to do:** push, PR, Vercel preview check at 1440×900 and 390×844, owner OK, merge.
 
 ### L03 · Vite 8, TypeScript 7, oxlint · M · status: todo
 - **Read:** stack-modernization §5, §10.1, §11 "Lot C".
@@ -429,3 +434,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-16: T00 done. The planning docs are merged to `main` from `docs/hextech-planning`, with the owner's OK. Next: T01.
 - 2026-11-16: one run of five tasks, by the owner's request (overrides rule 3 for that run). Done: T01, T04, T09. L01 is built on a local branch and waits for the owner's OK. L02 was stopped by the usage guard at 73% before any change. Progress 19%. Next: L01 push and PR, then L02, then T10.
 - 2026-11-16: L01 done (PR #3). Vercel had built nothing since 2026-06-26: Settings → Git showed "Project Link not found" for `abdelmatine/league`. The link came back after the owner signed in, and a new push built a preview. Previews sit behind Vercel login, so check them in a signed-in browser, not with curl. If a push shows no Vercel status on GitHub, look at Settings → Git first. Progress 21%. Next: L02.
+- 2026-11-21: L02 built on `lot/L02-tailwind4` (from `main`, with the L01 backlog commit cherry-picked). A computed-style diff of every element found three v4 changes that showed (button cursor, placeholder colour, `space-x` margins); all three are back to the v3 look. Points count once it is merged. Progress stays 21%. Next: L03, stacked on the L02 branch.
