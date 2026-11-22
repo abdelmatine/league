@@ -42,6 +42,20 @@ describe('music', () => {
     expect(fn).toHaveBeenCalledTimes(2)
   })
 
+  it('makes a new element after a refused play(), so music works again once the network is back', async () => {
+    let fail = true
+    const { m, make, calls } = setup(() => (fail ? Promise.reject(new DOMException('load failed', 'NotSupportedError')) : Promise.resolve()))
+    m.set(true)
+    await settle()
+    expect(m.get()).toBe(false)
+    fail = false
+    m.set(true)
+    await settle()
+    expect(m.get()).toBe(true)
+    expect(make).toHaveBeenCalledTimes(2)
+    expect(plays(calls)).toBe(2)
+  })
+
   it('ignores the failure of a play() that a later pause replaced (off, then on again)', async () => {
     let fail: (e: Error) => void = () => {}
     const { m } = setup(() => new Promise<void>((_, reject) => (fail = reject)))

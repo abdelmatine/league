@@ -12,7 +12,7 @@ export function createMusic(make: () => Track) {
   let track: Track | null = null
   let attempt = 0 // a play() failure counts only if no later play or pause has replaced that call
   const subs = new Set<() => void>()
-  const set = (v: boolean) => {
+  const show = (v: boolean) => {
     if (v === on) return
     on = v
     subs.forEach((fn) => fn())
@@ -21,7 +21,12 @@ export function createMusic(make: () => Track) {
     const n = ++attempt
     if (!on || hidden) return void track?.pause()
     track ??= make()
-    track.play().catch(() => n === attempt && set(false)) // autoplay policy or a failed load: show it as off
+    // Autoplay policy or a failed load: show it as off.
+    track.play().catch(() => {
+      if (n !== attempt) return
+      track = null // a failed element never retries its load, so the next press makes a new one
+      show(false)
+    })
   }
   return {
     get: () => on,
@@ -30,7 +35,7 @@ export function createMusic(make: () => Track) {
       return () => void subs.delete(fn)
     },
     set(v: boolean) {
-      set(v)
+      show(v)
       sync()
     },
     /** Hidden tab: pause. Visible again: resume if still on. */
@@ -45,3 +50,9 @@ export function createMusic(make: () => Track) {
 export const music = createMusic(() => Object.assign(new Audio(), { preload: 'none', loop: true, volume: 0.35, src: '/sounds/inqueue.mp3' }))
 
 if (typeof document !== 'undefined') document.addEventListener('visibilitychange', () => music.setHidden(document.visibilityState === 'hidden'))
+// Media keys, the lock screen and the browser's media controls go through the store, not straight to the element,
+// so the toggle stays right and a hidden-then-visible tab never restarts music the visitor paused there.
+if (typeof navigator !== 'undefined' && 'mediaSession' in navigator) {
+  navigator.mediaSession.setActionHandler('play', () => music.set(true))
+  navigator.mediaSession.setActionHandler('pause', () => music.set(false))
+}

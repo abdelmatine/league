@@ -10,7 +10,7 @@ export function MusicToggle() {
   const on = useMusic()
   return (
     <Tooltip side="bottom" content={on ? 'Music on' : 'Music off'}>
-      <button type="button" className="hx-iconbtn" data-sfx="none" aria-pressed={on} aria-label="Music" onClick={() => music.set(!on)}>
+      <button type="button" className="hx-iconbtn" aria-pressed={on} aria-label="Music" onClick={() => music.set(!on)}>
         <Icon name={on ? 'music-on' : 'music-off'} />
       </button>
     </Tooltip>
@@ -21,7 +21,7 @@ export function MusicToggle() {
 export function MusicRow() {
   const on = useMusic()
   return (
-    <button type="button" className="hx-row" data-sfx="none" aria-pressed={on} onClick={() => music.set(!on)}>
+    <button type="button" className="hx-row" aria-pressed={on} onClick={() => music.set(!on)}>
       <span className="hx-row__icon">
         <Icon name={on ? 'music-on' : 'music-off'} />
       </span>
