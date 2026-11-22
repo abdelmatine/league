@@ -10,9 +10,8 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 1. **Contact sending:** create an EmailJS service and template (fields `from_name`, `from_email`, `message`; Reply-To `{{from_email}}`; allow the site's domains), then set `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` in Vercel (Production and Preview) and redeploy.
 2. **Preview e2e:** Vercel → Settings → Deployment Protection → Protection Bypass for Automation → create the secret; save it in GitHub as the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET` (`gh secret set VERCEL_AUTOMATION_BYPASS_SECRET --repo abdelmatine/league`). Until then the preview job skips; PRs still test a local build.
-3. **T03:** yes or no to the three.js skills. **L19:** yes or no to the history purge.
+3. **Owner requests of 2026-11-22, waiting for a decision:** (a) bring back `inqueue.mp3` (removed in L01 because it is the game's own in-queue music; restoring it means shipping a Riot asset under the publisher's fan policy, with its required notice, against the "no Riot assets" hard rule); (b) use the game's own fonts (Beaufort and Spiegel are licensed fonts we may not self-host; the legal options are the measured look-alikes: Literata + Source Sans 3 today, or Marcellus SC / Cinzel for titles).
 4. **Content:** real experience, education, CV and project details turn on Career, Achievements and richer project pages (`src/content/`); the defaults in `docs/OWNER-QUESTIONS.md` stand until then.
-5. **Legal calls** (DECISIONS → Legal): strict logo rules (default) or accept the risk; keep or drop the game and publisher names in the footer notice.
 6. **Check on real devices:** the 3D core on a phone and a desktop GPU, Safari and Firefox.
 
 How the next task is chosen:
@@ -46,7 +45,7 @@ How the next task is chosen:
 
 Each task has points: XS = 1, S = 2, M = 4, L = 6. Done % = done points / total points.
 
-**Today: 116 of 119 points done = 97%. 3 points left:** T03 (XS) and L19 (S), both waiting for the owner's yes.
+**Today: 117 of 117 points done = 100%.** L19 was dropped by the owner (2 points out of the total). Open owner requests are listed in "Next up".
 
 This points count replaces the earlier rough "about 20%" estimate. It is stricter, because half-built mockups score nothing until they are finished.
 
@@ -54,10 +53,10 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 |---|---|---|
 | Discovery so far (D1–D7) | 16 / 16 | done |
 | 0. Housekeeping (T00) | 1 / 1 | done |
-| 1. Decide (T01–T04) | 5 / 6 | T01, T02 (defaults), T04 done; T03 waits on the owner |
+| 1. Decide (T01–T04) | 6 / 6 | done (T03: official pmndrs plugin only) |
 | 2. Mockups (T09–T14) | 20 / 20 | done (owner review open) |
 | 3. Spec and plans (T20–T21) | 6 / 6 | done (spec self-approved) |
-| 4. Build lots (L01–L19) | 68 / 70 | L01–L18 done (L02–L18 merged as PR #4 on 2026-11-22); L19 needs the owner's yes |
+| 4. Build lots (L01–L18) | 68 / 68 | done (L02–L18 merged as PR #4 on 2026-11-22); L19 dropped by the owner |
 
 ### Done before this backlog (16 points)
 
@@ -158,7 +157,8 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 - **Who:** the owner fills in `docs/OWNER-QUESTIONS.md` at their own pace (text, links, files in `docs/content/`). No session is needed. Say "T02 done" when finished.
 - **Blocks:** L12 (projects), L13 (tech roles), L15 (contact destination, EmailJS keys), L16 (about/career), T20 (taste picks).
 
-### T03 · Install the three.js skills · XS · status: todo (needs owner OK)
+### T03 · Install the three.js skills · XS · status: done 2026-11-22 (official plugin only)
+- **Output:** owner chose the official `pmndrs/claude-code-plugin` only, installed at local scope (`pmndrs@pmndrs`, version `9ec2934`, the vetted commit). The CloudAI-X and EnzeD skills were not installed.
 - **Read:** `docs/research/2026-11-09-threejs-skill.md` §Decision, §6, §7.
 - **Do:** after the owner says yes, install 7 CloudAI-X skills and 2 EnzeD skills (pinned commits) plus the official `pmndrs/claude-code-plugin` at local scope, exactly as in §7.
 - **Note:** the skills target React 19 + r3f 9. They're most useful from L04 on.
@@ -445,7 +445,8 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Meta/OG without Riot marks, real `404.html`.
 - **Done when:** the budgets in stack-modernization §10.4 are met.
 
-### L19 · Purge Riot files from git history · S · status: todo (needs explicit owner approval)
+### L19 · Purge Riot files from git history · S · status: dropped 2026-11-22 (owner keeps history)
+- **Output:** the owner chose to keep the git history; no rewrite, no force-push. Its 2 points leave the total.
 - **Why:** `poro.png`, `bg-primary.jpg` and `inqueue.mp3` remain in the public history (codebase-audit §0.11).
 - **Do:** rewrite history with `git filter-repo` on a fresh clone, then force-push `main`.
 - **Warning:** this is destructive. Confirm with the owner in that session, and warn about existing clones and forks.
@@ -464,3 +465,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-21: the owner asked to finish the whole backlog, stopping only if usage reaches 90%. Done in this run: T02 (defaults), T10–T14 (mockups were complete; self-review and gallery), T20 (spec), T21 (plans), L05–L08 built by Claude and a foundation agent. L09–L16 started in four parallel worktrees. Pushing, L19 and T03 still need the owner's explicit OK. Progress 42% (62% once L02–L08 merge).
 - 2026-11-21: L09–L16 built by four agents in parallel worktrees and merged into `integrate/parallel-lots`; L17 and L18 by Claude (phone overflow fix, lazy sections, meta/OG, Lighthouse a11y/best practices/SEO 100). 75 unit and 42 Playwright tests pass. Weekly usage reached 86–87% of the 90% stop. Progress 42% now, 97% once the lots merge.
 - 2026-11-22: CI on PR #4 failed only because the protected Vercel preview needs the bypass secret; the e2e workflow now tests a local build on PRs and skips the preview run without the secret. All checks green, PR #4 merged (`ca70e9e`), production live (new title, real 404, immutable fonts). Progress 97%; T03 and L19 wait on the owner.
+- 2026-11-22: owner decisions: T03 = official pmndrs plugin only (installed, local scope); L19 dropped (keep history); footer keeps the game and publisher names; strict logo rules stay. New owner requests (restore the in-queue mp3, use the game's fonts) are written up in Next up for a decision. Progress 100% of the remaining backlog.

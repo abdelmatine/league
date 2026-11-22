@@ -103,6 +103,8 @@ Research pass of 2026-11-16. "Unconfirmed" means the claim was not read on a pri
 
 Second pass, same day: a checker re-fetched the primary pages for Riot, Angular, Simple Icons (licence and disclaimer), Python, Flutter, TypeScript, Spring, Meta, Docker, Qt, isocpp and logo.js. The quotes in this file match those pages, except where a row now says otherwise. Oracle and the OpenJDK Duke pages returned 403 again. They stay unconfirmed.
 
+**Owner decisions, 2026-11-22:** the footer keeps naming the game and the publisher in the non-affiliation notice; the strict logo rules stay (no logo for React, React Native, Spring Boot, Java, Docker, PostgreSQL, Qt, C, C++); git history is kept (L19 dropped).
+
 ### Where we stand
 
 - The publisher's fan policy ("Legal Jibber Jabber", last updated August 2018) licenses the use of Riot IP for non-commercial community projects. It says nothing about copying the look, layout or style of the client UI.
