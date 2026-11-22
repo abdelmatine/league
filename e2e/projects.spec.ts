@@ -1,28 +1,42 @@
 import { expect, test, type Page } from '@playwright/test'
 
-// Banner probe, polled every frame. Per slug: `first`, its opacity at first sight; `hidden` once seen at 0.5 or less;
-// `shown`, when first seen above. Opacity counts every ancestor, so the row's reveal gate counts. Inject it before
-// the lobby scrolls in.
+// Banner probe, polled every frame into window.__banners (set it to {} to start over). Per slug: `first`, its opacity
+// at first sight; `hidden` once seen at 0.5 or less; `shown`, when first seen above; `sy`, the smallest scaleY seen and
+// `top`, its top edge then, from the row's top. Opacity counts every ancestor, so the row's reveal gate counts. Inject
+// it before the lobby scrolls in.
 const PROBE = `(() => {
-  const seen = (window.__banners = {})
-  const opacity = (el) => (el ? +getComputedStyle(el).opacity * opacity(el.parentElement) : 1)
+  window.__banners = {}
+  const opacity = (window.__opacity = (el) => (el ? +getComputedStyle(el).opacity * opacity(el.parentElement) : 1))
   const tick = () => {
+    const row = document.querySelector('#projects .pj__row')?.getBoundingClientRect().top // no row yet: no banners either
     for (const b of document.querySelectorAll('#projects .pb')) {
       const o = opacity(b)
-      const s = (seen[b.querySelector('.pb__link').dataset.slug] ??= { first: o })
+      const r = b.getBoundingClientRect()
+      const sy = r.height / b.offsetHeight
+      const s = (window.__banners[b.querySelector('.pb__link').dataset.slug] ??= { first: o, sy })
       if (s.shown === undefined) o > 0.5 ? (s.shown = performance.now()) : (s.hidden = true)
+      if (sy <= s.sy) Object.assign(s, { sy, top: r.top - row })
     }
     requestAnimationFrame(tick)
   }
   tick()
 })()`
 
-type Seen = { first?: number; hidden?: boolean; shown?: number }
-/** The shown lobby's banners, left to right, with what the probe saw of each. */
+type Seen = { first?: number; hidden?: boolean; shown?: number; sy?: number; top?: number }
+/** Now: left edge, top edge from the row's top, opacity, computed transform, inline style names, has focus. */
+type Now = { x: number; y: number; o: number; transform: string; inline: string[]; focused: boolean }
+/** The shown lobby's banners, left to right: how each stands now, with what the probe saw of it. */
 const banners = async (page: Page) =>
-  (await page.evaluate(
-    `[...document.querySelectorAll('#projects .pb')].map((b) => ({ x: b.getBoundingClientRect().left, ...window.__banners[b.querySelector('.pb__link').dataset.slug] })).sort((a, b) => a.x - b.x)`,
-  )) as (Seen & { x: number })[]
+  (await page.evaluate(`(() => {
+    const row = document.querySelector('#projects .pj__row').getBoundingClientRect().top
+    return [...document.querySelectorAll('#projects .pb')]
+      .map((b) => {
+        const r = b.getBoundingClientRect()
+        const now = { x: r.left, y: r.top - row, o: window.__opacity(b), transform: getComputedStyle(b).transform, inline: [...b.style], focused: b.contains(document.activeElement) }
+        return { ...now, ...window.__banners[b.querySelector('.pb__link').dataset.slug] }
+      })
+      .sort((a, b) => a.x - b.x)
+  })()`)) as (Seen & Now)[]
 const allShown = (page: Page) =>
   expect.poll(async () => (await banners(page)).filter((b) => b.shown === undefined).length, { message: 'banners not shown yet' }).toBe(0)
 
@@ -38,8 +52,9 @@ test('the lobby pager works from the keyboard', async ({ page }) => {
   await page.keyboard.press('ArrowLeft')
   await expect(dot(1)).toHaveAttribute('aria-current', 'true')
 
-  // From a banner: its lobby leaves, so focus moves to the next lobby's first project.
-  const first = lobby.locator('[data-order="0"] .pb__link')
+  // From a banner: its lobby leaves, so focus moves to the next lobby's first banner, the leftmost (DOM order is the
+  // visual order; the motion test checks it on screen).
+  const first = lobby.locator('.pb__link').first()
   const before = await first.getAttribute('data-slug')
   await first.focus()
   await page.keyboard.press('ArrowRight')
@@ -109,18 +124,58 @@ test.describe('with motion', () => {
     await expect(page.locator('#ld')).toHaveCount(0, { timeout: 10_000 })
     await page.evaluate(PROBE)
     await page.clock.pauseAt(Date.now() + 1_000)
-    const unrolled = async () => {
+    const restart = () => page.evaluate('window.__banners = {}')
+    /** 2 s on, every banner stands fully shown and unscaled, with nothing inline but its accent. */
+    const settled = async () => {
       await page.clock.runFor(2_000)
       const row = await banners(page)
+      for (const b of row) expect(b, 'fully shown, nothing left inline').toMatchObject({ o: 1, transform: 'none', inline: ['--accent'] })
+      return row
+    }
+    /** ...and each was hidden, then unrolled down from its top edge, about 0.25 s after the banner on its left. */
+    const unrolled = async () => {
+      const row = await settled()
       row.forEach((b, i) => {
         expect(b, 'hidden, then shown').toMatchObject({ hidden: true, shown: expect.any(Number) })
-        if (i) expect(b.shown! - row[i - 1].shown!, 'after the banner on its left').toBeGreaterThanOrEqual(150)
+        expect(b.sy, 'unrolls from a fifth of its height').toBeCloseTo(0.2, 1)
+        expect(b.top, 'with its top edge in place').toBeCloseTo(b.y, 0)
+        if (!i) return
+        const gap = b.shown! - row[i - 1].shown!
+        expect(gap, 'after the banner on its left').toBeGreaterThanOrEqual(200)
+        expect(gap, 'after the banner on its left').toBeLessThanOrEqual(300)
       })
-      return row.length
+      return row
     }
+
+    // Lobby changes while the row still waits for its reveal (to lobby 2 and back): the reveal takes over from the
+    // change's unroll, still running on lobby 1.
+    for (const dot of [1, 0]) {
+      await page.evaluate(`document.querySelectorAll('#projects .pj__dot')[${dot}].click()`)
+      await page.clock.runFor(200)
+    }
+    await restart()
     await page.locator('#projects .pj__row').scrollIntoViewIfNeeded()
-    expect(await unrolled()).toBe(isMobile ? 1 : 5)
+    expect((await unrolled()).length).toBe(isMobile ? 1 : 5)
+
+    await restart()
     await page.getByRole('button', { name: 'Next lobby' }).click()
     await unrolled()
+
+    // From a banner (on desktop, back to lobby 1's five): focus lands on the leftmost banner, the first to unroll, so
+    // its ring shows within a few frames. The centre banner, which took focus before, unrolls third.
+    await page.locator('#projects .pb__link').first().focus()
+    await restart()
+    const pressed = (await page.evaluate('performance.now()')) as number
+    await page.keyboard.press('ArrowRight')
+    const row = await unrolled()
+    expect(row[0].focused, 'focus on the leftmost banner').toBe(true)
+    expect(row[0].shown! - pressed, 'past half opacity').toBeLessThanOrEqual(100)
+
+    // Rapid paging, 70 ms between changes: every banner still ends fully shown.
+    for (let i = 0; i < 3; i++) {
+      await page.getByRole('button', { name: 'Next lobby' }).click()
+      await page.clock.runFor(70)
+    }
+    await settled()
   })
 })
