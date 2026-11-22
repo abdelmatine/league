@@ -1,0 +1,188 @@
+/* Career (loading-screen cards) and Achievements (post-game screen), L16. Both stay unmounted until they have content. */
+@layer components {
+  /* ---------- Career: one framed card per role, a loading bar, the points below ---------- */
+  .cr {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13.75rem, 1fr));
+    gap: 1.75rem 1.5rem;
+    margin-top: 2rem;
+  }
+  .cr-card {
+    --hue: rgb(14 152 174 / 0.5);
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+  .cr-card:nth-child(3n + 2) {
+    --hue: rgb(60 203 134 / 0.4);
+  }
+  .cr-card:nth-child(3n + 3) {
+    --hue: rgb(10 95 126 / 0.65);
+  }
+  .cr-card__frame {
+    position: relative;
+    display: grid;
+    align-content: end;
+    aspect-ratio: 220 / 340;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background:
+      radial-gradient(110% 65% at 50% 28%, var(--hue), transparent 72%) padding-box,
+      repeating-linear-gradient(125deg, rgb(255 255 255 / 0.025) 0 2px, transparent 2px 14px) padding-box,
+      linear-gradient(180deg, var(--color-teal-900), var(--color-ink-950) 80%) padding-box,
+      linear-gradient(180deg, var(--color-gold-200), var(--color-gold-700) 45%, var(--color-gold-500)) border-box;
+  }
+  .cr-card__mono {
+    position: absolute;
+    inset: 0 0 32%;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-display);
+    font-size: clamp(4.5rem, 8vw, 6.5rem);
+    font-weight: 700;
+    line-height: 1;
+  }
+  .cr-card__plate {
+    position: relative;
+    padding: 2.5rem 1rem 1rem;
+    background: linear-gradient(transparent, var(--color-ink-950) 55%);
+  }
+  .cr-card__role {
+    color: var(--color-gold-200);
+    font-size: var(--text-label);
+    font-weight: 600;
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+  }
+  .cr-card__company {
+    margin-top: 0.25rem;
+    color: var(--color-gold-50);
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .cr-card__when {
+    margin-top: 0.375rem;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  /* Loading bar: full for past roles; the current one keeps breathing. */
+  .cr-card__bar {
+    position: relative;
+    height: 0.5rem;
+    border: 1px solid var(--color-gold-700);
+    background: var(--color-teal-900);
+  }
+  .cr-card__bar::before {
+    content: '';
+    position: absolute;
+    inset: 1px;
+    background: linear-gradient(90deg, var(--color-teal-700), var(--color-teal-500) 70%, var(--color-teal-100));
+  }
+  .cr-card[data-now] .cr-card__bar::before {
+    animation: cr-breathe 2s var(--ease-glow) infinite alternate;
+  }
+  .cr-card__points {
+    padding-left: 1.125rem;
+    list-style: disc;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  .cr-card__points li + li {
+    margin-top: 0.375rem;
+  }
+  .cr-card__points li::marker {
+    color: var(--color-gold-500);
+  }
+
+  /* ---------- Achievements: a VICTORY banner between two hairlines, then reward cards ---------- */
+  .ac-victory {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .ac-victory::before,
+  .ac-victory::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--hx-hairline);
+  }
+  .ac {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .ac-card {
+    display: grid;
+    align-content: start;
+    justify-items: center;
+    gap: 0.5rem;
+    padding: 1.75rem 1.25rem 1.5rem;
+    border: 1px solid transparent;
+    background:
+      radial-gradient(90% 60% at 50% 0%, rgb(47 208 196 / 0.12), transparent 70%) padding-box,
+      linear-gradient(var(--color-ink-900), var(--color-ink-950)) padding-box,
+      linear-gradient(180deg, var(--color-teal-300), var(--color-gold-700) 60%) border-box;
+    text-align: center;
+  }
+  .ac-card__medal {
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid var(--color-gold-500);
+    border-radius: var(--radius-full);
+    background: radial-gradient(circle at 50% 35%, var(--color-teal-900), var(--color-ink-950) 72%);
+    box-shadow: 0 0 0 4px rgb(1 8 15 / 0.85), 0 0 18px rgb(47 208 196 / 0.25);
+    color: var(--color-gold-200);
+  }
+  .ac-card__medal .hx-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  .ac-card__title {
+    color: var(--color-gold-50);
+    font-family: var(--font-display);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+  .ac-card__detail,
+  .ac-card__date {
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+  .ac-card__date {
+    color: var(--color-gold-200);
+    font-variant-numeric: tabular-nums;
+  }
+  .ac-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@keyframes cr-breathe {
+  from {
+    opacity: 0.55;
+  }
+}
