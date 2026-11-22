@@ -11,7 +11,7 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 1. **Contact sending:** create an EmailJS service and template (fields `from_name`, `from_email`, `message`; Reply-To `{{from_email}}`; allow the site's domains), then set `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` in Vercel (Production and Preview) and redeploy.
 2. **Preview e2e:** Vercel → Settings → Deployment Protection → Protection Bypass for Automation → create the secret; save it in GitHub as the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET` (`gh secret set VERCEL_AUTOMATION_BYPASS_SECRET --repo abdelmatine/league`). Until then the preview job skips; PRs still test a local build.
 3. **Owner requests of 2026-11-22:**
-   - (a) **Decided: restore `inqueue.mp3`** under the publisher's fan policy (stopped at the 90% weekly usage cap before starting). Steps: `git show 5ea439b^:public/sounds/inqueue.mp3 > public/sounds/inqueue.mp3`; a music toggle (headphones) beside the sound toggle and in the drawer that loops it, off by default, loaded only on first play; add the fan-policy notice to the footer, the credits dialog and README, and drop "no Riot Games assets are used" from the full notice; note the exception in DECISIONS → Legal and in CLAUDE.md's hard rules; PR → CI → merge.
+   - (a) **Done in PR `feat/banners-and-music`:** `inqueue.mp3` is back behind a Music toggle (header and drawer; off every visit; loaded on first play; paused while the tab is hidden), with Riot's fan-policy notice in the footer, credits and README, and the exception recorded in DECISIONS → Legal and CLAUDE.md. Same PR: the Projects banners now unroll one by one, left to right, about 0.25 s apart, on the first reveal and on every lobby change.
    - (b) **Waiting:** the game's own fonts (Beaufort, Spiegel) are licensed and cannot be self-hosted; pick a legal look-alike pair (Literata + Source Sans 3 today, or Marcellus SC + Barlow from the mockups, or Cinzel titles).
 4. **Content:** real experience, education, CV and project details turn on Career, Achievements and richer project pages (`src/content/`); the defaults in `docs/OWNER-QUESTIONS.md` stand until then.
 6. **Check on real devices:** the 3D core on a phone and a desktop GPU, Safari and Firefox.
@@ -39,7 +39,7 @@ How the next task is chosen:
    - Lots (L tasks) use `lot/LNN-name`, then PR → Vercel preview check → owner OK → merge to `main` (Vercel deploys) → check production.
    - Never push, merge or force-push without the owner's OK in that session.
 6. **Hard rules:**
-   - No Riot assets: art, icons, logos, client images or videos, sounds, Beaufort/Spiegel fonts.
+   - No Riot assets: art, icons, logos, client images or videos, sounds, Beaufort/Spiegel fonts. One owner-approved exception (2026-11-22): the in-queue music track, shipped under Riot's fan policy with its notice.
    - No "League of Legends", "LoL", "Riot" or "Hextech" in titles, meta tags or headings (type-sound-legal §0.6).
    - No Riot nouns in UI copy: Summoner, Honor, RP/LP, Clash...
 
@@ -469,3 +469,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-22: CI on PR #4 failed only because the protected Vercel preview needs the bypass secret; the e2e workflow now tests a local build on PRs and skips the preview run without the secret. All checks green, PR #4 merged (`ca70e9e`), production live (new title, real 404, immutable fonts). Progress 97%; T03 and L19 wait on the owner.
 - 2026-11-22: owner decisions: T03 = official pmndrs plugin only (installed, local scope); L19 dropped (keep history); footer keeps the game and publisher names; strict logo rules stay. New owner requests (restore the in-queue mp3, use the game's fonts) are written up in Next up for a decision. Progress 100% of the remaining backlog.
 - 2026-11-22: owner chose to restore the in-queue mp3. Work stopped before it started: weekly usage reached the owner's 90% cap. Steps are in Next up.
+- 2026-11-22: owner went past the 90% weekly cap for a full workflow (11 agents): banners one by one (left to right) and the in-queue music with its fan-policy notice, each built in a worktree, reviewed (2 and 3 lenses), fixed and independently rechecked. Merged into `feat/banners-and-music` for one PR.
