@@ -5,10 +5,11 @@ import { Counter } from '../ui/Counter'
 import { Crest } from '../ui/Crest'
 import { Dialog } from '../ui/Dialog'
 import { Icon } from '../ui/Icon'
+import { MusicRow } from './MusicToggle'
 import { NAV } from './nav'
 import { SoundRow } from './SoundToggle'
 
-/** Below 768 px: the tabs, counters, socials and sound, in a side sheet (native modal dialog). */
+/** Below 768 px: the tabs, counters, socials, sound and music, in a side sheet (native modal dialog). */
 export function MobileDrawer({ open, onClose, active, counts }: { open: boolean; onClose: () => void; active: string; counts: { projects: number; tech: number } }) {
   const target = useRef<string | null>(null)
   // A tab scrolls once the sheet has closed, when scrolling is unlocked and focus is back on the page.
@@ -67,7 +68,10 @@ export function MobileDrawer({ open, onClose, active, counts }: { open: boolean;
           </li>
         ))}
       </ul>
-      <SoundRow />
+      <div>
+        <SoundRow />
+        <MusicRow />
+      </div>
     </Dialog>
   )
 }

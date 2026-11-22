@@ -5,6 +5,12 @@ const line = (children: ReactElement) => (
     {children}
   </g>
 )
+const headphones = (
+  <>
+    <path d="M4.5 13.5V12a7.5 7.5 0 0 1 15 0v1.5" />
+    <path d="M4.5 13.5h1.75a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 1-1.5 1.5H4.5Zm15 0h-1.75a1.5 1.5 0 0 0-1.5 1.5v4a1.5 1.5 0 0 0 1.5 1.5h1.75Z" fill="currentColor" fillOpacity={0.2} />
+  </>
+)
 
 // Our own glyphs on a 24 px grid. Brand marks (github, linkedin, facebook, instagram) are
 // Simple Icons 12.14 paths (CC0), shown monochrome.
@@ -41,6 +47,13 @@ export const glyphs = {
     <>
       <path d="M4 9.5h3.4L12 5.6v12.8l-4.6-3.9H4Z" fill="currentColor" fillOpacity={0.2} />
       <path d="m15.6 9.6 4.8 4.8m0-4.8-4.8 4.8" />
+    </>,
+  ),
+  'music-on': line(headphones),
+  'music-off': line(
+    <>
+      {headphones}
+      <path d="m10.25 15.25 3.5 3.5m0-3.5-3.5 3.5" />
     </>,
   ),
   menu: line(

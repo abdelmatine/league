@@ -962,7 +962,8 @@
   .hx-header__bar {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    /* Sides never narrower than their content: a full side pushes the tabs off centre instead of covering them. */
+    grid-template-columns: minmax(max-content, 1fr) auto minmax(max-content, 1fr);
     align-items: center;
     height: 100%;
     padding: 0 1rem;

@@ -194,6 +194,8 @@ Static `public/404.html` in the same palette, inline CSS, a link home. No JS.
 
 Raw Web Audio synthesis, about 2 KB, no files. Off by default; the header toggle turns it on and remembers the choice in `localStorage`. Cues: hover (tick), click, queue start, match found, accept, lock-in, decline. Unlock on the first gesture. Never set `navigator.audioSession.type`.
 
+**2026-11-22:** superseded in part. The owner restored `public/sounds/inqueue.mp3` as optional looping music behind its own toggle (off on every visit, not stored), under the fan policy; see DECISIONS → Legal. The cues above stay synthesized.
+
 ## 10. Content model
 
 ```ts
