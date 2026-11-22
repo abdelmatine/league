@@ -1,11 +1,19 @@
-# Runs the Playwright suite against every successful Vercel preview deployment.
-# Needs the repo secret VERCEL_AUTOMATION_BYPASS_SECRET (Vercel → Settings → Deployment Protection).
-name: e2e on Vercel preview
-on: deployment_status
+# Playwright e2e.
+# - pull_request: a local production build of the branch; needs no secret.
+# - deployment_status: the Vercel preview itself, once the repo secret VERCEL_AUTOMATION_BYPASS_SECRET exists
+#   (Vercel → Settings → Deployment Protection → Protection Bypass for Automation). Without it a protected
+#   preview answers with Vercel's login page, so that job skips with a notice instead of failing every test.
+name: e2e
+on: [pull_request, deployment_status]
 jobs:
-  e2e:
-    if: github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
+  local:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-24.04
+    env:
+      # Fake keys so the contact send paths run; the tests stub EmailJS, nothing is sent.
+      VITE_EMAILJS_SERVICE_ID: e2e_service
+      VITE_EMAILJS_TEMPLATE_ID: e2e_template
+      VITE_EMAILJS_PUBLIC_KEY: e2e_public
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -13,9 +21,34 @@ jobs:
       - run: npm ci
       - run: npx playwright install --with-deps chromium
       - run: npx playwright test
-        env:
-          BASE_URL: ${{ github.event.deployment_status.environment_url }}
-          VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
       - if: failure()
         uses: actions/upload-artifact@v6
-        with: { name: playwright-report, path: test-results, retention-days: 7 }
+        with: { name: playwright-report-local, path: test-results, retention-days: 7 }
+
+  preview:
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'Preview'
+    runs-on: ubuntu-24.04
+    env:
+      BASE_URL: ${{ github.event.deployment_status.environment_url }}
+      VERCEL_AUTOMATION_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+    steps:
+      - id: gate
+        run: |
+          if [ -z "$VERCEL_AUTOMATION_BYPASS_SECRET" ]; then
+            echo "::notice::VERCEL_AUTOMATION_BYPASS_SECRET is not set: the protected preview cannot be tested, so this run is skipped. The pull_request run tests a local build."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+      - if: steps.gate.outputs.skip != 'true'
+        uses: actions/checkout@v7
+      - if: steps.gate.outputs.skip != 'true'
+        uses: actions/setup-node@v7
+        with: { node-version: 24, cache: npm }
+      - if: steps.gate.outputs.skip != 'true'
+        run: npm ci
+      - if: steps.gate.outputs.skip != 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.gate.outputs.skip != 'true'
+        run: npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v6
+        with: { name: playwright-report-preview, path: test-results, retention-days: 7 }
