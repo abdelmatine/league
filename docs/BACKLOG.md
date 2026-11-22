@@ -6,14 +6,14 @@ This file is the tracker. Every piece of remaining work is a task sized for **on
 
 ## Next up
 
-**Everything buildable is built.** The tip of the work is the local branch `integrate/parallel-lots`. It contains, in order: `lot/L02-tailwind4` → `lot/L03-vite8-ts7` → `lot/L04-react19-3d` → `docs/design-phase` → `lot/L05-test-gates` → `lot/L06…L08` → `docs/lot-plans` → merges of the agent branches (`lot/L09-webgl-stage` → `lot/L10-hero-choreography` → `lot/L11-loader`, `lot/L12-projects` → `lot/L16-about-career`, `lot/L13-stack-2d` → `lot/L14-stack-3d`, `lot/L15-contact`) → L17 and L18 commits. Nothing is pushed.
+**The rebuild is live** (PR #4 merged 2026-11-22, https://abdelmatine.vercel.app). No buildable task is left. What remains needs the owner:
 
-Waiting on the owner:
-- **OK to push** and how to merge: one PR from `integrate/parallel-lots` to `main` (simplest; Vercel preview, then merge), or one PR per lot in order.
-- **After merge:** set the `VITE_EMAILJS_*` env vars in Vercel and the EmailJS template and allowlist (README → Configuration); add the GitHub secret `VERCEL_AUTOMATION_BYPASS_SECRET`.
-- **Review the defaults** in `docs/OWNER-QUESTIONS.md` (T02) and the spec (T20); real content (experience, CV, project details) switches sections on in `src/content/`.
-- **T03**: OK to install the three.js skills. **L19**: explicit yes to rewrite git history.
-- Legal calls in `docs/DECISIONS.md` → "Legal": strict logo rules are the default; keep or drop the game and publisher names in the footer notice.
+1. **Contact sending:** create an EmailJS service and template (fields `from_name`, `from_email`, `message`; Reply-To `{{from_email}}`; allow the site's domains), then set `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY` in Vercel (Production and Preview) and redeploy.
+2. **Preview e2e:** Vercel → Settings → Deployment Protection → Protection Bypass for Automation → create the secret; save it in GitHub as the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET` (`gh secret set VERCEL_AUTOMATION_BYPASS_SECRET --repo abdelmatine/league`). Until then the preview job skips; PRs still test a local build.
+3. **T03:** yes or no to the three.js skills. **L19:** yes or no to the history purge.
+4. **Content:** real experience, education, CV and project details turn on Career, Achievements and richer project pages (`src/content/`); the defaults in `docs/OWNER-QUESTIONS.md` stand until then.
+5. **Legal calls** (DECISIONS → Legal): strict logo rules (default) or accept the risk; keep or drop the game and publisher names in the footer notice.
+6. **Check on real devices:** the 3D core on a phone and a desktop GPU, Safari and Firefox.
 
 How the next task is chosen:
 - Take the first task in "Suggested order" whose status is `todo` or `partial` and whose dependencies are `done`.
@@ -46,7 +46,7 @@ How the next task is chosen:
 
 Each task has points: XS = 1, S = 2, M = 4, L = 6. Done % = done points / total points.
 
-**Today: 50 of 119 points done = 42%.** Every lot L02–L18 is built and verified on local branches: once they merge, 116 of 119 points = 97%. The last 3 points are T03 and L19, which need the owner's explicit yes.
+**Today: 116 of 119 points done = 97%. 3 points left:** T03 (XS) and L19 (S), both waiting for the owner's yes.
 
 This points count replaces the earlier rough "about 20%" estimate. It is stricter, because half-built mockups score nothing until they are finished.
 
@@ -57,7 +57,7 @@ This points count replaces the earlier rough "about 20%" estimate. It is stricte
 | 1. Decide (T01–T04) | 5 / 6 | T01, T02 (defaults), T04 done; T03 waits on the owner |
 | 2. Mockups (T09–T14) | 20 / 20 | done (owner review open) |
 | 3. Spec and plans (T20–T21) | 6 / 6 | done (spec self-approved) |
-| 4. Build lots (L01–L19) | 2 / 70 | L01 done; L02–L18 built and verified (66 points), wait for merge; L19 needs the owner's yes |
+| 4. Build lots (L01–L19) | 68 / 70 | L01–L18 done (L02–L18 merged as PR #4 on 2026-11-22); L19 needs the owner's yes |
 
 ### Done before this backlog (16 points)
 
@@ -295,7 +295,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Add `vercel.json` (immutable caching for hashed assets) and `engines.node`.
 - **Done when:** the site looks the same, the music is gone, and the build is smaller.
 
-### L02 · Tailwind 4 · S · status: built 2026-11-21 (local branch `lot/L02-tailwind4`; waits for the owner's OK to push, PR and preview)
+### L02 · Tailwind 4 · S · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** Tailwind 4.3.5 via `@tailwindcss/vite`. `tailwind.config.js`, `postcss.config.js`, `postcss` and `autoprefixer` are gone. `src/index.css` uses `@import 'tailwindcss' source(none)` with explicit `@source` lines. CSS 72.6 → 79.4 kB raw (12.7 → 14.2 kB gz). Build 28 s → 9 s.
 - **Kept the v3 look** (found by a computed-style diff of every element, old build vs new, at 1440 and 390 wide): pointer cursor on buttons and gray-400 placeholders (base rules in `index.css`); v3 `space-x` margins in the navbar and the project pager (arbitrary `[&>:not([hidden])~:not([hidden])]:ml-*` variants); the navbar separator loses `mx-4`, as v3 overrode it.
 - **Accepted drift:** the v4 palette is oklch, so `gray-*`, `green-500`, `blue-*` and `yellow-400` shift very slightly. `bg-[#1E2328]/1` now renders at 1% alpha (was transparent). Both are invisible by eye; the screenshots match.
@@ -303,7 +303,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - **Left for later:** the border compatibility layer stays until L06 sets explicit Hextech borders. Add `dialog { margin: auto }` with the `Dialog` component in L07 (v4 preflight zeroes it).
 - **Still to do:** push, PR, Vercel preview check at 1440×900 and 390×844, owner OK, merge.
 
-### L03 · Vite 8, TypeScript 7, oxlint · M · status: built 2026-11-21 (local branch `lot/L03-vite8-ts7`, stacked on L02; waits for the owner's OK)
+### L03 · Vite 8, TypeScript 7, oxlint · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** vite 8.3.7, @vitejs/plugin-react 6.3.0, typescript 7.0.2, oxlint 1.93.0, @types/node 24.19.2. ESLint and its 5 plugins are gone. `main.tsx`, `App.tsx`, `vite.config.ts`, three tsconfigs (create-vite react-ts template), `.oxlintrc.json` (report §10.1). `build` is now `tsc -b && vite build`; `lint` is `oxlint`. Vite build 9 s → 1 s; JS 1,304 → 1,274 kB.
 - **Type fixes:** 20 unused `React` imports and other unused imports or props, Hero event types, one `Material` cast. `src/shims.d.ts` declares `swiper/css`, `swiper/css/navigation` and `aos`; delete each line when L12 or L13 removes the library.
 - **oxlint fixes (5 errors):** the chat restore bar is a `<button>`; project cards get `role="button"`, `tabIndex` and Enter/Space (one `prefer-tag-over-role` suppression with its reason, since the card holds links); the texture setup in `FloatingIcon` moved into `useTexture`'s `onLoad`.
@@ -311,14 +311,14 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - **Found, not fixed (pre-existing on `main`):** the contact form has no `onSubmit`, so the button also does a native submit that reloads the page. L15 replaces the form.
 - **Still to do:** push, PR, Vercel preview check, owner OK, merge (after L02).
 
-### L04 · React 19 + 3D stack + GSAP/Lenis · S · status: built 2026-11-21 (local branch `lot/L04-react19-3d`, stacked on L03; waits for the owner's OK)
+### L04 · React 19 + 3D stack + GSAP/Lenis · S · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** react/react-dom 19.3.1, three 0.187.0, @react-three/fiber 9.8.2, drei 10.7.9, @react-three/postprocessing 3.2.2, postprocessing 6.39.6, gsap 3.15.1, @gsap/react 2.1.2, lenis 1.3.27, framer-motion 14.11.1 (temporary, Stack lot deletes it), @types/react(-dom) 19.3.0, @types/three 0.187.0. No source changes. The `react-three-fiber@6` duplicate was already gone.
 - **Checked:** `npm ls` clean (3 "overriding peer dependency" warnings at install, as the report predicted). `tsc -b` and oxlint clean. All 4 sections mount, AOS reveals 13 elements, the stack canvas renders the 3D logo (WebGL2). The only console line is the expected `THREE.Clock` deprecation warning. Computed-style diff against the L03 build: no change beyond typewriter timing.
 - **Cost:** eager JS 363 → 424 kB gz, as expected until L09 lazy-loads the 3D chunk.
 - **Still to do:** push, PR, Vercel preview check, owner OK, merge (after L03).
 
 
-### L05 · Test gates · M · status: built 2026-11-21 (local branch `lot/L05-test-gates`; waits for the owner's OK)
+### L05 · Test gates · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** Vitest 5.1.0 + Playwright 1.65.0; `check` and `vercel-build` scripts gate the build on oxlint, tsc and vitest; Playwright smoke (desktop + Pixel 7) against `vite preview` or the Vercel preview; `.github/workflows/e2e-preview.yml` on `deployment_status`. The owner must add the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET`.
 - **Read:** stack-modernization §10, §11 "Lot E".
 - **Do:**
@@ -327,7 +327,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - A `vercel-build` script gated by oxlint + tsc + vitest.
 - **Owner:** must add the repo secret `VERCEL_AUTOMATION_BYPASS_SECRET`.
 
-### L06 · Design system A · M · status: built 2026-11-21 (local branch `lot/L06-design-system-a`; waits for the owner's OK)
+### L06 · Design system A · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** self-hosted fonts (Literata caps subset 17 KB, Source Sans 3 29 KB, immutable `/fonts/`), `@theme` tokens from the spec, base styles, Frame, Gold/Magic buttons, Divider, Icon, dev kit page at `/?kit` (not in production).
 - **Story:** as a visitor, every surface reads as gold-framed Hextech UI.
 - **Do:**
@@ -337,14 +337,14 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - A dev-only kit page.
 - **Port:** port the mockup kit. Don't redesign.
 
-### L07 · Design system B · M · status: built 2026-11-21 (local branch `lot/L07-design-system-b`; waits for the owner's OK)
+### L07 · Design system B · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** Tabs, Field + useField, Toast region + store, Crest, Tooltip, Dialog, Counter, `motion.ts` (easing table tested against tokens), `sfx.ts` (synth cues, off by default).
 - **Do:**
   - `Tabs`, `Input`/`Textarea`, `Toast` (one aria-live region), `Crest` (XP ring), `Tooltip` (CSS), `Dialog` (native).
   - `motion.ts`: CustomEase registry with one naming scheme per DECISIONS.
   - `sfx.ts`: Web Audio cues, muted by default.
 
-### L08 · Client header, mobile drawer, footer · M · status: built 2026-11-21 (local branch `lot/L08-header-footer`; waits for the owner's OK)
+### L08 · Client header, mobile drawer, footer · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** typed content files + helpers, PLAY state machine and store, Lenis scroll, header with scroll-spy, counters, sound toggle and drawer, footer + credits dialog, section stubs, lazy 3D stage skeleton with a scene registry; react-router, old components and 8 unused deps removed; `public/404.html`. Eager JS 141.6 kB gz, CSS 10.4 kB gz, 3D chunk 243 kB gz; 29 unit tests.
 - **Story:** as a visitor, the top bar looks and reacts like the game client's.
 - **Do:**
@@ -354,7 +354,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Footer with the non-affiliation notice (type-sound-legal §C.6) and credits.
 - **Remove:** old `Navbar`, `Sidebar`, `ChatBox`.
 
-### L09 · WebGL stage + hero core · L · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L09 · WebGL stage + hero core · L · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent S (`lot/L09-webgl-stage`): `lib/tiers.ts` (GPU start tier, pixel budgets, monitor that never climbs back, `?tier=` override), one clock, renders only while visible, shader pre-compile, our own core (crystal, energy, corona, hex rings, rune ring, flare, motes), Bloom → Vignette → NEUTRAL, still frame under reduced motion, CSS/SVG poster. MID 59–60 fps headed on the Intel iGPU; HIGH 43–50. G07 decided (blur 12/12/0 px by tier).
 - **Read:** webgl-magic §2, §5, §6; gap:1 (tone mapping) and gap:3 (adaptive quality) answers.
 - **Do:**
@@ -364,7 +364,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Core: crystal, energy, halo, rings, particles, bloom.
 - **Done when:** 60 fps on the dev iGPU at the mid tier, and nothing renders while the canvas is off screen.
 
-### L10 · Hero content + scroll choreography · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L10 · Hero content + scroll choreography · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent S (`lot/L10-hero-choreography`): SplitText name reveal, title, CTAs, scroll cue, camera pull-back and dim on scroll, desktop pointer parallax, frame build-in on every section (G03: 3.1 → 1.8 ms per frame over the canvas). No identity chip (no availability data).
 - **Do:**
   - Name reveal, identity chip, CTAs, scroll cue.
@@ -372,7 +372,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - GSAP frame build-in reveals for sections.
 - **Remove:** old `Hero`.
 
-### L11 · Loader · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L11 · Loader · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent S (`lot/L11-loader`): inline loader (1,777 bytes CSS+JS) driven by the tested `lib/loader.ts`; skip on any key or click; CSS failsafe at 10 s even without JS; 600 ms return visit; `<noscript>` hides it. LCP with the loader 0.21–0.36 s unthrottled (1.5 s without), CLS ≤ 0.003. C01 and G01 decided. L18 added a 1.2 s cap on the wait for 3D.
 - **Read:** ready-check §15–§18, DECISIONS (loader row).
 - **Do:**
@@ -380,7 +380,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - A 10 s failsafe and a `<noscript>` fallback.
 - **Spike:** measure first-visit LCP/CLS with and without the loader. Record it in DECISIONS.
 
-### L12 · Projects lobby + project detail · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L12 · Projects lobby + project detail · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent P (`lot/L12-projects`): centre-out lobby (5/3/1 per page), arrows, dots, keys, swipe; banners with crest emblems and policy-true tech chips; detail dialog with OVERVIEW / STACK / GALLERY; `#projects/<slug>` deep links; emblems as AVIF/WebP (lobby images 1.79 MB → 16 KB). G10: all 8 shown links answer 200.
 - **Needs:** owner project content (T02).
 - **Do:**
@@ -390,7 +390,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Optimised images (the current 2048² PNGs → AVIF/WebP at their display size).
 - **Remove:** old `MainSection`.
 
-### L13 · Stack champion select (2D) · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L13 · Stack champion select (2D) · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent K (`lot/L13-stack-2d`): mains, details, timer, splash, lane filters, search, roving-tabindex grid (Ctrl+Enter locks in), "Paired with" and "Projects with X" from real data, intro draft with every skip rule, `#stack/<id>` deep links; logo policy enforced by unit tests.
 - **Needs:** tech roles and levels (T02).
 - **Do:**
@@ -400,7 +400,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Use the Lenis/pinning approach from the gap:4 answer.
 - **Remove:** old `Stack`.
 
-### L14 · Stack 3D logos + lock-in · L · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L14 · Stack 3D logos + lock-in · L · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent K (`lot/L14-stack-3d`): `stack` scene on the shared canvas (pedestal, dial, aura), Angular and JS extruded from Simple Icons paths, every other mark on our gold token, RoomEnvironment on its own materials, dissolve swaps, ~1.2 s LOCK IN timeline, still mesh under reduced motion. Logo build 19 ms (Angular) and 27–105 ms (JS) in idle callbacks.
 - **Read:** 3d-logos §0, §3, §4, §5.
 - **Do:**
@@ -409,7 +409,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Pedestal, dissolve swap, LOCK IN timeline, skippable intro draft.
   - Credits (Angular CC BY, OpenJDK Duke).
 
-### L15 · Contact flow + real sending · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L15 · Contact flow + real sending · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent C (`lot/L15-contact`): lobby banners, framed form with blur validation and honeypot, 2-minute cooldown, IN QUEUE card, MATCH FOUND alertdialog with a 12 s ring, ACCEPT → persistent toast, DECLINE / failure / missing-keys states, `@emailjs/browser` loaded on first send. Owner must set the three `VITE_EMAILJS_*` env vars and the EmailJS template and allowlist (README).
 - **Needs:** destination + EmailJS keys as Vercel env vars (T02).
 - **Do:**
@@ -419,7 +419,7 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Social strip.
 - **Remove:** old `Contact`.
 
-### L16 · About, Career, Achievements · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L16 · About, Career, Achievements · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** agent P (`lot/L16-about-career`): About as the profile screen (photo crest, bio, five mains with real counts, counters that count up); Career and Achievements built and tested on fixtures, hidden while `career.ts` is empty (no CAREER tab).
 - **Needs:** owner content (T02).
 - **Do:**
@@ -428,14 +428,14 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
   - Achievements as the post-game screen.
   - CV download.
 
-### L17 · Sound cues · S · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L17 · Sound cues · S · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** Claude: one delegated hover/click layer in `sfx.ts` for every control (mouse and pen only for hover); SEND, ACCEPT, DECLINE, LOCK IN and the toggle play their own cues and opt out with `data-sfx="none"`. Off by default, unlock on first gesture. Not listened to on real speakers.
 - **Do:**
   - Wire the synthesised cues (hover, click, queue pop, accept, lock-in) to the components.
   - Unlock on the first gesture.
   - Respect the iOS silent switch.
 
-### L18 · Polish · M · status: built 2026-11-21 (branch `integrate/parallel-lots`; waits for the owner's OK)
+### L18 · Polish · M · status: done 2026-11-22 (PR #4, merge `ca70e9e`)
 - **Output:** Claude: merged the four agents; fixed a phone-width overflow (contact SEND row; html clips; new smoke test), sticky LOCK IN only over the grid on phones, one monogram helper, dialogs scroll inside Lenis, reduced-motion focus; lazy below-the-fold sections (eager JS 145 kB gz, eager CSS 13.8 kB gz, 3D chunk 284 kB gz); own favicon, meta, OG image, robots.txt. Lighthouse: accessibility 100, best practices 100, SEO 100 (both); performance 71–75 desktop (LCP 1.1 s, CLS 0.001), 51–54 phone simulated (LCP ~5 s, TBT 1.3–1.7 s). 75 unit tests, 42 Playwright tests pass (8 skipped by design). Not checked: Safari, Firefox, real phones, a discrete GPU.
 - **Do:**
   - Accessibility pass: keyboard, focus, contrast, aria.
@@ -463,3 +463,4 @@ Pages are at http://127.0.0.1:5174/.superpowers/hifi/<screen>.html.
 - 2026-11-21: L04 built on `lot/L04-react19-3d`, stacked on L03. No source changes needed; the 3D canvas renders on r3f 9. The run stops here: L05 needs the branches pushed and a repo secret. Progress stays 21% until L02–L04 merge; then it is 33 of 119 points = 28%.
 - 2026-11-21: the owner asked to finish the whole backlog, stopping only if usage reaches 90%. Done in this run: T02 (defaults), T10–T14 (mockups were complete; self-review and gallery), T20 (spec), T21 (plans), L05–L08 built by Claude and a foundation agent. L09–L16 started in four parallel worktrees. Pushing, L19 and T03 still need the owner's explicit OK. Progress 42% (62% once L02–L08 merge).
 - 2026-11-21: L09–L16 built by four agents in parallel worktrees and merged into `integrate/parallel-lots`; L17 and L18 by Claude (phone overflow fix, lazy sections, meta/OG, Lighthouse a11y/best practices/SEO 100). 75 unit and 42 Playwright tests pass. Weekly usage reached 86–87% of the 90% stop. Progress 42% now, 97% once the lots merge.
+- 2026-11-22: CI on PR #4 failed only because the protected Vercel preview needs the bypass secret; the e2e workflow now tests a local build on PRs and skips the preview run without the secret. All checks green, PR #4 merged (`ca70e9e`), production live (new title, real 404, immutable fonts). Progress 97%; T03 and L19 wait on the owner.

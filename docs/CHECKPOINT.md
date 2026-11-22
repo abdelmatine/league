@@ -5,7 +5,11 @@
 > - **Mockups:** run one screen per session. The resume steps below are replaced by the backlog's T10–T13, which use `docs/checkpoints/mockups-resume.workflow.js` with `args.only`.
 > - **Research:** `docs/checkpoints/research-resume.workflow.js` is superseded by T01 (decision log).
 
-## State on 2026-11-21 (latest)
+## State on 2026-11-22 (latest)
+
+PR #4 merged into `main` (`ca70e9e`); production is live at https://abdelmatine.vercel.app. Backlog at 97%. Left: the owner items in `docs/BACKLOG.md` → "Next up" (EmailJS keys, the bypass secret, T03, L19, content, legal calls, real-device checks).
+
+## State on 2026-11-21
 
 The owner asked to finish the whole backlog in one run, stopping only if usage reached 90%, and said "not yet" to pushing. Everything except the owner-gated items is built on local branches; the tip is `integrate/parallel-lots`.
 
