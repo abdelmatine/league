@@ -7,6 +7,9 @@
 
 ## State on 2026-11-22 (latest)
 
+Stopped at the owner's 90% weekly usage cap. Next: restore the in-queue mp3 (owner decided; steps in `docs/BACKLOG.md` → Next up 3a), then the font pick (3b).
+
+
 PR #4 merged into `main` (`ca70e9e`); production is live at https://abdelmatine.vercel.app. Backlog at 97%. Left: the owner items in `docs/BACKLOG.md` → "Next up" (EmailJS keys, the bypass secret, T03, L19, content, legal calls, real-device checks).
 
 ## State on 2026-11-21
