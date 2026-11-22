@@ -18,13 +18,14 @@ function onVisibleChange(cb: () => void) {
   return () => lists.forEach((l) => l.removeEventListener('change', cb))
 }
 
-/** The new banners drop from their rods, the lobby's first project (data-order 0, the centre) first. */
+/** The new banners unroll from their rods one at a time, left to right as they stand on screen. `overwrite` kills a
+ *  reveal still running on the same banners (a lobby change before the scroll reveal fired), so none is left half shown. */
 function dropIn(row: HTMLElement) {
-  const banners = [...row.querySelectorAll<HTMLElement>('.pb')].sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order))
+  const banners = [...row.querySelectorAll<HTMLElement>('.pb')].sort((a, b) => a.getBoundingClientRect().left - b.getBoundingClientRect().left)
   gsap.fromTo(
     banners,
-    { opacity: 0, y: -20, scaleY: 0.94 },
-    { opacity: 1, y: 0, scaleY: 1, transformOrigin: '50% 0', duration: DUR.slower, ease: 'settle', stagger: 0.08, clearProps: 'opacity,transform' },
+    { opacity: 0, scaleY: 0.2 },
+    { opacity: 1, scaleY: 1, duration: DUR.slower, ease: 'settle', stagger: 0.25, overwrite: true, clearProps: 'opacity,transform' },
   )
 }
 
