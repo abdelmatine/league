@@ -39,8 +39,12 @@ Everything the page says lives in `src/content/`: `profile.ts`, `projects.ts` (s
 
 ## Credits and legal
 
-Unofficial fan design inspired by the League of Legends client. Not affiliated with, endorsed or sponsored by Riot Games. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. All artwork, fonts, sounds and code on this site are original or openly licensed; no Riot Games assets are used.
+Unofficial fan design inspired by the League of Legends client. Not affiliated with, endorsed or sponsored by Riot Games. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. Apart from the in-queue music, all artwork, fonts, sounds and code on this site are original or openly licensed.
+
+Abdelmatine Sfar · Portfolio was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
 
 Technology names and logos on this site identify tools the author has worked with. They are trademarks of their respective owners. No owner sponsors or endorses this site. The full credit lines are in the site's "Credits and legal" dialog.
 
 Fonts: Literata (TypeTogether) and Source Sans 3 (Adobe), both under the SIL Open Font License, self-hosted.
+
+Music: in-queue music © Riot Games, used under Riot Games' "Legal Jibber Jabber" policy (`public/sounds/inqueue.mp3`; it loads and plays only after the visitor turns it on).

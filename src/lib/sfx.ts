@@ -180,7 +180,7 @@ if (typeof window !== 'undefined') {
   addEventListener('keydown', unlock, true)
 
   // One delegated layer gives every control its hover tick and click. Controls that play their
-  // own cue (SEND, ACCEPT, DECLINE, LOCK IN, the sound toggle) opt out with data-sfx="none".
+  // own cue (SEND, ACCEPT, DECLINE, LOCK IN, the sound and music toggles) opt out with data-sfx="none".
   const target = (e: Event) => {
     const el = (e.target as Element | null)?.closest?.(UI_SELECTOR)
     return el && !el.closest('[data-sfx="none"]') && el.getAttribute('aria-disabled') !== 'true' ? el : null

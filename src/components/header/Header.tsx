@@ -7,6 +7,7 @@ import { Counter } from '../ui/Counter'
 import { Crest } from '../ui/Crest'
 import { Icon } from '../ui/Icon'
 import { MobileDrawer } from './MobileDrawer'
+import { MusicToggle } from './MusicToggle'
 import { NAV, SPY } from './nav'
 import { PlayButton } from './PlayButton'
 import { QueueCard } from './QueueCard'
@@ -78,6 +79,7 @@ export function Header() {
             <Counter icon="crystal" value={counts.tech} label="Technologies" className="text-teal-300" />
           </div>
           <SoundToggle />
+          <MusicToggle />
           <a className="hx-me" href="#about" aria-label={`${profile.name}, ${profile.title[0]}: about`} onClick={(e) => onAnchorClick(e, 'about')}>
             <Crest size="sm" src={profile.photo} focus={profile.photoFocus} zoom={profile.photoZoom} xp={xp} />
             <span className="hx-me__text">
