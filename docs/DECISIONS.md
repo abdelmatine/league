@@ -50,9 +50,9 @@ These font rules are decided whatever the pick (type-sound-legal §0.1–0.4):
 
 **Other copy rules:**
 
-- No Riot assets of any kind: art, icons, logos, client images, videos, sounds, fonts.
+- No Riot assets of any kind: art, icons, logos, client images, videos, sounds, fonts. One exception: the in-queue music (owner decision 2026-11-22, see Legal).
 - No Riot-API features (type-sound-legal §0.6).
-- The footer carries the non-affiliation line from type-sound-legal §C.6. It does not use Riot's "Legal Jibber Jabber" notice.
+- The footer carries the non-affiliation line from type-sound-legal §C.6 and, since 2026-11-22, Riot's "Legal Jibber Jabber" notice for the in-queue music (see Legal).
 - Client strings such as "MATCH FOUND" and "WAITING FOR OTHER PLAYERS" are not cleared yet. They wait for T04 (row G09). Mockups may use them for now.
 
 ## Contradictions
@@ -73,7 +73,7 @@ These font rules are decided whatever the pick (type-sound-legal §0.1–0.4):
 | C12 | May measured client outlines ship as they are (PLAY arrow path, LOCK IN polygon)? Is the UI copy clean? | Copy part is decided: apply the banned-noun list in the summary above. Geometry part waits for the legal check. Until then, mockups may use the measured shapes. Production code may not. | type-sound-legal §0.6, §C.3–C.4; critic-result contradiction 12 | T04 |
 | C13 | Easing names: "settle" and "slam" mean different curves in four reports. | One easing table feeds both Tailwind `@theme` and `CustomEase.create`. Base ids: `snap` 1,0,1,1; `settle` 0,0,0,1; `show` .2,.9,0,1; `glow` 0,0,.33,1. Champ-select's special curves get their own ids. The full table is written in T20 and built in L06. | critic-result contradiction 13 | decided |
 | C14 | Toast: entrance, lifetime, size, position? | One `aria-live` `role=status` region. Entrance grows vertically (scaleY .5 → 1, 500 ms), bottom-right, 422×135. The contact result stays until the visitor closes it (WCAG 2.2.1). Other toasts dismiss after 5 s. Stacking is written in T20. | stack-modernization §0.5; shell-lobby §9.2; ready-check §17; critic-result contradiction 14 | decided |
-| C15 | Sound: recorded clips or synthesis? Which cues? | Synthesize every cue with raw Web Audio. No audio files. Sound is off by default and unlocks on the first click or keydown. Remove `use-sound`, `howler` and `inqueue.mp3`. Loader cues are dropped, because no gesture has happened yet. Base cues: hover, click, matchFound, lockIn, hum. The phase stinger and slash are added to the synth in L17 only if the champion-select design keeps them. | type-sound-legal §0.5, §B | decided |
+| C15 | Sound: recorded clips or synthesis? Which cues? | Synthesize every cue with raw Web Audio. No audio files. Sound is off by default and unlocks on the first click or keydown. Remove `use-sound`, `howler` and `inqueue.mp3`. Loader cues are dropped, because no gesture has happened yet. Base cues: hover, click, matchFound, lockIn, hum. The phase stinger and slash are added to the synth in L17 only if the champion-select design keeps them. 2026-11-22: the owner brought `inqueue.mp3` back as optional looping music behind its own toggle (see Legal); the UI cues stay synthesized. | type-sound-legal §0.5, §B | decided |
 | C16 | Cache headers: is `/assets/(.*)` safe to mark immutable? | No. Set `build.assetsDir` to `_app`. Only `/_app/(.*)` and versioned `/fonts/*-vN.woff2` are immutable. Never ship the `/assets/(.*)` rule. | stack-modernization §0.9, §9 | decided |
 | C17 | Project banner: mockup 150×260 or client 196×592? How much content per banner? | Not settled. It depends on the project data the owner supplies. No project metrics exist today. Choose at the mockup review (T13, T14). | shell-lobby §5.1–5.2; codebase-audit §4.1 | owner |
 | C18 | Linter: keep ESLint or move to oxlint? | oxlint 1.93.0. Drop ESLint, because typescript-eslint cannot run on TypeScript 7. In L03, confirm oxlint has `react/jsx-no-target-blank` and enable it. | stack-modernization §0.2 | decided |
@@ -105,6 +105,12 @@ Second pass, same day: a checker re-fetched the primary pages for Riot, Angular,
 
 **Owner decisions, 2026-11-22:** the footer keeps naming the game and the publisher in the non-affiliation notice; the strict logo rules stay (no logo for React, React Native, Spring Boot, Java, Docker, PostgreSQL, Qt, C, C++); git history is kept (L19 dropped).
 
+**Owner decision, 2026-11-22 (in-queue music):** after being told that `public/sounds/inqueue.mp3` is very probably the publisher's own in-queue music, the owner chose to ship it, as the one exception to the "no Riot assets" rule. It ships under the fan policy, with the §6 notice in the footer, the credits dialog and the README, and a credit line in the credits. The track is off on every visit and loads only when the visitor turns it on. The rest of the Do and Don't lists stands.
+
+- **Origin unverified.** The evidence is metadata only: ID3 title "InQueue", encoder Lavf59.27.100 (ffmpeg) with DASH brand tags (a stream download), creation time 2024-10-09, MPEG-1 Layer III at 128 kbps and 48 kHz, about 72.5 s, no artist; first committed in e0c29fc (2024-11-30). See codebase-audit §13 ("no proof") and champ-select §8 ("Origin is UNVERIFIED"). The notice ("using assets owned by Riot Games") and the credit ("© Riot Games") are true only if the file is the publisher's unmodified track. A fan edit, remix or extended upload is not covered by the policy, and the credit would name the wrong owner. Open, for the owner: where did the 2024 download come from, or does it match the client's loop (`music-inqueue-loop-summonersrift.ogg`, ready-check §3) by ear? If it is not the unmodified client track, replace it (for example with the client's own loop) or drop it before the music merges.
+- **§2, non-commercial.** The policy bars, without a written licence, "commercial Projects, including any Project that crowdsources any portion of its funding, any Project that involves a business or legal entity, or any Project where you gate the content with a paywall". So: no donation, sponsor or crowdfunding links; no business or legal entity behind the site; no paywall. Exception 1 allows ads by individual players; "no ads" is our own stricter choice.
+- **§7, the licence Riot gets.** "you agree that we may use, copy, modify, distribute, and make derivative works of your Project in any form, on a royalty-free, non-exclusive, irrevocable, transferable, sub-licensable, worldwide basis, for any purpose and without having to credit you, pay you anything, or obtain your approval." (re-read on 2026-11-22 through a summarising fetch tool, in pieces; close, not byte-checked). The "Project" is the whole site, including the owner's photo and the client project emblems, which the owner may not have the right to license onward [inf].
+
 ### Where we stand
 
 - The publisher's fan policy ("Legal Jibber Jabber", last updated August 2018) licenses the use of Riot IP for non-commercial community projects. It says nothing about copying the look, layout or style of the client UI.
@@ -112,8 +118,8 @@ Second pass, same day: a checker re-fetched the primary pages for Riot, Angular,
 - §5 reads: "Unless you have a written license agreement with us, you may not use any of our logos or trademarks anywhere in your Project". §5 also bars domain names and social accounts that use Riot's names.
 - §3 asks people not to take "any part of our IP (e.g., character appearance, character abilities, maps, icons, items, etc.)" for games or apps. Icons and items are named. UI layout and style are not.
 - Silence is not permission. The policy does not say that copying the UI look is allowed. It only does not address it [inf].
-- We ship zero Riot assets, so we do not rely on that licence. Its notice would be false for us, so we do not print it [inf].
-- Our footer names "League of Legends" and "Riot Games" in plain text. The policy does not cover that (§5). It rests on plain descriptive use of a name to say what the site is not, which is our reading, not a rule we read [inf] (unconfirmed). The owner must accept this or drop the names from the footer.
+- We ship one Riot asset, the in-queue music (owner decision, 2026-11-22), so we rely on that licence for it and print its §6 notice in the footer, the credits dialog and the README. Everything else stays original or openly licensed. Whether a job-seeking portfolio counts as "commercial" under §2 is a legal judgement that type-sound-legal §C.3 and §D leave open.
+- Our footer names "League of Legends" and "Riot Games" in plain text. The policy does not cover that (§5). It rests on plain descriptive use of a name to say what the site is not, which is our reading, not a rule we read [inf] (unconfirmed). The owner must accept this or drop the names from the footer. Since 2026-11-22 the §6 notice also names Riot Games, as the policy requires. Because the music relies on the licence, a §5 objection to the game's name in the footer would also put the music licence at risk [inf].
 - Copyright risk comes from copying specific expression: artwork, sprites, ornament paths, icons, sounds, fonts, exact strings in bulk. Style, colour palettes, generic frames and layout ideas are generally not protected on their own (unconfirmed; case law not opened, see "Not confirmed").
 - Trade dress and passing-off risk comes from confusion: a visitor thinking the site is official or endorsed. The answer is clear own branding plus the non-affiliation notice [inf] (unconfirmed).
 
@@ -131,8 +137,8 @@ Second pass, same day: a checker re-fetched the primary pages for Riot, Angular,
 
 ### Don't
 
-- No Riot art, icons, logos, client images, videos, sounds, or Beaufort/Spiegel fonts. No traced ornament paths.
-- No "League of Legends", "LoL", "Riot" or "Hextech" in titles, meta tags, headings, domain, repo name or handles. One plain-text mention in the footer notice only.
+- No Riot art, icons, logos, client images, videos, sounds (except the in-queue music, owner decision 2026-11-22), or Beaufort/Spiegel fonts. No traced ornament paths.
+- No "League of Legends", "LoL", "Riot" or "Hextech" in titles, meta tags, headings, domain, repo name or handles. Plain-text mentions only in the footer notices (non-affiliation and fan-policy), the credits dialog and the README (`src/components/footer/` is exempt in `banned-words.test.ts`).
 - No Riot nouns in UI copy: Summoner, Honor, RP/LP, Clash, champion names. No gem that reads as the Arcane Hextech crystal [inf].
 - No pixel-faithful rebuild of a full client screen. No copying of Riot's CSS or JS values wholesale [inf].
 - No live rank or match widgets from the Riot API.
@@ -179,12 +185,17 @@ Non-affiliation notice, short (every page footer):
 
 Non-affiliation notice, full (credits page and README):
 
-> Unofficial fan design inspired by the League of Legends client. Not affiliated with, endorsed or sponsored by Riot Games. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. All artwork, fonts, sounds and code on this site are original or openly licensed; no Riot Games assets are used.
+> Unofficial fan design inspired by the League of Legends client. Not affiliated with, endorsed or sponsored by Riot Games. League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. Apart from the in-queue music, all artwork, fonts, sounds and code on this site are original or openly licensed.
 >
 > Technology names and logos on this site identify tools the author has worked with. They are trademarks of their respective owners. No owner sponsors or endorses this site.
 
+Fan-policy notice (footer, credits page and README, since the owner decision of 2026-11-22). The wording is the policy's §6 text with our project title; checked on https://www.riotgames.com/en/legal on 2026-11-22 (still "Last Updated: August 2018"):
+
+> Abdelmatine Sfar · Portfolio was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
+
 Credits list (credits page; keep only the lines for marks actually shown):
 
+- In-queue music © Riot Games, used under Riot Games' "Legal Jibber Jabber" policy.
 - Angular logo by Google, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Modified: recoloured and extruded in 3D.
 - JS logo from the logo.js project, MIT licence. Modified: recoloured and extruded in 3D.
 - Duke, the Java mascot, from the OpenJDK Duke project, BSD licence. (unconfirmed; do not show Duke or print this line until the licence is read)

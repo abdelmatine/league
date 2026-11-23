@@ -3,7 +3,7 @@ import { profile } from '../../content/profile'
 import { Divider } from '../ui/Divider'
 import { Icon } from '../ui/Icon'
 import { CreditsDialog } from './CreditsDialog'
-import { NOTICE_SHORT } from './notice'
+import { NOTICE_FAN, NOTICE_SHORT } from './notice'
 
 const year = new Date().getFullYear()
 
@@ -22,6 +22,7 @@ export function Footer() {
         ))}
       </ul>
       <p className="hx-footer__notice">{NOTICE_SHORT}</p>
+      <p className="hx-footer__notice">{NOTICE_FAN}</p>
       <p className="hx-footer__meta">
         © {year} {profile.name}
         <span aria-hidden="true"> · </span>

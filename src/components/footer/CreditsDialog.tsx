@@ -1,7 +1,7 @@
 import { creditLines } from '../../lib/content'
 import { GoldButton } from '../ui/Button'
 import { Dialog } from '../ui/Dialog'
-import { NOTICE_FULL } from './notice'
+import { MUSIC_CREDIT, NOTICE_FULL } from './notice'
 
 // Every mark in tech.ts is shown on the stack screen, so all of their credit lines apply.
 const credits = creditLines()
@@ -29,6 +29,10 @@ export function CreditsDialog({ open, onClose }: { open: boolean; onClose: () =>
             .
           </li>
           <li>Social icons from Simple Icons (CC0 1.0). Every other ornament and icon is drawn for this site.</li>
+        </ul>
+        <h3 className="hx-eyebrow">Music</h3>
+        <ul>
+          <li>{MUSIC_CREDIT}</li>
         </ul>
       </div>
     </Dialog>

@@ -234,12 +234,17 @@ Already decided: every sound is synthesized in code, with no audio files, and so
 
 Answer: **Default (Claude, 2026-11-21):** Agreed as decided: synthesized, off by default.
 
+**2026-11-22:** superseded in part. The owner restored `inqueue.mp3` as optional looping music behind its own toggle, under the fan policy (DECISIONS → Legal). The UI cues stay synthesized.
+
 ### 2.12 Legal and git history
 
 Blocks: L19, L01.
 
 - Approve rewriting git history to purge `poro.png`, `bg-primary.jpg` and `inqueue.mp3`? This needs a force-push.
   Answer: **Default (Claude, 2026-11-21):** Not done. It needs your explicit yes in a session (L19).
+  **2026-11-22:** settled. The owner keeps the history (L19 dropped) and ships `inqueue.mp3` as optional music (DECISIONS → Legal).
+- Where did `inqueue.mp3` come from (first committed 2024-11-30)? Is it the game's own in-queue loop, unmodified? The fan-policy notice and the music credit are true only if it is.
+  Answer: open (asked 2026-11-22). If it is not the unmodified client track, replace it (for example with the client's own loop) or drop it before the music merges.
 - Agree to a "not affiliated" line in the footer?
   Answer: **Default (Claude, 2026-11-21):** Yes: the short notice in every footer, the full one on the credits page.
 

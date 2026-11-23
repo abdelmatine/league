@@ -24,3 +24,20 @@ test('header tabs are keyboard reachable', async ({ page }) => {
   await page.keyboard.press('Enter')
   await expect(page.locator('#contact')).toBeInViewport()
 })
+
+test('header: PLAY and the right-hand group never cover the tabs', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'phones show only PLAY and the menu button')
+  await page.goto('/')
+  for (const width of [768, 1024, 1280, 1366, 1440]) {
+    await page.setViewportSize({ width, height: 900 })
+    // [space between PLAY and the tabs, space between the tabs and the first visible item on the right]
+    const [left, right] = (await page.evaluate(`(() => {
+      const box = (el) => el.getBoundingClientRect()
+      const tabs = box(document.querySelector('.hx-nav ul'))
+      const first = [...document.querySelector('.hx-header__right').children].find((el) => box(el).width > 0)
+      return [tabs.left - box(document.querySelector('.hx-header__left')).right, box(first).left - tabs.right]
+    })()`)) as number[]
+    expect(left, `left gap at ${width}px`).toBeGreaterThanOrEqual(-0.5)
+    expect(right, `right gap at ${width}px`).toBeGreaterThanOrEqual(-0.5)
+  }
+})

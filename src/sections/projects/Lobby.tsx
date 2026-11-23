@@ -18,14 +18,18 @@ function onVisibleChange(cb: () => void) {
   return () => lists.forEach((l) => l.removeEventListener('change', cb))
 }
 
-/** The new banners drop from their rods, the lobby's first project (data-order 0, the centre) first. */
-function dropIn(row: HTMLElement) {
-  const banners = [...row.querySelectorAll<HTMLElement>('.pb')].sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order))
-  gsap.fromTo(
-    banners,
-    { opacity: 0, y: -20, scaleY: 0.94 },
-    { opacity: 1, y: 0, scaleY: 1, transformOrigin: '50% 0', duration: DUR.slower, ease: 'settle', stagger: 0.08, clearProps: 'opacity,transform' },
+/** The new banners unroll from their rods one at a time, left to right (DOM order is the visual order: centreOut).
+ *  `overwrite` kills a reveal still running on the same banners (a lobby change before the scroll reveal fired), so none
+ *  is left half shown. The tween waits, paused, for the next tick, so the first frame paints the banners hidden: started
+ *  at once, its clock would count from the last tick, and the click, the commit and a slow frame would eat banner 1's
+ *  unroll and the gap to banner 2. */
+function unroll(row: HTMLElement) {
+  const t = gsap.fromTo(
+    row.querySelectorAll('.pb'),
+    { opacity: 0, scaleY: 0.2 },
+    { opacity: 1, scaleY: 1, duration: DUR.slower, ease: 'settle', stagger: 0.25, overwrite: true, clearProps: 'opacity,transform', paused: true },
   )
+  gsap.ticker.add(() => void (t.parent && t.play()), true) // killed meanwhile (overwrite, unmount): no parent, nothing to play
 }
 
 const step = (key: string) => (key === 'ArrowLeft' ? -1 : key === 'ArrowRight' ? 1 : 0)
@@ -77,7 +81,7 @@ export function Lobby({ projects, current }: { projects: readonly Project[]; cur
     el.dataset.reveal = 'armed'
     const reveal = contextSafe(() => {
       el.dataset.reveal = 'done'
-      dropIn(el)
+      unroll(el)
     })
     ScrollTrigger.create({ trigger: el, start: 'top 80%', once: true, onEnter: reveal })
   })
@@ -87,9 +91,10 @@ export function Lobby({ projects, current }: { projects: readonly Project[]; cur
       const from = changed.current
       if (!from || !row.current) return
       changed.current = ''
-      if (!prefersReducedMotion()) dropIn(row.current)
-      // The focused banner left with its lobby: carry focus to the new lobby's first project.
-      if (from === 'banner') row.current.querySelector<HTMLElement>('[data-order="0"] .pb__link')?.focus()
+      if (!prefersReducedMotion()) unroll(row.current)
+      // The focused banner left with its lobby: carry focus to the new lobby's leftmost banner. It unrolls first, so its
+      // ring shows at once, and Tab goes on through the rest in order.
+      if (from === 'banner') row.current.querySelector<HTMLElement>('.pb__link')?.focus()
     },
     { dependencies: [first, visible] },
   )

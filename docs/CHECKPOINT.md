@@ -114,7 +114,7 @@ Low priority:
 
 ### Flags
 
-- `public/sounds/inqueue.mp3` looks ripped from League. Replace it before any deploy of the rebuild.
+- `public/sounds/inqueue.mp3` looks ripped from League. Removed in L01; restored on 2026-11-22 at the owner's request under Riot's fan policy, with its notice (DECISIONS → Legal).
 - The contact form uses placeholder EmailJS IDs, so it cannot send as shipped.
 - The three.js skill install is waiting on the owner's OK. The vetting report is `2026-11-09-threejs-skill.md`.
 

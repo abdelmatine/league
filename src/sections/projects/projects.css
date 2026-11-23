@@ -232,6 +232,7 @@
     width: var(--bw);
     aspect-ratio: 196 / 330;
     container-type: inline-size;
+    transform-origin: top; /* the lobby reveal unrolls each banner from its rod */
     filter: drop-shadow(0 14px 18px rgb(0 0 0 / 0.55));
   }
   .pb__rod {
