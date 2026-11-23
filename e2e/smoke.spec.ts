@@ -18,7 +18,8 @@ test('nothing overflows the page width', async ({ page }) => {
   await page.goto('/')
   const width = page.viewportSize()!.width
   for (const id of ['home', 'about', 'projects', 'stack', 'contact']) {
-    await page.locator(`#${id}`).scrollIntoViewIfNeeded()
+    // Lazy sections start as an aria-busy placeholder with the same id; wait for the real one.
+    await page.locator(`#${id}:not([aria-busy])`).scrollIntoViewIfNeeded()
     // scrollWidth must fit clientWidth (the scrollbar gutter is excluded); phones also widen the
     // layout viewport to fit overflowing content, so innerWidth must still be the device width.
     const [scroll, client, inner] = (await page.evaluate('[document.documentElement.scrollWidth, document.documentElement.clientWidth, innerWidth]')) as number[]

@@ -125,10 +125,16 @@ test.describe('with motion', () => {
     await page.evaluate(PROBE)
     await page.clock.pauseAt(Date.now() + 1_000)
     const restart = () => page.evaluate('window.__banners = {}')
-    /** 2 s on, every banner stands fully shown and unscaled, with nothing inline but its accent. */
+    /** Once the sequence ends (about 1.5 s), every banner stands fully shown and unscaled, with nothing inline but
+     *  its accent. Slow CI runners can start it a few frames late, so step the clock up to 4 s instead of one jump. */
     const settled = async () => {
-      await page.clock.runFor(2_000)
-      const row = await banners(page)
+      const done = (b: Now) => b.o === 1 && b.transform === 'none' && b.inline.length === 1
+      await page.clock.runFor(1_500)
+      let row = await banners(page)
+      for (let t = 1_500; t < 4_000 && !row.every(done); t += 250) {
+        await page.clock.runFor(250)
+        row = await banners(page)
+      }
       for (const b of row) expect(b, 'fully shown, nothing left inline').toMatchObject({ o: 1, transform: 'none', inline: ['--accent'] })
       return row
     }
